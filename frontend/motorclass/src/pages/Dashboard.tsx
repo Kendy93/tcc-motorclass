@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
 import { api } from "../lib/api";
 
-interface User {
-    id: number;
-    name: string;
-    email: string;
-}
+import { type User, type Modulo } from "../types";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
     const [user, setUser] = useState<User | null>(null);
+
+    //para mostrar os módulos
+    const [modulos, setModulos] = useState<Modulo[]>([]);
+    useEffect(() => {
+        api.get("/api/modulos")
+            .then((response) => {
+                console.log("Módulos recebidos:", response.data);
+                setModulos(response.data);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar módulos:", error);
+            });
+    }, []);
 
     useEffect(() => {
         api.get("/api/user")
@@ -35,6 +45,16 @@ export default function Dashboard() {
                 <p className="mt-2 text-gray-600">
                     Bem-vindo, {user?.name}.
                 </p>
+
+                {modulos.map((modulo) => (
+                    <div key={modulo.id}>
+                        <Link to={`/modulos/${modulo.codigo}`}>
+                            <h2>{modulo.titulo}</h2>
+                        </Link>
+
+                        <p>{modulo.descricao}</p>
+                    </div>
+                ))}
 
                 <button
                     onClick={handleLogout}

@@ -29,4 +29,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    //get dos módulos do usuário
+    public function modulos(){
+        return $this->belongsToMany(Modulo::class)
+            ->withPivot('completed_at')
+            ->withTimestamps();
+    }
 }
