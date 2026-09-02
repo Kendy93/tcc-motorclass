@@ -1,29 +1,23 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-import { api } from "./lib/api";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
-    const [message, setMessage] = useState("");
-
-    useEffect(() => {
-        api.get("/api/test")
-            .then((response) => {
-                setMessage(response.data.message);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, []);
-
     return (
-        <main className="p-8">
-            <h1 className="text-3xl font-bold">
-                Plataforma de Mecânica
-            </h1>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/login" element={<Login />} />
 
-            <p>{message}</p>
-        </main>
+                <Route path="/dashboard" element={<Dashboard />} />
+
+                <Route
+                    path="*"
+                    element={<Navigate to="/login" replace />}
+                />
+            </Routes>
+        </BrowserRouter>
     );
 }
 
-export default App
+export default App;
