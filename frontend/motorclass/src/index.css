@@ -1,7 +1,9 @@
+@import "tailwindcss";
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
+  --text: #131313;
+  --text-h: #131313;
+  --bg: #F4F1EB;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
   --accent: #aa3bff;
@@ -29,11 +31,11 @@
     font-size: 16px;
   }
 }
-
+/* 
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
-    --text-h: #f3f4f6;
+    --text-h: #f3f4f6a1;
     --bg: #16171d;
     --border: #2e303a;
     --code-bg: #1f2028;
@@ -45,10 +47,12 @@
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
   }
 
+
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
 }
+  */
 
 #root {
   width: 1126px;
