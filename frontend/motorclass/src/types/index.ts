@@ -1,9 +1,19 @@
+import type { ComponentType } from "react";
+
 export interface Modulo {
     id: number;
     titulo: string;
     codigo: string;
     descricao: string;
     ordem: number;
+}
+
+export type NivelSecao = 1 | 2 | 3 | 4;
+
+export interface Secao {
+    id: string;
+    titulo: string;
+    nivel: NivelSecao;
 }
 
 export interface User {
@@ -20,6 +30,7 @@ export interface ConfiguracaoCamera {
 export interface ConfiguracaoModulo {
     modelo3D: string;
     escala: number;
-    conteudo: string;
+    conteudo: ComponentType;
     camera: ConfiguracaoCamera;
+    secoes: Secao[]
 }
