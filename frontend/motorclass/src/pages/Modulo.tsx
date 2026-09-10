@@ -9,6 +9,7 @@ import MenuSecoes from "../components/navigation/MenuSecoes.tsx";
 import MenuSecoesMobile from "../components/navigation/MenuSecoesMobile.tsx";
 import MenuModulos from "../components/navigation/MenuModulos.tsx";
 import MenuModulosMobile from "../components/navigation/MenuTopicosMobile.tsx";
+import NavegacaoModulos from "../components/navigation/NavegacaoModulos.tsx";
 
 export default function Modulo() {
     const { codigo } = useParams();
@@ -60,6 +61,11 @@ export default function Modulo() {
                 escala={configuracao.escala}
                 camerapos={configuracao.camera.camerapos}
                 origem={configuracao.camera.origem}
+            />
+
+            <NavegacaoModulos
+                modulos={modulos}
+                moduloAtual={codigo!}
             />
 
             <div className="
