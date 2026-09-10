@@ -6,6 +6,7 @@ export interface Modulo {
     codigo: string;
     descricao: string;
     ordem: number;
+    concluido: boolean;
 }
 
 export type NivelSecao = 1 | 2 | 3 | 4;

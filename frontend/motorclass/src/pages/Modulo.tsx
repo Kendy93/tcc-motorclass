@@ -7,10 +7,13 @@ import { configuracoesModulos } from "../data/modulos.ts";
 import Visualizador3D from "../components/Visualizador3D";
 import MenuSecoes from "../components/navigation/MenuSecoes.tsx";
 import MenuSecoesMobile from "../components/navigation/MenuSecoesMobile.tsx";
+import MenuModulos from "../components/navigation/MenuModulos.tsx";
+import MenuModulosMobile from "../components/navigation/MenuTopicosMobile.tsx";
 
 export default function Modulo() {
     const { codigo } = useParams();
     const [modulo, setModulo] = useState<Modulo | null>(null);
+    const [modulos, setModulos] = useState<Modulo[]>([]);
 
     //para pegar qual o módulo a carregar
     useEffect(() => {
@@ -22,6 +25,19 @@ export default function Modulo() {
                 console.error("Erro ao buscar módulo:", error);
             });
     }, [codigo]);
+
+    //pegando todos os módulos do banco
+    useEffect(() => {
+        api.get("/api/modulos")
+            .then((response) => {
+                console.log("Módulos recebidos:", response.data);
+                setModulos(response.data);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar módulos:", error);
+            });
+    }, []);
+
     if (!modulo) {
         return <p>Carregando...</p>;
     }
@@ -35,6 +51,8 @@ export default function Modulo() {
     }
     const Conteudo = configuracao.conteudo;
 
+
+
     return (
         <main>
             <Visualizador3D
@@ -44,12 +62,20 @@ export default function Modulo() {
                 origem={configuracao.camera.origem}
             />
 
+            <div className="
+                mx-auto 
+                grid max-w-[1600px] 
+                grid-cols-1 
+                gap-8 
+                px-6 
+                xl:grid-cols-[260px_minmax(0,1fr)_260px]
+            ">
 
-            <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-8 px-6 lg:grid-cols-[220px_minmax(0,1fr)_220px]">
-
-                <aside>
-                    {/*<MenuModulos />*/}
-                    <p>Texto temporário</p>
+                <aside className="hidden py-15 px-5 xl:flex justify-center">
+                    <MenuModulos 
+                        modulos={modulos}
+                        moduloAtual={codigo!}
+                    />
                 </aside>
 
                 <article className="prose max-w-3xl justify-self-center text-left [&_p]:indent-3 [&_p]:!mb-5">
@@ -64,6 +90,10 @@ export default function Modulo() {
 
             </div>
 
+            <MenuModulosMobile 
+                modulos={modulos}
+                moduloAtual={codigo!}
+            />
             <MenuSecoesMobile
                 secoes={configuracao.secoes}
             />

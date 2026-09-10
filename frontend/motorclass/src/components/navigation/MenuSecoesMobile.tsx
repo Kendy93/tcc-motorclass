@@ -52,7 +52,7 @@ export default function MenuSecoesMobile({
                     }
                 `}
             >
-                <div className="mb-6 flex items-center justify-between">
+                <div className="mb-2 flex items-center justify-between">
                     <button
                         onClick={() => setAberto(false)}
                         className="text-xl text-gray-500 hover:text-black"
