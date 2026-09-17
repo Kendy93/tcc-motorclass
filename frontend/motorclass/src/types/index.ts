@@ -35,3 +35,10 @@ export interface ConfiguracaoModulo {
     camera: ConfiguracaoCamera;
     secoes: Secao[]
 }
+
+export interface Animacao {
+    titulo: string;
+    video: string;
+    legenda: string;
+    loop?: boolean;
+}

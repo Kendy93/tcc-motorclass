@@ -11,6 +11,8 @@ import MenuModulos from "../components/navigation/MenuModulos.tsx";
 import MenuModulosMobile from "../components/navigation/MenuTopicosMobile.tsx";
 import NavegacaoModulos from "../components/navigation/NavegacaoModulos.tsx";
 
+import AnimacaoVideo from "../components/AnimacaoVideo";
+
 export default function Modulo() {
     const { codigo } = useParams();
     const [modulo, setModulo] = useState<Modulo | null>(null);
@@ -85,7 +87,11 @@ export default function Modulo() {
                 </aside>
 
                 <article className="prose max-w-3xl justify-self-center text-left [&_p]:indent-3 [&_p]:!mb-5">
-                    <Conteudo />
+                    <Conteudo
+                        components={{
+                            AnimacaoVideo,
+                        }}
+                    />
                 </article>
 
                 <aside className="hidden py-15 px-5 xl:block">
