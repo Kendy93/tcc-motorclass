@@ -24,7 +24,7 @@ export default function MenuSecoes({ secoes }: MenuSecoesProps) {
         4: "pl-11",
     };
 
-    //serve para observar a seção atual e atualizar o menu
+    //observa a seção atual e atualiza o menu
     useEffect(() => {
         const elementos = secoes
             .map((secao) => document.getElementById(secao.id))
@@ -50,7 +50,7 @@ export default function MenuSecoes({ secoes }: MenuSecoesProps) {
 
     return (
         <aside className="sticky top-8">
-            <p className="text-blue1 py-3 text-left">
+            <p className="!text-blue1 py-3 text-left">
                 Neste módulo
             </p>
 

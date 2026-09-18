@@ -8,10 +8,11 @@ import Visualizador3D from "../components/Visualizador3D";
 import MenuSecoes from "../components/navigation/MenuSecoes.tsx";
 import MenuSecoesMobile from "../components/navigation/MenuSecoesMobile.tsx";
 import MenuModulos from "../components/navigation/MenuModulos.tsx";
-import MenuModulosMobile from "../components/navigation/MenuTopicosMobile.tsx";
+import MenuModulosMobile from "../components/navigation/MenuModulosMobile.tsx";
 import NavegacaoModulos from "../components/navigation/NavegacaoModulos.tsx";
 
 import AnimacaoVideo from "../components/AnimacaoVideo";
+import { BordaImagem } from "../components/BordaImagem.tsx";
 
 export default function Modulo() {
     const { codigo } = useParams();
@@ -54,8 +55,6 @@ export default function Modulo() {
     }
     const Conteudo = configuracao.conteudo;
 
-
-
     return (
         <main>
             <Visualizador3D
@@ -90,6 +89,7 @@ export default function Modulo() {
                     <Conteudo
                         components={{
                             AnimacaoVideo,
+                            BordaImagem,
                         }}
                     />
                 </article>

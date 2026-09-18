@@ -33,7 +33,7 @@ export default function MenuModulos({
                                 ${index !== modulos.length - 1 ? "border-b border-gray-200" : ""}
                                 ${
                                     atual
-                                        ? "bg-blue1/10 font-semibold text-black"
+                                        ? "bg-blue1/10 font-semibold text-blue3"
                                         : "border-gray-300 text-gray-500 hover:text-blue1"
                                 }
                             `}
@@ -46,7 +46,7 @@ export default function MenuModulos({
                                     text-xs
                                     ${
                                         modulo.concluido
-                                            ? "border-green-600 bg-green-600 text-white"
+                                            ? "border-gray-400 bg-blue3 text-white"
                                             : "border-gray-400"
                                     }
                                 `}

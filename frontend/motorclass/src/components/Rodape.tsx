@@ -16,7 +16,7 @@ export default function Rodape() {
                 </div>
 
                 <div className="flex-shrink min-w-0">
-                    <p className="text-sm text-right max-w-3xl text-mainlight">
+                    <p className="text-sm text-right max-w-3xl !text-mainlight">
                         O ensino da mecânica automotiva, especialmente focado em veículos clássicos, enfrenta o desafio de se tornar um conhecimento progressivamente perdido e restrito. Este trabalho apresenta o planejamento de uma plataforma web educacional interativa, cujo objetivo principal é reduzir essas barreiras ao aprendizado.
                     </p>
                 </div>

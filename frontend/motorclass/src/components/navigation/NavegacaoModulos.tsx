@@ -39,11 +39,11 @@ export default function NavegacaoModulos({
                         "
                     >
                         <div>
-                            <p className="text-xs text-gray-300">
+                            <p className="text-xs !text-gray-400">
                                 Módulo anterior
                             </p>
 
-                            <p className="text-blue1">
+                            <p className="!text-blue1">
                                 ← {moduloAnterior.titulo}
                             </p>
                         </div>
@@ -65,11 +65,11 @@ export default function NavegacaoModulos({
                         "
                     >
                         <div>
-                            <p className="text-xs text-gray-300">
+                            <p className="text-xs !text-gray-400">
                                 Próximo módulo
                             </p>
 
-                            <p className="text-blue1">
+                            <p className="!text-blue1">
                                 {moduloSeguinte.titulo} →
                             </p>
                         </div>

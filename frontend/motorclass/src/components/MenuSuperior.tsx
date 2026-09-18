@@ -3,8 +3,8 @@ import { CircleUserRound } from "lucide-react";
 
 export default function MenuSuperior() {
     return (
-        <header className="w-full bg-text">
-            <nav className="mx-auto flex h-16 items-center justify-between px-8">
+        <header className="w-full bg-text fixed z-50 bg-mainlight">
+            <nav className="mx-auto flex h-16 items-center justify-between px-8 ">
 
                 {/* logo */}
                 <LinkNav
@@ -20,8 +20,8 @@ export default function MenuSuperior() {
 
                     <LinkNav
                         tipo="texto"
-                        texto="Tópicos"
-                        destino="/topicos"
+                        texto="Módulos"
+                        destino="/modulos"
                     />
 
                     <LinkNav

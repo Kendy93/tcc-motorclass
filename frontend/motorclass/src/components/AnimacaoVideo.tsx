@@ -12,9 +12,17 @@ export default function AnimacaoVideo({
     const animacao = animacoes[animacaoAtiva];
 
     return (
-        <div className="my-8 overflow-hidden rounded-lg border bg-white shadow-sm">
+        <div className="
+            my-8 
+            overflow-hidden 
+            rounded-2xl
+            border
+            border-gray-200
+            bg-white 
+            shadow-sm"
+        >
             {/* botões */}
-            <div className="flex border-b">
+            <div className="flex border-b border-gray-200">
                 {animacoes.map((item, index) => (
                     <button
                         key={item.titulo}
@@ -37,7 +45,7 @@ export default function AnimacaoVideo({
             </div>
 
             {/* player do vídeo */}
-            <div className="bg-black">
+            <div className="bg-maindark">
                 <video
                     key={animacao.video}
                     src={animacao.video}

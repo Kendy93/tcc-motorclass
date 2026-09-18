@@ -7,6 +7,8 @@ interface Visualizador3DProps {
     escala?: number;
     camerapos?: [number, number, number];
     origem?: [number, number, number];
+    altura?: string;
+    zoom?: boolean;
 }
 function Modelo3D({ modelo, escala }: Visualizador3DProps) {
     const { scene } = useGLTF(modelo);
@@ -14,9 +16,19 @@ function Modelo3D({ modelo, escala }: Visualizador3DProps) {
 }
 
 
-export default function Visualizador3D({ modelo, escala, camerapos, origem  }: Visualizador3DProps) {
+export default function Visualizador3D({ 
+    modelo, 
+    escala, 
+    camerapos, 
+    origem,
+    altura = "650px", 
+    zoom = true, 
+}: Visualizador3DProps) {
     return (
-        <div className="h-[650px] w-full">
+        <div
+            className="w-full"
+            style={{ height: altura }}
+        >
             <Canvas
                 camera={{
                     position: camerapos,
@@ -28,7 +40,7 @@ export default function Visualizador3D({ modelo, escala, camerapos, origem  }: V
                 //carrega o modelo
                 <Modelo3D modelo={modelo} />
                 //para rodar a câmera
-                <OrbitControls target={origem} />
+                <OrbitControls target={origem} enableZoom={zoom}/>
             </Canvas>
         </div>
     );

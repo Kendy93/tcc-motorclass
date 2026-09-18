@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Modulo from "./pages/Modulo";
 import Layout from "./MainLayout";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
     return (
@@ -16,15 +17,9 @@ function App() {
 
                 <Route element={<Layout />}>
 
-                    <Route
-                        path="/"
-                        element={<Dashboard />}
-                    />
-
-                    <Route
-                        path="/modulos/:codigo"
-                        element={<Modulo />}
-                    />
+                    <Route path="/" element={<LandingPage />}/>
+                    <Route path="/modulos" element={<Dashboard />} />
+                    <Route path="/modulos/:codigo" element={<Modulo />}/>
 
                 </Route>
             </Routes>
