@@ -1,9 +1,16 @@
 <?php
 
-
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+//registro
+Route::post('/register', [AuthController::class,'register']);
+
+
+
+
 
 //Login
 Route::post('/login', function (Request $request) {
