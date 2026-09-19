@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { SubmitEventHandler } from "react";
 import { api } from "../lib/api";
+import { Link } from "react-router-dom";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -27,7 +28,7 @@ export default function Login() {
 
             console.log("Usuário autenticado:", response.data);
 
-            window.location.href = "/dashboard";
+            window.location.href = "/modulos";
         } catch (error: any) {
             if (error.response?.status === 422) {
                 setError("E-mail ou senha incorretos.");
@@ -41,15 +42,18 @@ export default function Login() {
     }
 
     return (
-        <main className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
-            <div className="w-full max-w-md rounded-xl bg-white p-8 shadow">
-                <h1 className="mb-2 text-3xl font-bold text-gray-900">
-                    Entrar
-                </h1>
-
-                <p className="mb-6 text-gray-600">
-                    Acesse sua conta para continuar seu aprendizado.
+        <main className="flex min-h-screen items-center justify-center bg-blue1">
+            <div className="w-full max-w-md rounded-xl bg-white p-8 shadow text-left">
+                <img
+                    src="/images/logo.png"
+                    alt="MOTORCLASS"
+                    className="h-10 w-10 mb-4"
+                />
+                <p className="!my-5 text-xl font-bold">
+                    Bem vindo de volta.
                 </p>
+                
+                <hr className="border-gray-300 mb-6"/>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -59,7 +63,6 @@ export default function Login() {
                         >
                             E-mail
                         </label>
-
                         <input
                             id="email"
                             type="email"
@@ -67,6 +70,7 @@ export default function Login() {
                             onChange={(event) => setEmail(event.target.value)}
                             required
                             autoComplete="email"
+                            placeholder="email@email.com"
                             className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-gray-500"
                         />
                     </div>
@@ -78,7 +82,6 @@ export default function Login() {
                         >
                             Senha
                         </label>
-
                         <input
                             id="password"
                             type="password"
@@ -86,6 +89,7 @@ export default function Login() {
                             onChange={(event) => setPassword(event.target.value)}
                             required
                             autoComplete="current-password"
+                            placeholder="********"
                             className="w-full rounded-lg border border-gray-300 px-3 py-2 outline-none focus:border-gray-500"
                         />
                     </div>
@@ -99,12 +103,16 @@ export default function Login() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full rounded-lg bg-black px-4 py-2 font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="w-full rounded-lg bg-black px-6 py-3 font-medium text-white transition hover:bg-blue3"
                     >
                         {loading ? "Entrando..." : "Entrar"}
                     </button>
                 </form>
+                <p className="text-sm !mt-3">
+                    Ainda não possui conta? <Link to="/cadastro" className="underline hover:text-blue1">Se cadastrar.</Link>
+                </p>
             </div>
+
         </main>
     );
 }
