@@ -8,9 +8,9 @@ export default function Rodape() {
                 <div className="flex-shrink-0">
                     <LinkNav
                         tipo="imagem"
-                        imagem="/images/logo.png"
+                        imagem="/images/logo_light.png"
                         destino="/"
-                        tamanho="grande"
+                        tamanho="pequeno"
                         alt="Página inicial"
                     />
                 </div>

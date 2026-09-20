@@ -3,6 +3,7 @@ import type { SubmitEventHandler } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../lib/api";
 import Botao from "../components/Botao";
+import LinkNav from "../components/navigation/LinkNav";
 
 export default function Cadastro() {
     const [name, setName] = useState("");
@@ -54,10 +55,12 @@ export default function Cadastro() {
     return (
         <main className="flex min-h-screen items-center justify-center bg-blue1">
             <div className="w-full max-w-md rounded-xl bg-white p-8 shadow text-left">
-                <img
-                    src="/images/logo.png"
-                    alt="MOTORCLASS"
-                    className="h-10 w-10 mb-4"
+                <LinkNav
+                    tipo="imagem"
+                    imagem="/images/logo_blue3.png"
+                    destino="/"
+                    tamanho="pequeno"
+                    alt="Página inicial"
                 />
                 <p className="!my-5 text-xl font-bold">
                     Criar conta.

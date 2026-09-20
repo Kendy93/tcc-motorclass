@@ -22,9 +22,9 @@ export default function LinkNav({
     alt = "",
 }: LinkNavProps) {
     const tamanhos = {
-        pequeno: "h-6 w-6",
-        medio: "h-8 w-8",
-        grande: "h-10 w-10",
+        pequeno: "h-6",
+        medio: "h-8",
+        grande: "h-10",
     };
 
     return (
