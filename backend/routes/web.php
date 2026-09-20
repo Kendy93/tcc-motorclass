@@ -12,6 +12,7 @@ Route::post('/register', [AuthController::class,'register']);
 
 
 
+
 //Login
 Route::post('/login', function (Request $request) {
     //manda as credenciais

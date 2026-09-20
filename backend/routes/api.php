@@ -22,5 +22,12 @@ Route::get('/user', function (Request $request) {
     ]);
 })->middleware('auth:sanctum');
 
+
 Route::get('/modulos', [ModuloController::class, 'index']);
 Route::get('/modulos/{modulo}', [ModuloController::class, 'show']);
+
+//marca os modulos como concluido
+Route::post(
+    '/modulos/{modulo:codigo}/concluir',
+    [ModuloController::class, 'concluir']
+)->middleware('auth:sanctum');

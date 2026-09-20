@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { SubmitEventHandler } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../lib/api";
+import Botao from "../components/Botao";
 
 export default function Cadastro() {
     const [name, setName] = useState("");
@@ -149,13 +150,13 @@ export default function Cadastro() {
                         </p>
                     )}
 
-                    <button
+                    <Botao
                         type="submit"
                         disabled={loading}
-                        className="w-full rounded-lg bg-black px-4 py-2 font-medium text-white transition hover:bg-blue3 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="px-4 py-2 w-full"
                     >
                         {loading ? "Criando conta..." : "Criar conta"}
-                    </button>
+                    </Botao>
                 </form>
                     <p className="text-sm !mt-3">
                         Ainda não possui conta? <Link to="/cadastro" className="underline hover:text-blue1">Se cadastrar.</Link>

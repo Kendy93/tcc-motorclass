@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Visualizador3D from "../components/Visualizador3D";
 import { BordaImagem } from "../components/BordaImagem";
+import BotaoLink from "../components/BotaoLink";
 
 export default function LandingPage() {
     return (
@@ -36,19 +37,12 @@ export default function LandingPage() {
                             </p>
 
                             <div className="mt-8 flex justify-center gap-4">
-                                <Link
-                                    to="/modulos"
-                                    className="rounded-lg bg-black px-6 py-3 font-medium text-white transition hover:bg-blue3"
-                                >
+                                <BotaoLink to="/modulos" className="px-6 py-3">
                                     Começar a aprender
-                                </Link>
-
-                                <Link
-                                    to="/sobre"
-                                    className="rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium transition hover:text-blue3"
-                                >
+                                </BotaoLink>
+                                <BotaoLink to="/sobre" className="px-6 py-3" variant="secondary">
                                     Saiba mais
-                                </Link>
+                                </BotaoLink>
                             </div>
                         </div>
 

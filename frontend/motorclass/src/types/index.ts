@@ -42,3 +42,8 @@ export interface Animacao {
     legenda: string;
     loop?: boolean;
 }
+
+export interface Alternativa {
+    texto: string;
+    correta: boolean;
+}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { SubmitEventHandler } from "react";
 import { api } from "../lib/api";
 import { Link } from "react-router-dom";
+import Botao from "../components/Botao";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -100,13 +101,13 @@ export default function Login() {
                         </p>
                     )}
 
-                    <button
+                    <Botao
                         type="submit"
                         disabled={loading}
-                        className="w-full rounded-lg bg-black px-6 py-3 font-medium text-white transition hover:bg-blue3"
+                        className="px-4 py-2 w-full"
                     >
                         {loading ? "Entrando..." : "Entrar"}
-                    </button>
+                    </Botao>
                 </form>
                 <p className="text-sm !mt-3">
                     Ainda não possui conta? <Link to="/cadastro" className="underline hover:text-blue1">Se cadastrar.</Link>

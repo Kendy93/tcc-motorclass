@@ -1,4 +1,4 @@
-import LinkNav from "./navigation/LinkNav";
+import LinkNav from "./LinkNav";
 import { CircleUserRound } from "lucide-react";
 
 export default function MenuSuperior() {

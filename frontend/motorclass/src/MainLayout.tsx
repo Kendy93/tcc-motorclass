@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import MenuSuperior from "./components/MenuSuperior";
+import MenuSuperior from "./components/navigation/MenuSuperior";
 import Rodape from "./components/Rodape";
 
 export default function Layout() {

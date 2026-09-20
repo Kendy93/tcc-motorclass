@@ -112,8 +112,97 @@
     Nesse caso, a asa não era usada pra frenagem, porém o princípio é simples, quanto maior a superfície frontal do veículo em contato direto com o ar, maior é a resistência criada e mais difícil fica para o carro ir para frente, por esse motivo carros de arrancada usam paraquedas a décadas para ajudar a parar depois de uma passagem pela pista.
 
 ## Os problemas não param
-- *Freios desbalanceados*: para que o carro pare corretamente, os freios precisam estar balanceados entre si, se um dos freios recebe mais força, o carro irá puxar para aquele lado e em casos mais graves, a roda daquele freio pode travar durante a frenagem, fazendo o carro deslizar e puxar ainda mais para o lado.
-- *Pastilhas e sapatas gastas*: com o passar do tempo, o atrito que para o carro também desgasta as pastilhas e sapatas. Como resultado o carro demora mais para freiar e acabam fazendo barulhos de rangido.
-- *Ar nas linhas de freio*: se o pedal do freio está mais macio, com uma sensação borrachuda, isso pode indicar a presença de ar nas linhas de freio, como o ar é comprimido mais facilmente que o fluído, ele absorve a força do pedal, sendo preciso fazer a sangria do sistema para resolver o problema.
-- *Superaquecimento dos freios*: frenagens fortes e repetidas podem aquecer demais os componentes. Quando isso acontece, o sistema perde parte de sua capacidade de frenagem, fenômeno conhecido como brake fade. Por isso, descer uma serra utilizando apenas o pedal do freio durante muito tempo pode ser perigoso. 
-- *Vazamento de flúido*: caso o fluido de freio esteja vazando, a pressão hidráulica pode ser perdida e a capacidade de frenagem também diminui.
+
+    <Problema titulo="Freios desbalanceados">
+        Para que o carro pare corretamente, os freios precisam estar balanceados entre si, se um dos freios recebe mais força, o carro irá puxar para aquele lado e em casos mais graves, a roda daquele freio pode travar durante a frenagem, fazendo o carro deslizar e puxar ainda mais para o lado.
+    </Problema>
+    <Problema titulo="Pastilhas e sapatas gastas">
+        Com o passar do tempo, o atrito que para o carro também desgasta as pastilhas e sapatas. Como resultado o carro demora mais para freiar e acabam fazendo barulhos de rangido.
+    </Problema>
+    <Problema titulo="Ar nas linhas de freio">
+        Se o pedal do freio está mais macio, com uma sensação borrachuda, isso pode indicar a presença de ar nas linhas de freio, como o ar é comprimido mais facilmente que o fluído, ele absorve a força do pedal, sendo preciso fazer a sangria do sistema para resolver o problema.
+    </Problema>
+    <Problema titulo="Superaquecimento dos freios">
+        Frenagens fortes e repetidas podem aquecer demais os componentes. Quando isso acontece, o sistema perde parte de sua capacidade de frenagem, fenômeno conhecido como brake fade. Por isso, descer uma serra utilizando apenas o pedal do freio durante muito tempo pode ser perigoso. 
+    </Problema>
+    <Problema titulo="Vazamento de flúido">
+        Caso o fluido de freio esteja vazando, a pressão hidráulica pode ser perdida e a capacidade de frenagem também diminui.
+    </Problema>
+
+<hr className="border-gray-300 mb-6"/>
+
+    <QuestaoMultiplaEscolha
+        pergunta="No geral, o que acontece com a energia cinética do carro durante uma frenagem?"
+        alternativas={[
+            {
+                texto: "Ela é armazenada na bateria.",
+                correta: false,
+            },
+            {
+                texto: "Ela é transformada principalmente em calor pelo atrito.",
+                correta: true,
+            },
+            {
+                texto: "Ela desaparece quando o pedal é pressionado.",
+                correta: false,
+            },
+        ]}
+        explicacao="A energia cinética não pode apenas sumir quando o motorista freia. Os componentes do sistema de freios utilizam o atrito para se opor ao movimento das rodas, transformando a energia cinética principalmente em calor." 
+    />
+
+    <QuestaoMultiplaEscolha
+        pergunta="Qual é a principal função do cilindro mestre no sistema de freios?"
+        alternativas={[
+            {
+                texto: "Transformar a pressão feita no pedal em pressão hidráulica no fluido.",
+                correta: true,
+            },
+            {
+                texto: "Resfriar os discos de freio.",
+                correta: false,
+            },
+            {
+                texto: "Armazenar o fluido de freio utilizado.",
+                correta: false,
+            },
+        ]}
+        explicacao="Ao pisar no pedal, uma articulação empurra o pistão dentro do cilindro mestre. Esse pistão pressiona o fluido, fazendo com que ele percorra as linhas de freio até chegar às partes responsáveis por gerar o atrito nas rodas."
+    />
+
+    <QuestaoMultiplaEscolha
+        pergunta="Por que o fluido de freio é utilizado em um sistema hidráulico?"
+        alternativas={[
+            {
+                texto: "Porque ele é comprimido facilmente e aumenta a força aplicada.",
+                correta: false,
+            },
+            {
+                texto: "Porque ele transmite a pressão pelo sistema com pouca compressão.",
+                correta: true,
+            },
+            {
+                texto: "Porque ele lubrifica diretamente os discos e as pastilhas.",
+                correta: false,
+            },
+        ]}
+        explicacao="Quando o pedal é pressionado, o cilindro mestre empurra o fluido pelas linhas de freio. Como o fluido praticamente não muda de volume quando submetido à pressão, ele consegue transmitir essa força até os freios localizados nas rodas."
+    />
+
+    <QuestaoMultiplaEscolha
+        pergunta="Qual é a principal diferença entre um freio a disco e um freio a tambor?"
+        alternativas={[
+            {
+                texto: "O freio a disco utiliza óleo de motor, enquanto o tambor utiliza fluido de freio.",
+                correta: false,
+            },
+            {
+                texto: "O freio a disco é usado apenas na dianteira, enquanto o freio a tambor fica sempre na traseira dos veículos.",
+                correta: false,
+            },
+            {
+                texto: "O freio a disco utiliza uma pastilha pressionada contra um disco, enquanto o tambor utiliza sapatas que atuam contra uma superfície interna do tambor.",
+                correta: true,
+            },
+        ]}
+        explicacao="No freio a tambor, as sapatas ficam dentro de um tambor que gira junto com a roda. Quando o freio é acionado, elas são pressionadas contra a parte interna do tambor, criando o atrito necessário para diminuir o movimento. Já no freio a disco, pastilhas são pressionadas contra um disco que gira junto com a roda."
+    />

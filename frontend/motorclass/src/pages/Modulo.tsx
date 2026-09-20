@@ -10,9 +10,12 @@ import MenuSecoesMobile from "../components/navigation/MenuSecoesMobile.tsx";
 import MenuModulos from "../components/navigation/MenuModulos.tsx";
 import MenuModulosMobile from "../components/navigation/MenuModulosMobile.tsx";
 import NavegacaoModulos from "../components/navigation/NavegacaoModulos.tsx";
+import FinalizarModulo from "../components/FinalizarModulo.tsx";
 
 import AnimacaoVideo from "../components/AnimacaoVideo";
 import { BordaImagem } from "../components/BordaImagem.tsx";
+import Problema from "../components/Problema.tsx";
+import QuestaoMultiplaEscolha from "../components/QuestaoMultiplaEscolha.tsx";
 
 export default function Modulo() {
     const { codigo } = useParams();
@@ -90,8 +93,16 @@ export default function Modulo() {
                         components={{
                             AnimacaoVideo,
                             BordaImagem,
+                            Problema,
+                            QuestaoMultiplaEscolha,
                         }}
                     />
+
+                    <FinalizarModulo
+                        moduloAtual={codigo!}
+                        modulos={modulos}
+                    />
+
                 </article>
 
                 <aside className="hidden py-15 px-5 xl:block">
