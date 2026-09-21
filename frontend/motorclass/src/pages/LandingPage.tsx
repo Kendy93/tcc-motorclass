@@ -2,8 +2,24 @@ import { Link } from "react-router-dom";
 import Visualizador3D from "../components/Visualizador3D";
 import { BordaImagem } from "../components/BordaImagem";
 import BotaoLink from "../components/BotaoLink";
+import CarrosselModulos from "../components/CarrosselModulos";
+import type { Modulo } from "../types";
+import { api } from "../lib/api";
+import { useEffect, useState } from "react";
 
 export default function LandingPage() {
+    const [modulos, setModulos] = useState<Modulo[]>([]);
+    useEffect(() => {
+        api.get("/api/modulos")
+            .then((response) => {
+                console.log("Módulos recebidos:", response.data);
+                setModulos(response.data);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar módulos:", error);
+            });
+    }, []);
+
     return (
         <main>
             <div className="relative">
@@ -19,9 +35,7 @@ export default function LandingPage() {
                     />
                 </div>
 
-                {/* restante */}
                 <section className="relative z-10 bg-mainlight/60 backdrop-blur-md">
-                    {/* hero */}
                     <div className="mx-auto grid min-h-200 w-full max-w-7xl px-8 py-10 md:grid-cols-2 md:items-center">
                         <div>
                             <p className="text-sm font-semibold uppercase tracking-widest !text-blue1">
@@ -58,9 +72,7 @@ export default function LandingPage() {
                 </section>
             </div>
 
-            <section className="py-20">
-                <p>Cards do curso</p>
-            </section>
+            <CarrosselModulos modulos={modulos} />
 
         </main>
     );

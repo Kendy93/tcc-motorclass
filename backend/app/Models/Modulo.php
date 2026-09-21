@@ -11,6 +11,7 @@ class Modulo extends Model
         'codigo',
         'descricao',
         'ordem',
+        'imagem',
     ];
 
     //get dos usuários de cada módulo

@@ -7,6 +7,7 @@ export interface Modulo {
     descricao: string;
     ordem: number;
     concluido: boolean;
+    imagem: string | undefined;
 }
 
 export type NivelSecao = 1 | 2 | 3 | 4;

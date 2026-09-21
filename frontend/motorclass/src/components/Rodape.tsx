@@ -2,9 +2,20 @@ import LinkNav from "./navigation/LinkNav";
 
 export default function Rodape() {
     return (
-        <footer className="w-full py-10 px-32 bg-maindark mt-10">
-            <div className="mx-auto flex h-16 items-center justify-between">
-                {/* logo */}
+        <footer className="w-full py-10 px-32 bg-maindark">
+            <div className="                
+                mx-auto
+                flex
+                w-full
+                max-w-7xl
+                flex-col
+                items-center
+                gap-8
+                md:flex-row
+                md:items-center
+                md:justify-between
+            ">
+
                 <div className="flex-shrink-0">
                     <LinkNav
                         tipo="imagem"

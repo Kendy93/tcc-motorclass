@@ -19,6 +19,7 @@ class ModulosSeeder extends Seeder
             'codigo' => 'fundamentos',
             'descricao' => 'Entenda como o motor transforma combustível em movimento.',
             'ordem' => 1,
+            'imagem' => '/images/01_como_o_motor_funciona/principal.png',
         ]);
 
         Modulo::create([
@@ -26,6 +27,7 @@ class ModulosSeeder extends Seeder
             'codigo' => 'ar',
             'descricao' => 'Descubra como o ar entra e sai do motor.',
             'ordem' => 2,
+            'imagem' => '/images/02_entrada_e_saida_do_ar/principal.png',
         ]);
 
         Modulo::create([
@@ -33,6 +35,7 @@ class ModulosSeeder extends Seeder
             'codigo' => 'combustivel',
             'descricao' => 'Acompanhe o combustível até a combustão.',
             'ordem' => 3,
+            'imagem' => '/images/03_o_caminho_do_combustivel/principal.png',
         ]);
 
         Modulo::create([
@@ -40,6 +43,7 @@ class ModulosSeeder extends Seeder
             'codigo' => 'ignicao',
             'descricao' => 'Veja como a ignição inicia a combustão.',
             'ordem' => 4,
+            'imagem' => '/images/04_a_faisca_do_motor/principal.png',
         ]);
 
         Modulo::create([
@@ -47,6 +51,7 @@ class ModulosSeeder extends Seeder
             'codigo' => 'arrefecimento',
             'descricao' => 'Aprenda como o motor controla seu calor.',
             'ordem' => 5,
+            'imagem' => '/images/05_controlando_a_temperatura/principal.png',
         ]);
 
         Modulo::create([
@@ -54,6 +59,7 @@ class ModulosSeeder extends Seeder
             'codigo' => 'lubrificacao',
             'descricao' => 'Descubra como o óleo protege o motor.',
             'ordem' => 6,
+            'imagem' => '/images/06_lubrificacao_e_protecao/principal.png',
         ]);
 
         Modulo::create([
@@ -61,6 +67,7 @@ class ModulosSeeder extends Seeder
             'codigo' => 'eletrica',
             'descricao' => 'Entenda como a eletricidade movimenta o carro.',
             'ordem' => 7,
+            'imagem' => '/images/07_energia_eletrica_no_veiculo/principal.png',
         ]);
 
         Modulo::create([
@@ -68,6 +75,7 @@ class ModulosSeeder extends Seeder
             'codigo' => 'potencia',
             'descricao' => 'Veja como fazer o motor produzir mais potência.',
             'ordem' => 8,
+            'imagem' => '/images/08_aumentado_a_potencia/principal.png',
         ]);
 
         Modulo::create([
@@ -75,6 +83,7 @@ class ModulosSeeder extends Seeder
             'codigo' => 'transmissao',
             'descricao' => 'Acompanhe a força do motor até as rodas.',
             'ordem' => 9,
+            'imagem' => '/images/09_como_a_potencia_chega_ao_asfalto/principal.png',
         ]);
 
         Modulo::create([
@@ -82,6 +91,7 @@ class ModulosSeeder extends Seeder
             'codigo' => 'freios',
             'descricao' => 'Entenda como os freios seguram o movimento.',
             'ordem' => 10,
+            'imagem' => '/images/10_parando_o_carro/principal.png',
         ]);
 
         Modulo::create([
@@ -89,6 +99,7 @@ class ModulosSeeder extends Seeder
             'codigo' => 'suspensao_direcao',
             'descricao' => 'Descubra como o carro se mantém estável e controlável.',
             'ordem' => 11,
+            'imagem' => '/images/11_suspensao_e_direcao/principal.png',
         ]);
     }
 }
