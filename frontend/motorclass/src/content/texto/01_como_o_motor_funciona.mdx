@@ -1,0 +1,177 @@
+# Como o motor funciona
+
+    Seja bem vindo ao início do que espero ser uma jornada para aprender conceitos básicos sobre como os sistemas de um veículo funciona. Nessa plataforma, o foco é dado na mecânica de carros, porém, se você ama motos, caminhões e qualquer outro tipo de veículo motorizado como eu, fique feliz em saber que a maioria dos conceitos que iremos discutir pode ser aplicados em outras áreas. 
+
+    A ideia aqui não é aprender a trocar uma peça ou diagnosticar um carro, e sim aprender a lógica por trás de cada princípio utilizado para fazer com que a maioria dos motores e veículos funcionem.
+
+    Antes de começarmos, vamos tentar responder 2 perguntas básicas, porque e como os motores foram criados. A primeira pergunta é fácil, os humanos precisavam de um jeito confiável para transformar energia em movimento utilizável, antes isso era feito principalmente através de músculos (geralmente de animais), do vento (moinhos) e da água (com rodas d'água). O motores são basicalmente uma evolução desses métodos, permitindo uma geração de movimento por demanda do usuário.
+
+    Sobre como essas máquinas foram criadas, é difícil atribuir uma única pessoa como criadora dos motores. Dito isso, vamos começar em 1698, quando o inglês Thomas Savery criou o primeiro motor à vapor com sucesso comercial. Diferentemente dos motores que estamos acostumados, o motor a vapor é do tipo de combustão externa, ou seja, o fluído de trabalho é esquentada pela combustão fora do local onde o movimento é criado. A água (líquido de trabalho) é aquecida em uma caldeira e vira vapor em um circuito separado, o vapor expande e chega no cilindro, movimentando o pistão.
+
+    Indo para 1794, Robert Street criou uma patente do primeiro registro de um motor recíproco de combustão interna que queima uma mistura gasosa de combustível e ar. Essa patente já possuia diversas partes que reconhecemos em motores do dia a dia, porém ainda não era feito a compressão da mistura ar-combustível antes da queima, sendo uma deficiência comum nas tentativas de criar motores dessa época.
+
+    Em 1876, Nicolaus Otto criou o primeiro motor de quatro tempos e conseguiu o feito de fazer a compressão da mistura ar-combustível acontecer no mesmo cilindro que a combustão. Seu primeiro protótipo gerava 3 cavalos de potência e tinha uma rotação máxima de 180 rpm, sendo considerada o ancestror comum entre todos os motores recíprocos atuais. Alguns anos depois, surgiram os primeiros veículos equipados com motores de combustão interna e, em 1892, Rudolf Diesel apresentou o motor que deu origem aos modernos motores a diesel.
+
+    A imagem abaixo mostra um motor estacionário da década de 1880 que fazia uso do princípio criado por Otto.
+
+        <BordaImagem
+            src="/images/01_como_o_motor_funciona/PSM_V18_D500_An_american_internal_combustion_otto_engine.jpg" 
+            alt="Motor estacionário Otto."
+        />
+
+
+Existem vários outros inventores aos quais devemos a evolução dos motores até os dias de hoje, porém, para não ficarmos o currículo todo falando sobre a história, iremos encerrar esse assunto por aqui. Se tem interesse em saber mais sobre essa trajetória, o livro "Internal Fire: the combustion engine, 1673-1900" de Lyle Cummins é uma ótima leitura para se aprofundar nesse assunto.
+
+## Os fundamentos
+
+Agora que sabemos como os motores evoluíram com o tempo, podemos continuar com uma pergunta importante, como o combustível é transformado em movimento? 
+
+Antes de tudo, precisamos lembrar de um princípio básico da fisíca, não se pode criar energia do nada, tudo o que conseguimos é transformar a energia de um tipo para outra, no caso dos motores, a energia química do combustível vira térmica e então física.
+
+Essa transformação acontece por meio dos ciclos do motor, um conjunto de etapas que se repetem continuamente enquanto ele está funcionando.
+
+## Os ciclos dos motores
+
+Um ciclo do motor é a sequência completa de movimentos necessária para transformar combustível em movimento. 
+
+Os motores mais comuns usam ciclos de 2 ou 4 tempos, os nomes indicam quantos movimentos o pistão precisa para terminar um ciclo. Para facilitar a explicação, considere que um tempo corresponde a uma subida ou descida do pistão dentro do cilindro.
+
+Ao longo desse módulo e dos próximos, usamos como referência um motor a gasolina que com ignição por vela, motores a diesel funcionam de outra maneira, embora os fundamentos sejam similares.
+
+### O ciclo de quatro tempos
+
+Esse é o ciclo mais comum e também é chamado de ciclo de Otto, é o adotado pelo veículo que estudaremos ao longo deste currículo.
+
+1. Admissão: o pistão começa no topo do cilindro e desce até o ponto mais baixo com a válvula de admissão aberta. Isso aumenta o volume disponível na câmara de combustão e reduz sua pressão, permitindo a entrada da mistura de ar e combustível.
+
+2. Compressão: quando o cilindro chega no seu ponto mais baixo, a válvula de admissão é fechada e ele começa a viajar para o topo novamente. Essa ação comprime a mistura ar-combustível, aumentando a pressão e temperatura dentro do cilindro.
+
+3. Combustão (onde a potência é gerada): pouco antes de chegar ao topo, as velas de ignição soltam uma faísca, que ao entrar em contato com a mistura gera uma explosão, aumentando ainda mais a pressão da câmara de combustão e empurrando o pistão para baixo.
+
+4. Exaustão: com o pistão no ponto mais baixo novamente, a válvula de escape começa a ser abrir. A medida que o pistão sobe, ele empurra os gases que foram queimados para o sistema de escape. Chegando ao topo, o ciclo está terminado e o pistão está pronto para começar a admissão novamente.
+
+**MOTOR CORTADO, 1 IMAGEM POR CICLO**
+![Placeholder](https://picsum.photos/id/36/700/400)
+
+**ANIMAÇÃO PRINCIPAL**
+
+### O ciclo de dois tempos
+
+Sendo um número menor, você pode imaginar que esse tipo de ciclo é apenas mais simples e talvez pior que o de quatro tempos, mas na verdade não é bem assim, além que o primeiro registro de uma patente desse tipo de motor foi feita em 1879. 
+
+Como o próprio nome indica, esse ciclo realiza o mesmo trabalho com apenas dois movimentos do pistão. Isso reduz a quantidade de componentes móveis e permite um ciclo de potência a cada volta do virabrequim, resultando em uma ótima relação entre potência e peso.
+
+1. Combustão, exaustão e adminissão: começando com o pistão no topo do ciclo, a explosão ocorre e empurra o pistão para baixo. Durante esse movimento, o próprio pistão abre passagens no cilindro, primeiro abre para a saída dos gases queimados e depois para a entrada de uma nova mistura ar-combustível. Em um motor de 4 tempos, esses 2 espaços seriam controlados pelas válvulas, aqui o próprio pistão abre e fecha as passagens.
+
+2. Compressão: depois de chegar ao ponto mais baixo, a medida que o pistão começa a subir, ele fecha as 2 passagens mencionadas e abre uma terceira, onde o combustível entra em um espaço abaixo da camâra de combustão e fica esperando para poder subir. Nesse mesmo movimento, o pistão comprime a mistura do combustível e ao chegar ao topo, a explosão ocorre e o ciclo é reiniciado.
+
+**MOTOR CORTADO, 1 IMAGEM POR CICLO**
+![Placeholder](https://picsum.photos/id/36/700/400)
+
+### Por quê 4 e não 2 tempos?
+
+Os motores de dois tempos são usados principalmente em motos de trilha, ferramentas como motoserras e roçadeiras, tipos de aplicações onde o peso, simplicidade e a relação peso-potência são prioridades, além de conseguir funcionar em qualquer disposição.
+
+O motivo de não ser usado em veículos é que, diferente de um motor quatro tempos, onde as válvulas permitem a separação entre a camâra de combustão e a parte de baixo do pistão, onde fica o óleo para lubricação, nos motores dois tempos essas duas áreas são ligadas por uma passagem, fazendo com que o óleo e o combustível se misturem. Essa mistura não lubrifica tão bem quanto óleo puro e também não queima tão bem quanto combustível puro, isso significa que esses motores possuem um desgaste, consumo de óleo e combustível e uma emissão de gases poluentes maior do que os motores de 4 tempos.
+
+### Alguns termos que valem ser mencionados
+
+Três dos termos mais importantes em conversas sobre motores são torque, potência (cavalos) e RPM. *Torque* é a força rotacional bruta que sai do virabrequim, sendo a capacidade de realizar trabalho, ela faz o carro arrancar ou puxar cargas pesadas. *Potência*(cavalos) é a taxa em que esse trabalho acontece, multiplicando o torque pela rotação do motor. Algo que me fez entender na hora a diferença entre os 2 é a seguinte fala: "Torque é a distância que você empurra a parede e potência é a velocidade com que você bate nela". Por último, o *RPM*(rotações por minuto) é a medida de quantas rotações completas o virabrequim faz em um minuto.
+
+A *taxa de compressão*, ela é a relação matemática entre o tanto de ar no cilindro quando o pistão está no ponto mais baixo e no mais alto. Uma taxa de 10:1 significa que o tanto de ar comprimido ficou 10 vezes menor do que era. Quanto maior a compressão, mais forte a explosão, mas se comprimir demais o combustível pode entrar em combustão espontânea (detonação).
+
+Outro termo que pode aparecer é o *atraso ou avanço da ignição*. A queima do ar-combustível não acontece imediadamente, por isso a vela não deve criar a faísca só quando o pistão chegar no topo. O avanço ou atraso diz respeito à calibração do quanto a faísca será gerada, a ideia é que quando o pistão estiver começando a descida, a explosão esteja no seu pico máximo, dessa força nenhuma força é perdida.
+
+## As partes que fazem isso ser possível
+
+Agora que você sabe o básico sobre como o movimento é gerado, vamos nos aprofundar nas peças que tornam tudo isso possível.
+
+### O básico
+
+Os ciclos que comentamos precisam de um ambiente controlado, principalmente por envolver explosões e alta pressão. O *bloco do motor* é a estrutura que faz essa contenção. Geralmente feito em ferro fundido ou em alumínio, ele abriga os *cilindros* — que são os tubos onde a combustão acontece — e possui várias passagens para a circulação da água (resfriamento) e óleo (lubrificação). Na sua base fica o *cárter*, um reservátorio que armazena o óleo do motor.
+
+Selando a parte de cima do bloco com uma junta, fica o *cabeçote*, que funciona como o teto da câmara de combustão. É nele que ficam as aberturas para a entrada do ar-combustível e a saída dos gases queimados.
+
+![Placeholder](https://picsum.photos/id/36/700/400)
+
+### O conjunto rotativo
+
+Dentro de cada cilindro, fica um *pistão*, que sobe e desce servindo como o chão da camâra de combustão. Na sua lateral, ficam os *anéis*: os anéis superiores são de compressão e garantem que a explosão fique dentro da camâra de combustão, os inferiores também ajudarem com a vedação e raspam o óleo em excesso das paredes do cilindro.
+
+A *biela* liga o pistão ao virabrequim, transformando o movimento vertical do pistão em rotativo no virabrequim. O *virabrequim* tem um visual que lembra pedais de uma bicicleta, ele é quem transfere o movimento do pistão para a transmissão.
+
+A biela é ligada ao virabrequim da mesma maneira que ele é ligado ao motor, através de *bronzinas* (de mancal para o bloco e de biela para a biela). Elas são semicirculos metálicos que criam uma superfície lisa para que o movimento entre as peças seja feito com o mínimo de atrito.
+
+![Placeholder](https://picsum.photos/id/36/700/400)
+
+### Válvulas e a sincronia
+
+As *válvulas* abrem e fecham as passagens de admissão e escape, sendo mantidas fechadas pela pressão de molas. Para controlar essas válvulas, é usado o *eixo de comando*, uma haste com ressaldos ovais que, ao girar, empurram para baixo e depois liberam as válvulas, abrindo e fechando elas.
+
+O virabrequim e o eixo de comando precisam trabalhar juntos, para garantir que o ciclo ocorra de maneira correta, por isso eles são ligados pela *correia ou corrente de sincronismo*, conectando fisicamente essas 2 peças. Na hora da montagem, essas peças precisam ser alinhadas em posições específicas — o chamado "ponto" do motor. Se a correia for instalada fora do ponto, o motor não funciona e peças internas podem colidir, causando danos graves.
+
+![Placeholder](https://picsum.photos/id/36/700/400)
+
+## Os diferentes tipos de motores
+
+Agora que temos uma noção sobre o funcionamento do motor e as peças que fazem parte dele, podemos começar a discutir melhor sobre os diferentes tipos de motores.
+
+### Tamanho e layout
+
+A regra básica para gerar potência é processar mais ar e combustível. O espaço interno para isso é a *cilindrada*, medida em litros e calculada pelo diâmetro do cilindro e curso do pistão. Por exemplo, um motor 2.0, desloca dois litros de ar a cada ciclo completo.
+
+A maioria dos carros básicos e econômicos usam motores 1.0 (como o Uno e Corsa). Se quiser uma opção mais potente temos carros como o Astra, com motores 1.8 e 2.0. Indo ainda mais longe temos carros como os Opalas e seus motores de 4.1 litros. É preciso dizer que nem todo motor maior é mais forte, uma Suzuki GSX-R SRAD de 1999, com seu motor de 750 cilindradas (0,75 litros) gera 128 cavalos, enquanto um Opala de 1990 gera apenas 82 cavalos, mesmo tendo um motor de 2500 cilindradas.
+
+Além da cilindrada, também existem diferentes layouts e números de cilindros. Os principais layouts são em linha, V, boxer (ou flat), W, rotativo e VR. Indo um pouco mais afundo temos motores em H, radiais e várias outras configurações, mas normalmente esses designs costumam ficar reservados para motores experimentais, muitas vezes usados na aviação. No geral, o nome do layout se refere ao visual que os cilindros formam quando olhados de frente.
+
+O motivo de não termos motores de 5 litros com apenas 1 cilindro é que o aumento do tamanho do pistão, também aumenta a massa, gerando vibrações e limitando o RPM do motor, a solução então é ter mais cilindros. Os layouts dos motores variam conforme o visual dos cilindros vistos de frente, os principais são em linha (I), em V, boxer (planos) e em W. 
+
+A maioria dos carros que vemos na rua possuem motores I4, os carros japoneses da década de 90 são famosos por seus motores I4 e I6, nos Estados Unidos, temos os grandes V8s, enquanto a Europa é conhecida pelos seus exóticos V12. No geral, quanto maior a quantidade de cilindros, mais exótico e de alto nível é o carro, sendo 12 cilindros o limite comum (com algumas exceções, como os Bugattis Veyron e Chiron com seus 16 cilindros).
+
+Existem várias outras configurações, porém irei mencionar apenas outras 2, os motores VR e rotativos. O VR é um híbrido entre linha e V, ele possui 2 fileiras de cilindros, porém com um ângulo tão pequeno que permite apenas 1 cabeçote, feito famoso pelos VR6 da Volkswagen. Já os rotativos, são uma exceção que dispensam o uso de pistões, em vez disso eles usam um rotor triangular que gira dentro de uma câmara, resultando em um motor minúsculo, quase modular e de alta rotação, porém sobre com consumo e desgaste de vedações, famoso pelos carros da Mazda.
+
+No nosso caso, o carro que estamos estudando possui um motor de 4100 cilindradas (4.1L) e 6 cilindros em linha.
+
+**LINHA, V, BOXER, W, VR**
+![Placeholder](https://picsum.photos/id/36/700/400)
+
+### Cabeçotes
+
+Falamos sobre cabeçotes e como eles "tampam" a parte de cima do motor, além do cabeçote convencional, que tampa uma fileira completa de cilindros de uma vez, existem outras 2 configurações importantes.
+
+- *Flathead* (cabeça plana): mais comum entre 1890 e 1960, as válvulas ficavam no próprio bloco, ao lado do cilindro e o cabeçote realmente era apenas uma tampa. Era uma opção simples e confiável, mas foram substituídos pelo fluxo de ar ruim, já que ele precisava fazer uma curva em U para chegar ao cilindro e à baixa compressão.
+- *Cabeçotes individuais*: comnus em grandes motores a diesel. Cada cilindro tem seu próprio cabeçote, em caso de quebra, apenas um cabeçote é trocado, reduzindo custos com reparos e facilitando a manutenção.
+
+**CABEÇOTES**
+![Placeholder](https://picsum.photos/id/36/700/400)
+
+### Válvulas
+
+Existem 2 maneiras de se controlar as válvulas, a diferença entre elas é a posição do eixo de comando. 
+
+- *Pushrod ou OHV*(overhead valve): usada em motores em V. O comando fica no meio do bloco e empurra varetas (pushrods) que acionam uma gangorra no cabeçote e abre as válvulas. O motor fica mais compacto, porém a inércia desses componentes extras faz com que seja sucetível a flutuações de válvulas em altas rotações - quando o comando já está na posição que deveria fechar a válvula mas ela ainda está aberta.
+- *OHC*(overhead cam): o comando fica no próprio cabeçote, eliminando as varetas. Isso faz com que o motor fique mais, porém a inércia menor permite rotações mais altas. Essa arquitetura de motor pode ainda ser dividida em 2 tipos:
+    - *SOHC*(single overhead cam): apenas um comando por bancada, geralmente controlando 2 válvulas por cilindro.
+    - *DOHC*(double overhead cam): 2 comandos por bancada, normalmente usado em motores com 4 válvulas por cilindro. Permite um ângulo maior entre as válvulas, melhorando o fluxo de ar e também possibilita ajustes independentes para a admissão e escape, melhorando a potência e economia do carro.
+    `Geralmente as marcas possuem nomes diferentes para essa variação no tempo das válvulas, o VTEC dos motores Honda é o exemplo mais famoso dessa tecnologia.`
+
+**FOTO OHV, OHC E DOHC**
+![Placeholder](https://picsum.photos/id/36/700/400)
+
+### Virabrequim
+
+O virabrequim também possui 2 tipos de design, eles geralmente são discutidos quando usados nos motores V8, porém podem ser usados em outras aplicações também.
+
+- *Cross-plane*(cruzado): comum nos V8 americanos, com mancais separados por 90°. O motor tem um funcionamento bem suave, porém precisa de contrapesos, isso deixa a resposta mais lenta e limita o RPM.
+- *Flat-plane*(plano): mais usado nos V8 europeus e com 180° de separação. Não precisam dos mesmos contrapesos, ficando mais leve e permitindo RPMs mais altos e uma resposta melhor, com a desvantagem de gera mais vibração, além disso, a ordem de ignição alternada melhora o fluxo da exaustão.
+
+![Placeholder](https://picsum.photos/id/36/700/400)
+
+## Problemas comuns
+
+Nem tudo funciona como esperado e algumas vezes (muitas se você gosta de carros velhos) as coisas dão errados. Como já mencionado, não estou aqui para te transformar em um mecânico, porém em todos os módulos irei mencionar alguns problemas comuns e diagnósticos simples sobre eles. Se você tem interesse, o melhor jeito de aprender a consertar um carro é consertando você mesmo, existem diversos materiais de boa qualidade ensinando a fazer isso. 
+
+Mas lembre-se, isso é um assunto sério, se não levada a sério, uma manutenção errada, ou a falta dela, pode gerar vários problemas e até acidentes, na dúvida, leve seu carro a um mecânico de confiança.
+
+- *Perda de compressão*: como mencionado, a compressão do ar-combustível é muito importante para o motor. A perda dessa compressão costuma ser causada por falhas nas vedações da câmara de combustão, as causas mais comuns são o desgate nos anéis do pistão ou na junta do cabeçote. O resultado desse problema é a perda de potência, aumento no consumo e motor falhando.
+- *Motor fora de ponto*: isso acontece quando a correia ou corrente de sincronismo é montada com o comando e virabrequim fora das posições corretas, ou quando ela pula um dente pelo desgate. Um motor fora de ponto terá marcha lenta irregular e ficará engasgando, em casos muito graves, como quando a correia quebra com o carro funcionando, o pistão pode acabar subindo com tudo e bater nas válvulas, danificando o cabeçote.
