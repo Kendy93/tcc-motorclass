@@ -30,10 +30,8 @@ export interface ConfiguracaoCamera {
 }
 
 export interface ConfiguracaoModulo {
-    modelo3D: string;
-    escala: number;
+    modelos3D: Record<string, ConfiguracaoModelo3D>;
     conteudo: ComponentType;
-    camera: ConfiguracaoCamera;
     secoes: Secao[]
 }
 
@@ -47,4 +45,20 @@ export interface Animacao {
 export interface Alternativa {
     texto: string;
     correta: boolean;
+}
+
+export interface Peca3D {
+    titulo: string;
+    descricao: string;
+}
+
+export interface ConfiguracaoModelo3D {
+    modelo: string;
+    escala: number;
+    camera: {
+        camerapos: [number, number, number];
+        origem: [number, number, number];
+    };
+    interativo: boolean;
+    pecas?: Record<string, Peca3D>;
 }

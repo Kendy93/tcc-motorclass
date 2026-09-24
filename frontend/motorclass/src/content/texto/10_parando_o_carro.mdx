@@ -16,14 +16,11 @@
         
     Inicialmente, o movimento dessas peças era controlado através de alavancas, cabos e polias, porém esse sistema não era confiável e exigia muita manutenção para garantir seu funcionamento. A solução para esse problema, que foi utilizada em praticamente todos os veículos depois da década de 30, é o uso de um sistema hidráulico.
 
-        <BordaImagem
-            src="/images/10_parando_o_carro/cilindro_mestre.png" 
-            alt="Cilindro mestre, hidrovácuo e pedal de freio."
-        />
+        <Visualizador3D nome="cilindroMestre" />
 
-    Quando o motorista pressiona o pedal de freio, uma articulação mecânica transfere essa força para o *cilindro mestre* do veículo, nesse cilindro fica um pistão, mola e o mais importante, o reservatório do fluído de freio, que é um tipo de fluído não comprimível.
+    Quando o motorista pressiona o pedal de freio, uma articulação mecânica transfere essa força para o **cilindro mestre** do veículo, nesse cilindro fica um pistão, mola e o mais importante, o reservatório do fluído de freio, que é um tipo de fluído não comprimível.
         
-    A articulação empurra o cilindro, que por sua vez empurra o fluído pelas *linhas de freio* que levam até os freios do carro. Esse movimento do fluído é o que irá gerar o atrito para parar o veículo. A mola garante que o pistão volte a sua posição inicial ao soltar o pedal. O cilindro geralmente é dividido em duas partes, sendo uma para os freios dianteiros e outra para os traseiros, dessa forma se uma das partes falharem, a outra deve continuar funcionando.
+    A articulação empurra o cilindro, que por sua vez empurra o fluído pelas **linhas de freio** que levam até os freios do carro. Esse movimento do fluído é o que irá gerar o atrito para parar o veículo. A mola garante que o pistão volte a sua posição inicial ao soltar o pedal. O cilindro geralmente é dividido em duas partes, sendo uma para os freios dianteiros e outra para os traseiros, dessa forma se uma das partes falharem, a outra deve continuar funcionando.
 
 ## Gerando o atrito
 
@@ -31,16 +28,13 @@
 
 ### Freio a tambor
 
-    Como o nome sugere, essa solução usa um *tambor*, oco e com a parte de trás aberta, para freiar o carro. Na parte de trás, fica a tampa estática do tambor, sendo a parte que fica parada enquanto o tambor gira com os pneus.
+    Como o nome sugere, essa solução usa um **tambor**, oco e com a parte de trás aberta, para freiar o carro. Na parte de trás, fica a tampa estática do tambor, sendo a parte que fica parada enquanto o tambor gira com os pneus.
         
-    Dentro do tambor e presas nessa tampa, ficam as *sapatas de freio*. Quando o fluído chega pelas linhas ao cilindro da roda, ele empurra outro pistão, que empurra as sapatas, pressionando elas contra o tambor em movimento.
+    Dentro do tambor e presas nessa tampa, ficam as **sapatas de freio**. Quando o fluído chega pelas linhas ao cilindro da roda, ele empurra outro pistão, que empurra as sapatas, pressionando elas contra o tambor em movimento.
         
     Existem alguns tipos diferentes de freios a tambor. Eles podem ter 1 ou 2 cilindros nas rodas ou então ter duas sapatas independentes ou uma líder e a outra seguidora. Quando o pedal de freio é solto, molas fazem com que as sapatas voltem ao seu local de origem.
 
-        <BordaImagem
-            src="/images/10_parando_o_carro/freio_tambor.png" 
-            alt="Freio a tambor."
-        />
+        <Visualizador3D nome="freioTambor" />
 
 ### Freio a disco
 
@@ -48,14 +42,11 @@
         
     Um dos maiores problemas dos freios a tambor era o gerenciamento térmico, a parte que sofre o atrito fica dentro do tambor, por causa disso o calor não tem para onde escapar e com o uso contínuo dos freios, o calor aumenta e o sistema perde sua eficácia.
         
-    Em contra partida, o *disco de freio* fica exposto ao ar, ajudando a esfriar a superfície que é pressionada pela pinça e pastilha. Além disso, conforme essa tecnologia foi avançando, os fabricantes começaram a experimentar com o design dos discos, colocando espaços entre o disco, buracos e sucos na superfície, e até separando ele em duas partes, o suporte que conecta na roda e o disco em si, tudo isso para gerenciar melhor o ar e calor, ajudando na refrigeração e trazendo outros benefícios.
+    Em contra partida, o **disco de freio** fica exposto ao ar, ajudando a esfriar a superfície que é pressionada pela pinça e pastilha. Além disso, conforme essa tecnologia foi avançando, os fabricantes começaram a experimentar com o design dos discos, colocando espaços entre o disco, buracos e sucos na superfície, e até separando ele em duas partes, o suporte que conecta na roda e o disco em si, tudo isso para gerenciar melhor o ar e calor, ajudando na refrigeração e trazendo outros benefícios.
         
-    A *pinça do freio* possui cilindros e pistões nela, como nas sapatas, o fluído de freio empurra os pistões, que por sua vez empurram as *pastilhas* que fazem o atrito com o disco. Essas pastilhas podem ser feitas de materiais e tamanhos diferentes, as pinças podem ter dois ou mais pistões, o que ajuda a distribuir melhor a força aplicada na pastilha, em alguns casos é usado até mais de uma pinça por disco, geralmente em aplicações para competição.
+    A **pinça do freio** possui cilindros e pistões nela, como nas sapatas, o fluído de freio empurra os pistões, que por sua vez empurram as **pastilhas** que fazem o atrito com o disco. Essas pastilhas podem ser feitas de materiais e tamanhos diferentes, as pinças podem ter dois ou mais pistões, o que ajuda a distribuir melhor a força aplicada na pastilha, em alguns casos é usado até mais de uma pinça por disco, geralmente em aplicações para competição.
 
-        <BordaImagem
-            src="/images/10_parando_o_carro/freio_disco.png" 
-            alt="Freio a disco."
-        />
+        <Visualizador3D nome="freioDisco" />
 
     Na animação abaixo você pode acompanhar o funcionamento de um sistema de freio a disco e o que acontece ao pisar no pedal.
 
@@ -84,10 +75,7 @@
 
     Talvez você não tenha percebido, mas o nosso carro possui os dois tipos de freio, disco na dianteira e tambor na traseira. Nos carros da década de 1980, a maioria dos veículos de entrada possuiam tambor nas quatro rodas, carros um pouco mais luxuosos ou esportivos tinham discos na frente e tambor na traseira e aqueles ainda mais luxuosos e esportivos usavam freios a disco nas quatro rodas.
 
-        <BordaImagem
-            src="/images/10_parando_o_carro/freio_completo.png" 
-            alt="Sistema de freios completo."
-        />
+        <Visualizador3D nome="freioCompleto" />
         
     Pode não parecer, mas nosso carro era um dos modelos mais luxuosos vendidos pela montadora no país, além de ter um motor mais potente do que a competição nacional. Ainda sim, ele ainda não atingia um nível que justificasse o uso de quatro freios a disco, por isso ele usa essa combinação de discos e tambores.
         
@@ -95,19 +83,19 @@
 
 ## Parando ainda mais o carro
 
-    Outra coisa que talvez você não tenha percebido, é que nosso cilindro mestre parece estar preso a uma grande peça redonda, ela é chamada *hidrovácuo*. Como o nome indica, ela usa um vácuo vindo do coletor de admissão para aumentar a força feita pelo pedal, deixando o sistema ainda mais eficaz e fazendo com que o motorista precise aplicar menos força para ter uma frenagem efetiva.
+    Outra coisa que talvez você não tenha percebido, é que nosso cilindro mestre parece estar preso a uma grande peça redonda, ela é chamada **hidrovácuo**. Como o nome indica, ela usa um vácuo vindo do coletor de admissão para aumentar a força feita pelo pedal, deixando o sistema ainda mais eficaz e fazendo com que o motorista precise aplicar menos força para ter uma frenagem efetiva.
         
     Veículos modernos usam assistências elétricas no lugar do hidrovácuo, também possuem sistemas como o freio antitravamento (ABS) para que as rodas não travem durante a frenagem, porém como você já deve imaginar, esse não é o tipo de veículo que estamos estudados.
         
-    Para garantir que o carro continue parado mesmo que ninguém esteja dentro dele para segurar o pedal, o *freio de mão* é usado. Diferente do pedal, ele costuma usar ligações mecânicas invés de hidráulicas. Cabos, polias e outras alavancas são o que levam a força da alavanca principal para os freios e geralmente são ligados apenas às rodas traseiras.
+    Para garantir que o carro continue parado mesmo que ninguém esteja dentro dele para segurar o pedal, o **freio de mão** é usado. Diferente do pedal, ele costuma usar ligações mecânicas invés de hidráulicas. Cabos, polias e outras alavancas são o que levam a força da alavanca principal para os freios e geralmente são ligados apenas às rodas traseiras.
 
 ### Mas e o arrasto?
 
-    No começo desse módulo falamos que além do atrito, o arrasto pode ser usado para diminuir a velocidade através de partes de *aerodinâmica ativa*, mas o que são essas partes?
+    No começo desse módulo falamos que além do atrito, o arrasto pode ser usado para diminuir a velocidade através de partes de **aerodinâmica ativa**, mas o que são essas partes?
         
     Primeiramente, vamos deixar claro que esses componentes são pouco usados nos carros que estamos estudando e, até nos dias de hoje, a maioria dos carros que encontramos nas ruas não possuem essa tecnologia. Dito isso, achamos algo legal de se ver, então vamos falar um pouco sobre esse assunto.
         
-    Voltando à explicação, o primeiro carro de rua a usar aerodinâmica ativa foi o Lancia Thema 8.32 de 1986, um sedan discreto a primeira vista, mas que possuía um V8 da Ferrari e chegava a 240 quilômetros por hora. Sua aerodinâmica ativa vinha de uma asa, também chamada de *aerofólio*, na tampa do porta-malas do carro. Através de um botão, o motorista podia esconder ou acionar o aerofólio, com o objetivo de dar mais estabilidade ao carro.
+    Voltando à explicação, o primeiro carro de rua a usar aerodinâmica ativa foi o Lancia Thema 8.32 de 1986, um sedan discreto a primeira vista, mas que possuía um V8 da Ferrari e chegava a 240 quilômetros por hora. Sua aerodinâmica ativa vinha de uma asa, também chamada de **aerofólio**, na tampa do porta-malas do carro. Através de um botão, o motorista podia esconder ou acionar o aerofólio, com o objetivo de dar mais estabilidade ao carro.
         
     Nesse caso, a asa não era usada pra frenagem, porém o princípio é simples, quanto maior a superfície frontal do veículo em contato direto com o ar, maior é a resistência criada e mais difícil fica para o carro ir para frente, por esse motivo carros de arrancada usam paraquedas a décadas para ajudar a parar depois de uma passagem pela pista.
 

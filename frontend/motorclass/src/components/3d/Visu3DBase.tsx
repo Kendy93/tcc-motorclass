@@ -1,6 +1,8 @@
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
 
+//===========================================================================
+
 //parâmetros e componente para carregar o modelo
 interface Visualizador3DProps {
     modelo: string;
@@ -15,6 +17,7 @@ function Modelo3D({ modelo, escala }: Visualizador3DProps) {
     return <primitive object={scene} scale={escala}/>;
 }
 
+//===========================================================================
 
 export default function Visualizador3D({ 
     modelo, 
@@ -35,7 +38,7 @@ export default function Visualizador3D({
                     fov: 40,
                 }}
             >
-                //iluminação genérica, com direção
+                //iluminação com HDRI
                 <Environment files="/hdri/cloudy_cliffside_road_2k.hdr" />
                 //carrega o modelo
                 <Modelo3D modelo={modelo} />

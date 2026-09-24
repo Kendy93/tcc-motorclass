@@ -4,13 +4,14 @@ import { api } from "../lib/api";
 import type { Modulo } from "../types";
 
 import { configuracoesModulos } from "../data/modulos.ts";
-import Visualizador3D from "../components/Visualizador3D";
+import Visualizador3D from "../components/3d/Visualizador3D.tsx";
 import MenuSecoes from "../components/navigation/MenuSecoes.tsx";
 import MenuSecoesMobile from "../components/navigation/MenuSecoesMobile.tsx";
 import MenuModulos from "../components/navigation/MenuModulos.tsx";
 import MenuModulosMobile from "../components/navigation/MenuModulosMobile.tsx";
 import NavegacaoModulos from "../components/navigation/NavegacaoModulos.tsx";
 import FinalizarModulo from "../components/FinalizarModulo.tsx";
+import type { ConfiguracaoModulo } from "../types";
 
 import AnimacaoVideo from "../components/AnimacaoVideo";
 import { BordaImagem } from "../components/BordaImagem.tsx";
@@ -58,13 +59,36 @@ export default function Modulo() {
     }
     const Conteudo = configuracao.conteudo;
 
+    //wrapper para funcionar dentro do MDX
+    interface Visualizador3DMDXProps {
+        nome: string;
+    }
+    function Visualizador3DMDX({
+        nome,
+    }: Visualizador3DMDXProps) {
+        const modelo = configuracao.modelos3D[nome];
+
+        if (!modelo) {
+            console.warn(
+                `Modelo 3D "${nome}" não encontrado no módulo "${codigo}".`
+            );
+
+            return (
+                <p>
+                    Modelo 3D "{nome}" não encontrado.
+                </p>
+            );
+        }
+
+        return (
+            <Visualizador3D configuracao={modelo} />
+        );
+    }
+
     return (
         <main>
             <Visualizador3D
-                modelo={configuracao.modelo3D}
-                escala={configuracao.escala}
-                camerapos={configuracao.camera.camerapos}
-                origem={configuracao.camera.origem}
+                configuracao={configuracao.modelos3D.principal}
             />
 
             <NavegacaoModulos
@@ -74,7 +98,7 @@ export default function Modulo() {
 
             <div className="
                 mx-auto 
-                grid max-w-[1600px] 
+                grid max-w-[1700px] 
                 grid-cols-1 
                 gap-8 
                 px-6 
@@ -88,13 +112,14 @@ export default function Modulo() {
                     />
                 </aside>
 
-                <article className="prose max-w-3xl justify-self-center text-left [&_p]:indent-3 [&_p]:!mb-5">
+                <article className="prose max-w-4xl justify-self-center text-left [&_p]:indent-3 [&_p]:!mb-5">
                     <Conteudo
                         components={{
                             AnimacaoVideo,
                             BordaImagem,
                             Problema,
                             QuestaoMultiplaEscolha,
+                            Visualizador3D: Visualizador3DMDX,
                         }}
                     />
 

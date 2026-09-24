@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Visualizador3D from "../components/Visualizador3D";
+import Visualizador3D from "../components/3d/Visu3DBase";
 import { BordaImagem } from "../components/BordaImagem";
 import BotaoLink from "../components/BotaoLink";
 import CarrosselModulos from "../components/CarrosselModulos";
