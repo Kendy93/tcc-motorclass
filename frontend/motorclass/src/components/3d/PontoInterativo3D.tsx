@@ -9,6 +9,7 @@ interface PontoInterativo3DProps {
     objeto: THREE.Object3D;
     titulo: string;
     onClick: () => void;
+    mostrarTitulo?: boolean;
 }
 
 //===========================================================================
@@ -17,6 +18,7 @@ export default function PontoInterativo3D({
     objeto,
     titulo,
     onClick,
+    mostrarTitulo = true,
 }: PontoInterativo3DProps) {
     const grupoRef = useRef<THREE.Group>(null);
     const posicao = useRef(new THREE.Vector3());
@@ -70,24 +72,26 @@ export default function PontoInterativo3D({
                         "
                     />
                     {/* label com o nome da parte */}
-                    <span
-                        className="
-                            pointer-events-none
-                            absolute
-                            left-10
-                            whitespace-nowrap
-                            rounded-md
-                            bg-black
-                            px-2 py-1
-                            text-xl
-                            text-white
-                            opacity-0
-                            transition-opacity
-                            group-hover:opacity-100
-                        "
-                    >
-                        {titulo}
-                    </span>
+                    {mostrarTitulo && (
+                        <span
+                            className="
+                                pointer-events-none
+                                absolute
+                                left-10
+                                whitespace-nowrap
+                                rounded-md
+                                bg-black
+                                px-2 py-1
+                                text-xl
+                                text-white
+                                opacity-0
+                                transition-opacity
+                                group-hover:opacity-100
+                            "
+                        >
+                            {titulo}
+                        </span>
+                    )}
                 </button>
             </Html>
         </group>

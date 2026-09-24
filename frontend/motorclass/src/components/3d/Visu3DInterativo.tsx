@@ -9,19 +9,9 @@ import {
 import * as THREE from "three";
 
 import PontoInterativo3D from "./PontoInterativo3D";
+import type { InformacaoPeca, PecaSelecionada } from "../../types";
 
 //===========================================================================
-
-interface InformacaoPeca {
-    titulo: string;
-    descricao: string;
-}
-
-interface PecaSelecionada {
-    objeto: THREE.Object3D;
-    posicao: THREE.Vector3;
-    informacao: InformacaoPeca;
-}
 
 interface ModeloProps {
     modelo: string;

@@ -17,6 +17,7 @@ import AnimacaoVideo from "../components/AnimacaoVideo";
 import { BordaImagem } from "../components/BordaImagem.tsx";
 import Problema from "../components/Problema.tsx";
 import QuestaoMultiplaEscolha from "../components/QuestaoMultiplaEscolha.tsx";
+import Pergunta3D from "../components/3d/Pergunta3D.tsx";
 
 export default function Modulo() {
     const { codigo } = useParams();
@@ -67,21 +68,49 @@ export default function Modulo() {
         nome,
     }: Visualizador3DMDXProps) {
         const modelo = configuracao.modelos3D[nome];
-
         if (!modelo) {
             console.warn(
                 `Modelo 3D "${nome}" não encontrado no módulo "${codigo}".`
             );
-
             return (
                 <p>
                     Modelo 3D "{nome}" não encontrado.
                 </p>
             );
         }
-
         return (
             <Visualizador3D configuracao={modelo} />
+        );
+    }
+
+    //wrapper para funcionar dentro do MDX
+    interface Pergunta3DMDXProps {
+        nome: string;
+        pergunta: string;
+        resposta: string;
+    }
+    function Pergunta3DMDX({
+        nome,
+        pergunta,
+        resposta,
+    }: Pergunta3DMDXProps) {
+        const modelo = configuracao.modelos3D[nome];
+        if (!modelo) {
+            console.warn(
+                `Modelo 3D "${nome}" não encontrado no módulo "${codigo}".`
+            );
+            return (
+                <p>
+                    Modelo 3D "{nome}" não encontrado.
+                </p>
+            );
+        }
+        return (
+            <Pergunta3D
+                configuracao={modelo}
+                pergunta={pergunta}
+                resposta={resposta}
+            />
         );
     }
 
@@ -120,6 +149,7 @@ export default function Modulo() {
                             Problema,
                             QuestaoMultiplaEscolha,
                             Visualizador3D: Visualizador3DMDX,
+                            Pergunta3D: Pergunta3DMDX,
                         }}
                     />
 

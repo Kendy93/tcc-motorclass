@@ -20,12 +20,16 @@ export default function QuestaoMultiplaEscolha({
         if (selecionada === null) return;
         setRespondida(true);
     };
+    const selecionarAlternativa = (index: number) => {
+        setSelecionada(index);
+        setRespondida(false);
+    };
     const correta =
         selecionada !== null &&
         alternativas[selecionada].correta;
 
     return (
-        <div className="my-10 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="my-10 rounded-xl border border-gray-200 p-6 shadow-sm">
             <h3 className="mb-6 text-lg font-semibold text-blue3">
                 {pergunta}
             </h3>
@@ -39,11 +43,7 @@ export default function QuestaoMultiplaEscolha({
                         <button
                             key={index}
                             type="button"
-                            onClick={() => {
-                                if (!respondida) {
-                                    setSelecionada(index);
-                                }
-                            }}
+                            onClick={() => selecionarAlternativa(index)}
                             className={`
                                 w-full
                                 rounded-lg
@@ -89,7 +89,7 @@ export default function QuestaoMultiplaEscolha({
                     `}
                 >
                     <p className="font-semibold">
-                        {correta ? "Correto!" : "Errado..."}
+                        {correta ? " ✓ Correto!" : "✗ Errado..."}
                     </p>
                     <p className="mt-2 text-sm leading-relaxed">
                         {explicacao}

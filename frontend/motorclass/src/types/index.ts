@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import * as THREE from "three";
 
 export interface Modulo {
     id: number;
@@ -61,4 +62,15 @@ export interface ConfiguracaoModelo3D {
     };
     interativo: boolean;
     pecas?: Record<string, Peca3D>;
+}
+
+export interface InformacaoPeca {
+    titulo: string;
+    descricao: string;
+}
+
+export interface PecaSelecionada {
+    objeto: THREE.Object3D;
+    posicao: THREE.Vector3;
+    informacao: InformacaoPeca;
 }

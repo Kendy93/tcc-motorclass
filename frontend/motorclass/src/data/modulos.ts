@@ -220,7 +220,7 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
                     pastilha: {
                         titulo: "Pastilhas",
                         descricao:
-                            "É pressionada contra o disco pela pinça, criando o atrito necessário para diminuir a velocidade da roda.",
+                            "São pressionada contra o disco pela pinça, criando o atrito necessário para diminuir a velocidade da roda.",
                     },
                     pinca: {
                         titulo: "Pinças de freio",
@@ -252,6 +252,102 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
                         titulo: "Freios a tambor",
                         descricao:
                             "Sistema usado na traseira do nosso carro, onde a frenagem não é tão necessária.",
+                    },
+                },
+            },
+            sistemaCompleto: {
+                modelo: "/models/10_parando_o_carro/tcc_models-full_brakes_COMPLETO.glb",
+                escala: 1,
+                interativo: true,
+                camera: {
+                    camerapos: [3.2, 1.1, 0],
+                    origem: [0, 0.25, 0],
+                },
+                pecas: {
+                    cilindro_mestre: {
+                        titulo: "Cilindro mestre",
+                        descricao:
+                            "Dentro dele fica o pistão que ajuda a converter a força recebida do pedal em pressão hidráulica, empurrando o fluido pelas linhas de freio até as rodas.",
+                    },
+                    hidrovacuo: {
+                        titulo: "Hidrovácuo",
+                        descricao:
+                            "Usa o vácuo do motor para aumentar a força aplicada ao sistema de freios, permitindo que o motorista precise fazer menos esforço ao pressionar o pedal.",
+                    },
+                    linhas_freio: {
+                        titulo: "Linhas de freio",
+                        descricao:
+                            "São os tubos que conduzem o fluido pressurizado pelo sistema, levando a força gerada no cilindro mestre até os freios das rodas.",
+                    },
+                    pedal_freio: {
+                        titulo: "Pedal do freio",
+                        descricao:
+                            "É a peça acionada pelo motorista para iniciar a frenagem. Ao ser pressionado, transmite a força até o cilindro mestre.",
+                    },
+                    reservatorio_freio: {
+                        titulo: "Reservatório de fluido de freio",
+                        descricao:
+                            "Armazena o fluido usado pelo sistema hidráulico e mantém uma quantidade disponível para que a frenagem possa funcionar corretamente.",
+                    },
+                    molas: {
+                        titulo: "Molas de retorno",
+                        descricao:
+                            "Mantêm as sapatas afastadas do tambor quando o pedal de freio é solto, fazendo com que elas retornem à posição inicial.",
+                    },
+                    pistao: {
+                        titulo: "Pistão",
+                        descricao:
+                            "É empurrado pela pressão do fluido de freio que chega pelas linhas e movimenta as sapatas, fazendo com que elas pressionem o tambor.",
+                    },
+                    regulador: {
+                        titulo: "Regulador",
+                        descricao:
+                            "Permite ajustar a posição das sapatas para compensar o desgaste e manter a distância correta em relação ao tambor.",
+                    },
+                    sapatas: {
+                        titulo: "Sapatas de freio",
+                        descricao:
+                            "São pressionadas contra a parte interna do tambor para criar o atrito responsável por diminuir a velocidade da roda.",
+                    },
+                    tambor: {
+                        titulo: "Tambor de freio",
+                        descricao:
+                            "É a parte que gira junto com a roda. As sapatas são pressionadas contra sua superfície interna para gerar o atrito da frenagem.",
+                    },
+                    tampa_traseira: {
+                        titulo: "Tampa traseira",
+                        descricao:
+                            "É a estrutura fixa onde ficam montados os principais componentes do freio a tambor, como as sapatas, molas e cilindro da roda.",
+                    },
+                    tambor_completo: {
+                        titulo: "Freio a tambor",
+                        descricao:
+                            "Freio a tambor montado (sem o tambor em si para facilitar a visualização).",
+                    },
+                    disco: {
+                        titulo: "Disco de freio",
+                        descricao:
+                            "É a parte que gira junto com a roda. As pastilhas são pressionadas contra suas superfícies para gerar o atrito responsável pela frenagem.",
+                    },
+                    disco_completo: {
+                        titulo: "Freio a disco",
+                        descricao:
+                            "Freio a disco completo.",
+                    },
+                    pastilha: {
+                        titulo: "Pastilhas",
+                        descricao:
+                            "É pressionada contra o disco pela pinça, criando o atrito necessário para diminuir a velocidade da roda.",
+                    },
+                    pinca: {
+                        titulo: "Pinças de freio",
+                        descricao:
+                            "Abriga os pistões e mantém as pastilhas posicionadas ao redor do disco. Ao receber pressão do fluido, seus pistões pressionam as pastilhas contra o disco.",
+                    },
+                    tampa_tras: {
+                        titulo: "Tampa traseira",
+                        descricao:
+                            "É uma proteção localizada atrás do disco que ajuda a proteger o sistema contra sujeira, água e outros detritos.",
                     },
                 },
             },
