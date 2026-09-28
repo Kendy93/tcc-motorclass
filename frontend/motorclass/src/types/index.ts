@@ -74,3 +74,19 @@ export interface PecaSelecionada {
     posicao: THREE.Vector3;
     informacao: InformacaoPeca;
 }
+
+export interface Animacao3DConfig {
+    gatilho: string;
+    titulo: string;
+    animacao: string;
+    anotacoes?: AnotacaoAnimacao3D[];
+    velocidade?: number;
+}
+
+export interface AnotacaoAnimacao3D {
+    id: string;
+    texto: string;
+    inicio: number;
+    fim: number;
+    posicao: [number, number, number];
+}

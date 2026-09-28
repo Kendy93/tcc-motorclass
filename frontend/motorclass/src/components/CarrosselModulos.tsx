@@ -6,11 +6,12 @@ interface CarrosselModulosProps {
     modulos: Modulo[];
 }
 
+//===========================================================================
+
 export default function CarrosselModulos({
     modulos,
 }: CarrosselModulosProps) {
     const carrosselRef = useRef<HTMLDivElement>(null);
-
     function mover(distancia: number) {
         carrosselRef.current?.scrollBy({
             left: distancia,

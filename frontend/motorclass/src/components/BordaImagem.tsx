@@ -5,6 +5,8 @@ interface ImageCardProps {
     className?: string;
 }
 
+//===========================================================================
+
 export function BordaImagem({ src, alt, maxWidth = "max-w-full", className = "" }: ImageCardProps) {
     return (
         <div className={`

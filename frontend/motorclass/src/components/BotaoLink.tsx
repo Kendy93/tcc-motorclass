@@ -7,6 +7,8 @@ interface BotaoLinkProps extends LinkProps {
     className?: string;
 }
 
+//===========================================================================
+
 export default function BotaoLink({
     variant = "primary",
     children,

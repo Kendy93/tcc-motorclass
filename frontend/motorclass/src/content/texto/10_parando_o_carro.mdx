@@ -16,11 +16,11 @@
         
     Inicialmente, o movimento dessas peças era controlado através de alavancas, cabos e polias, porém esse sistema não era confiável e exigia muita manutenção para garantir seu funcionamento. A solução para esse problema, que foi utilizada em praticamente todos os veículos depois da década de 30, é o uso de um sistema hidráulico.
 
-        <Visualizador3D nome="cilindroMestre" />
-
     Quando o motorista pressiona o pedal de freio, uma articulação mecânica transfere essa força para o **cilindro mestre** do veículo, nesse cilindro fica um pistão, mola e o mais importante, o reservatório do fluído de freio, que é um tipo de fluído não comprimível.
         
-    A articulação empurra o cilindro, que por sua vez empurra o fluído pelas **linhas de freio** que levam até os freios do carro. Esse movimento do fluído é o que irá gerar o atrito para parar o veículo. A mola garante que o pistão volte a sua posição inicial ao soltar o pedal. O cilindro geralmente é dividido em duas partes, sendo uma para os freios dianteiros e outra para os traseiros, dessa forma se uma das partes falharem, a outra deve continuar funcionando.
+    A articulação empurra o cilindro, que por sua vez empurra o fluído pelas **linhas de freio** que levam até os freios do carro. Esse movimento do fluído é o que irá gerar o atrito para parar o veículo. A mola garante que o pistão volte a sua posição inicial ao soltar o pedal. O cilindro geralmente é dividido em duas partes, sendo uma para os freios dianteiros e outra para os traseiros, dessa forma se uma das partes falharem, a outra deve continuar funcionando. No modelo abaixo você consegue ver cada uma das peças mencionadas.
+
+        <Visualizador3D nome="cilindroMestre" />
 
 ## Gerando o atrito
 
@@ -32,7 +32,7 @@
         
     Dentro do tambor e presas nessa tampa, ficam as **sapatas de freio**. Quando o fluído chega pelas linhas ao cilindro da roda, ele empurra outro pistão, que empurra as sapatas, pressionando elas contra o tambor em movimento.
         
-    Existem alguns tipos diferentes de freios a tambor. Eles podem ter 1 ou 2 cilindros nas rodas ou então ter duas sapatas independentes ou uma líder e a outra seguidora. Quando o pedal de freio é solto, molas fazem com que as sapatas voltem ao seu local de origem.
+    Existem alguns tipos diferentes de freios a tambor. Eles podem ter 1 ou 2 cilindros nas rodas ou então ter duas sapatas independentes ou uma líder e a outra seguidora. Quando o pedal de freio é solto, molas fazem com que as sapatas voltem ao seu local de origem. O modelo exibido abaixo é do tipo que possui apenas 1 cilindro.
 
         <Visualizador3D nome="freioTambor" />
 
@@ -50,25 +50,76 @@
 
     Na animação abaixo você pode acompanhar o funcionamento de um sistema de freio a disco e o que acontece ao pisar no pedal.
 
-        <AnimacaoVideo
+        <Animacao3D
+            nome="freioAnimacao"
             animacoes={[
                 {
-                    titulo: "Rodas em movimento",
-                    video: "/videos/10_parando_o_carro/10_andando.webm",
-                    legenda: "Com o veículo em movimento, os discos giram livremente junto às rodas."
+                    gatilho: "gatilho_girar",
+                    titulo: "Veículo em movimento",
+                    animacao: "freio_girando",
+                    anotacoes: [
+                        {
+                            id: "girar",
+                            texto: "Durante o movimento normal, os discos de freio giram juntos com as rodas .",
+                            inicio: 0,
+                            fim: 10,
+                            posicao: [0, 0, 0],
+                        },
+                    ],
                 },
                 {
-                    titulo: "Pisando no pedal",
-                    video: "/videos/10_parando_o_carro/10_freando.webm",
-                    legenda: "Ao pisar no pedal, o pistão no cilindro de freio é acionado e envia o fluído para as pinças. Lá, o fluído aciona outros pistões, que empurram as pastilhas contra o disco. O atrito das pastilhas transforma a energia cinética em térmica."
+                    gatilho: "gatilho_freiar",
+                    titulo: "Pisando nos freios",
+                    animacao: "freio_freando",
+                    velocidade: 0.5,
+                    anotacoes: [
+                        {
+                            id: "pedal",
+                            texto: "Ao pressionar o pedal, o cilindro mestre é acionado.",
+                            inicio: 0,
+                            fim: 1.5,
+                            posicao: [0, 0, 0],
+                        },
+                        {
+                            id: "fluido",
+                            texto: "A pressão gerada é transmitida pelo fluido de freio. O caminho do fluido é representado pelas setas laranjas na linha do freio.",
+                            inicio: 1.5,
+                            fim: 3,
+                            posicao: [0, 0, 0],
+                        },
+                        {
+                            id: "pastilhas",
+                            texto: "Quando o fluido alcança as pinças, ele faz com que o pistão dentro delas pressione as pastilhas contra o disco (seta vermelha). Gerando atrito e parando o carro.",
+                            inicio: 3,
+                            fim: 10,
+                            posicao: [0, 0, 0],
+                        },
+                    ],
                 },
                 {
-                    titulo: "Afundando o pedal",
-                    video: "/videos/10_parando_o_carro/10_travando.webm",
-                    legenda: "Se o pedal for pressionado com muita força e de forma brusca, as rodas podem parar de girar enquanto o carro ainda está andando. Isso faz o carro deslizar e acaba aumentando a distância de frenagem."
+                    gatilho: "gatilho_travar",
+                    titulo: "Travando os freios",
+                    animacao: "freio_travando",
+                    anotacoes: [
+                        {
+                            id: "velocidade",
+                            texto: "Aqui todo o processo de frenagem ocorre mais rapidamente.",
+                            inicio: 0,
+                            fim: 2.5,
+                            posicao: [0, 0, 0],
+                        },
+                        {
+                            id: "travamento",
+                            texto: "Isso pode fazer com que as rodas travem de uma vez, fazendo o carro deslizar.",
+                            inicio: 2.5,
+                            fim: 10,
+                            posicao: [0, 0, 0],
+                        },
+                    ],
                 },
             ]}
         />
+
 
 
 ## Voltando para a nossa realidade

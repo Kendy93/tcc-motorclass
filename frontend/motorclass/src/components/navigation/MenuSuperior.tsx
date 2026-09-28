@@ -3,9 +3,12 @@ import { CircleUserRound } from "lucide-react";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/api";
 
+//===========================================================================
+
 export default function MenuSuperior() {
     const [autenticado, setAutenticado] = useState(false);
     const [verificandoUsuario, setVerificandoUsuario] = useState(true);
+    
     //verificando se o usuário está logado
     useEffect(() => {
         api.get("/api/user")

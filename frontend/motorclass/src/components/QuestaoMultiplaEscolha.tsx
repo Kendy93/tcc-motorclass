@@ -8,6 +8,8 @@ export interface QuestaoMultiplaEscolhaProps {
     explicacao?: string;
 }
 
+//===========================================================================
+
 export default function QuestaoMultiplaEscolha({
     pergunta,
     alternativas,

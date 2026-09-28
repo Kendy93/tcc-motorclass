@@ -5,6 +5,8 @@ interface AnimacaoVideoProps {
     animacoes: Animacao[];
 }
 
+//===========================================================================
+
 export default function AnimacaoVideo({
     animacoes,
 }: AnimacaoVideoProps) {

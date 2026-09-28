@@ -6,6 +6,8 @@ interface MenuSecoesMobileProps {
     secoes: Secao[];
 }
 
+//===========================================================================
+
 export default function MenuSecoesMobile({
     secoes,
 }: MenuSecoesMobileProps) {

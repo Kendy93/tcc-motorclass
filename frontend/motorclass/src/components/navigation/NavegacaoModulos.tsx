@@ -6,21 +6,19 @@ interface NavegacaoModulosProps {
     moduloAtual: string;
 }
 
+//===========================================================================
+
 export default function NavegacaoModulos({
     modulos,
     moduloAtual,
 }: NavegacaoModulosProps) {
-    const indiceAtual = modulos.findIndex(
-        (modulo) => modulo.codigo === moduloAtual
-    );
-    const moduloAnterior =
-        indiceAtual > 0
-            ? modulos[indiceAtual - 1]
-            : null;
-    const moduloSeguinte =
-        indiceAtual < modulos.length - 1
-            ? modulos[indiceAtual + 1]
-            : null;
+    const indiceAtual = modulos.findIndex((modulo) => modulo.codigo === moduloAtual);
+    const moduloAnterior = indiceAtual > 0
+        ? modulos[indiceAtual - 1]
+        : null;
+    const moduloSeguinte = indiceAtual < modulos.length - 1
+        ? modulos[indiceAtual + 1]
+        : null;
 
     return (
         <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-8">

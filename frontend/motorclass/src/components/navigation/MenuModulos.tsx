@@ -7,6 +7,8 @@ interface MenuModulosProps {
     moduloAtual: string;
 }
 
+//===========================================================================
+
 export default function MenuModulos({
     modulos,
     moduloAtual,

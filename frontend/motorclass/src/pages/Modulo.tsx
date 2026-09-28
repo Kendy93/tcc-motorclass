@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
-import type { Modulo } from "../types";
+import type { Modulo, Animacao3DConfig } from "../types";
 
 import { configuracoesModulos } from "../data/modulos.ts";
 import Visualizador3D from "../components/3d/Visualizador3D.tsx";
@@ -12,12 +12,16 @@ import MenuModulosMobile from "../components/navigation/MenuModulosMobile.tsx";
 import NavegacaoModulos from "../components/navigation/NavegacaoModulos.tsx";
 import FinalizarModulo from "../components/FinalizarModulo.tsx";
 import type { ConfiguracaoModulo } from "../types";
+import Anotacao3D from "../components/3d/Anotacao3D.tsx";
 
 import AnimacaoVideo from "../components/AnimacaoVideo";
 import { BordaImagem } from "../components/BordaImagem.tsx";
 import Problema from "../components/Problema.tsx";
 import QuestaoMultiplaEscolha from "../components/QuestaoMultiplaEscolha.tsx";
 import Pergunta3D from "../components/3d/Pergunta3D.tsx";
+import Animacao3D from "../components/3d/Animacao3D";
+
+//===========================================================================
 
 export default function Modulo() {
     const { codigo } = useParams();
@@ -46,7 +50,6 @@ export default function Modulo() {
                 console.error("Erro ao buscar módulos:", error);
             });
     }, []);
-
     if (!modulo) {
         return <p>Carregando...</p>;
     }
@@ -59,6 +62,8 @@ export default function Modulo() {
         return <p>Módulo não encontrado.</p>;
     }
     const Conteudo = configuracao.conteudo;
+
+//-------------------------------------------------------
 
     //wrapper para funcionar dentro do MDX
     interface Visualizador3DMDXProps {
@@ -114,6 +119,36 @@ export default function Modulo() {
         );
     }
 
+    //wrapper para funcionar dentro do MDX
+    interface Animacao3DMDXProps {
+        nome: string;
+        animacoes: Animacao3DConfig[];
+    }
+    function Animacao3DMDX({
+        nome,
+        animacoes,
+    }: Animacao3DMDXProps) {
+        const modelo = configuracao.modelos3D[nome];
+        if (!modelo) {
+            console.warn(
+                `Modelo 3D "${nome}" não encontrado no módulo "${codigo}".`
+            );
+            return (
+                <p>
+                    Modelo 3D "{nome}" não encontrado.
+                </p>
+            );
+        }
+        return (
+            <Animacao3D
+                configuracao={modelo}
+                animacoes={animacoes}
+            />
+        );
+    }
+
+//-------------------------------------------------------
+
     return (
         <main>
             <Visualizador3D
@@ -150,6 +185,7 @@ export default function Modulo() {
                             QuestaoMultiplaEscolha,
                             Visualizador3D: Visualizador3DMDX,
                             Pergunta3D: Pergunta3DMDX,
+                            Animacao3D: Animacao3DMDX,
                         }}
                     />
 

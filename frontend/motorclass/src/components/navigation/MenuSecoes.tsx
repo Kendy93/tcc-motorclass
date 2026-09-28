@@ -5,6 +5,8 @@ interface MenuSecoesProps {
     secoes: Secao[];
 }
 
+//===========================================================================
+
 export default function MenuSecoes({ secoes }: MenuSecoesProps) {
     const [secaoAtiva, setSecaoAtiva] = useState(secoes[0]?.id);
 

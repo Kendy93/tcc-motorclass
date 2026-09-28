@@ -9,6 +9,8 @@ interface FinalizarModuloProps {
     modulos: Modulo[];
 }
 
+//===========================================================================
+
 export default function FinalizarModulo({
     moduloAtual,
     modulos,
@@ -34,15 +36,11 @@ export default function FinalizarModulo({
             });
     }, []);
 
+    const indiceAtual = modulos.findIndex((modulo) => modulo.codigo === moduloAtual);
 
-    const indiceAtual = modulos.findIndex(
-        (modulo) => modulo.codigo === moduloAtual
-    );
-
-    const moduloSeguinte =
-        indiceAtual >= 0 && indiceAtual < modulos.length - 1
-            ? modulos[indiceAtual + 1]
-            : null;
+    const moduloSeguinte = indiceAtual >= 0 && indiceAtual < modulos.length - 1
+        ? modulos[indiceAtual + 1]
+        : null;
 
     const finalizar = async () => {
         if (!autenticado) { 
@@ -67,6 +65,8 @@ export default function FinalizarModulo({
             setLoading(false);
         }
     };
+
+//-------------------------------------------------------
 
     return (
         <div className="my-16 text-center">

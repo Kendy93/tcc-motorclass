@@ -1,5 +1,7 @@
 import LinkNav from "./navigation/LinkNav";
 
+//===========================================================================
+
 export default function Rodape() {
     return (
         <footer className="w-full py-10 px-32 bg-maindark">

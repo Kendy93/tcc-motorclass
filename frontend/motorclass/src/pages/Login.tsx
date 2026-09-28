@@ -5,31 +5,27 @@ import { Link } from "react-router-dom";
 import Botao from "../components/Botao";
 import LinkNav from "../components/navigation/LinkNav";
 
+//===========================================================================
+
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
-
         setError("");
         setLoading(true);
 
         try {
             await api.get("/sanctum/csrf-cookie");
-
             await api.post("/login", {
                 email,
                 password,
             });
-
             const response = await api.get("/api/user");
-
             console.log("Usuário autenticado:", response.data);
-
             window.location.href = "/modulos";
         } catch (error: any) {
             if (error.response?.status === 422) {
@@ -42,6 +38,8 @@ export default function Login() {
             setLoading(false);
         }
     }
+
+//-------------------------------------------------------
 
     return (
         <main className="flex min-h-screen items-center justify-center bg-blue2">

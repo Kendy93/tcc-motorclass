@@ -12,6 +12,8 @@ interface LinkNavProps {
     alt?: string;
 }
 
+//===========================================================================
+
 export default function LinkNav({
     tipo,
     destino,

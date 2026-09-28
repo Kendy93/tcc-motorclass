@@ -115,6 +115,15 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
                     origem: [0, 0.25, 0],
                 },
             },
+                freioAnimacao: {
+                modelo: "/models/10_parando_o_carro/tcc_models-freio_ANIMACAO.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [1.1, 0.6, -0.5],
+                    origem: [0.25, 0.42, -0.1],
+                },
+            },
             cilindroMestre: {
                 modelo: "/models/10_parando_o_carro/tcc_models-brake_booster.glb",
                 escala: 1,

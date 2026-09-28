@@ -5,6 +5,8 @@ import { api } from "../lib/api";
 import Botao from "../components/Botao";
 import LinkNav from "../components/navigation/LinkNav";
 
+//===========================================================================
+
 export default function Cadastro() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -51,6 +53,8 @@ export default function Cadastro() {
             setLoading(false);
         }
     };
+
+//-------------------------------------------------------
 
     return (
         <main className="flex min-h-screen items-center justify-center bg-blue2">

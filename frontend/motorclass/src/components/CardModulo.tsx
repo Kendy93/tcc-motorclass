@@ -5,6 +5,8 @@ interface CardModuloProps {
     modulo: Modulo;
 }
 
+//===========================================================================
+
 export default function CardModulo({
     modulo,
 }: CardModuloProps) {

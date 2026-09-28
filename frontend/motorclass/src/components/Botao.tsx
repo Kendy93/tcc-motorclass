@@ -5,6 +5,8 @@ interface BotaoProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
 }
 
+//===========================================================================
+
 export default function Botao({
     variant = "primary",
     children,
