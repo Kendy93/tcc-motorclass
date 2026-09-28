@@ -46,8 +46,7 @@ export default function LandingPage() {
                                 Entenda como seu carro funciona.
                             </h1>
                             <p className="text-lg leading-relaxed text-gray-600">
-                                Aprenda os principais sistemas de um automóvel,
-                                focando no melhor tipo, os carros <span className="line-through">velhos</span> <span className="font-bold">antigos!</span>
+                                Aprenda os principais sistemas de um automóvel, focando no melhor tipo, os carros <span className="line-through">velhos</span> <span className="font-bold">antigos!</span>
                             </p>
 
                             <div className="mt-8 flex justify-center gap-4">
