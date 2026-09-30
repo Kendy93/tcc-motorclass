@@ -4,106 +4,109 @@ import FundamentosTexto from "../content/texto/01_como_o_motor_funciona.mdx";
 import FreiosTexto from "../content/texto/10_parando_o_carro.mdx";
 
 export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
-    // "fundamentos":{
-    //     escala: 1,
-    //     conteudo: FundamentosTexto,
-    //     camera: {
-    //         camerapos: [3.2, 1.1, 0],
-    //         origem: [0, 0.25, 0],
-    //     },
+    "fundamentos":{
+        conteudo: FundamentosTexto,
+        modelos3D: {
+            principal: {
+                modelo: "/models/10_parando_o_carro/tcc_models-brakesMAIN.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [3.2, 1.1, 0],
+                    origem: [0, 0.25, 0],
+                },
+            },
+        },
+        secoes: [
+            {
+                id: "como-o-motor-funciona",
+                titulo: "Como o motor funciona",
+                nivel: 1,
+            },
+            {
+                id: "os-fundamentos",
+                titulo: "Os fundamentos",
+                nivel: 2,
+            },
+            {
+                id: "os-ciclos-dos-motores",
+                titulo: "Os ciclos dos motores",
+                nivel: 2,
+            },
+            {
+                id: "o-ciclo-de-quatro-tempos",
+                titulo: "O ciclo de quatro tempos",
+                nivel: 3,
+            },
+            {
+                id: "o-ciclo-de-dois-tempos",
+                titulo: "O ciclo de dois tempos",
+                nivel: 3,
+            },
+            {
+                id: "por-que-4-e-nao-2-tempos",
+                titulo: "Por quê 4 e não 2 tempos?",
+                nivel: 3,
+            },
+            {
+                id: "alguns-termos-que-valem-ser-mencionados",
+                titulo: "Alguns termos que valem ser mencionados",
+                nivel: 3,
+            },
+            {
+                id: "as-partes-que-fazem-isso-ser-possivel",
+                titulo: "As partes que fazem isso ser possível",
+                nivel: 2,
+            },
+            {
+                id: "o-basico",
+                titulo: "O básico",
+                nivel: 3,
+            },
+            {
+                id: "o-conjunto-rotativo",
+                titulo: "O conjunto rotativo",
+                nivel: 3,
+            },
+            {
+                id: "valvulas-e-a-sincronia",
+                titulo: "Válvulas e a sincronia",
+                nivel: 3,
+            },
+            {
+                id: "os-diferentes-tipos-de-motores",
+                titulo: "Os diferentes tipos de motores",
+                nivel: 2,
+            },
+            {
+                id: "tamanho-e-layout",
+                titulo: "Tamanho e layout",
+                nivel: 3,
+            },
+            {
+                id: "cabecotes",
+                titulo: "Cabeçotes",
+                nivel: 3,
+            },
+            {
+                id: "valvulas",
+                titulo: "Válvulas",
+                nivel: 3,
+            },
+            {
+                id: "virabrequim",
+                titulo: "Virabrequim",
+                nivel: 3,
+            },
+            {
+                id: "problemas-comuns",
+                titulo: "Problemas comuns",
+                nivel: 2,
+            },
+        ],
+        //modelo3D: "/models/10_parando_o_carro/tcc_models-brakes_full.glb",
 
-    //     secoes: [
-    //         {
-    //             id: "como-o-motor-funciona",
-    //             titulo: "Como o motor funciona",
-    //             nivel: 1,
-    //         },
-    //         {
-    //             id: "os-fundamentos",
-    //             titulo: "Os fundamentos",
-    //             nivel: 2,
-    //         },
-    //         {
-    //             id: "os-ciclos-dos-motores",
-    //             titulo: "Os ciclos dos motores",
-    //             nivel: 2,
-    //         },
-    //         {
-    //             id: "o-ciclo-de-quatro-tempos",
-    //             titulo: "O ciclo de quatro tempos",
-    //             nivel: 3,
-    //         },
-    //         {
-    //             id: "o-ciclo-de-dois-tempos",
-    //             titulo: "O ciclo de dois tempos",
-    //             nivel: 3,
-    //         },
-    //         {
-    //             id: "por-que-4-e-nao-2-tempos",
-    //             titulo: "Por quê 4 e não 2 tempos?",
-    //             nivel: 3,
-    //         },
-    //         {
-    //             id: "alguns-termos-que-valem-ser-mencionados",
-    //             titulo: "Alguns termos que valem ser mencionados",
-    //             nivel: 3,
-    //         },
-    //         {
-    //             id: "as-partes-que-fazem-isso-ser-possivel",
-    //             titulo: "As partes que fazem isso ser possível",
-    //             nivel: 2,
-    //         },
-    //         {
-    //             id: "o-basico",
-    //             titulo: "O básico",
-    //             nivel: 3,
-    //         },
-    //         {
-    //             id: "o-conjunto-rotativo",
-    //             titulo: "O conjunto rotativo",
-    //             nivel: 3,
-    //         },
-    //         {
-    //             id: "valvulas-e-a-sincronia",
-    //             titulo: "Válvulas e a sincronia",
-    //             nivel: 3,
-    //         },
-    //         {
-    //             id: "os-diferentes-tipos-de-motores",
-    //             titulo: "Os diferentes tipos de motores",
-    //             nivel: 2,
-    //         },
-    //         {
-    //             id: "tamanho-e-layout",
-    //             titulo: "Tamanho e layout",
-    //             nivel: 3,
-    //         },
-    //         {
-    //             id: "cabecotes",
-    //             titulo: "Cabeçotes",
-    //             nivel: 3,
-    //         },
-    //         {
-    //             id: "valvulas",
-    //             titulo: "Válvulas",
-    //             nivel: 3,
-    //         },
-    //         {
-    //             id: "virabrequim",
-    //             titulo: "Virabrequim",
-    //             nivel: 3,
-    //         },
-    //         {
-    //             id: "problemas-comuns",
-    //             titulo: "Problemas comuns",
-    //             nivel: 2,
-    //         },
-    //     ],
-    //     modelo3D: "/models/10_parando_o_carro/tcc_models-brakes_full.glb",
-    //     modelos3D:{
-
-    //     }
-    // },
+    },
     "freios": {
         modelos3D: {
             principal: {

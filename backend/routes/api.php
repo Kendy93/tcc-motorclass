@@ -26,8 +26,10 @@ Route::get('/user', function (Request $request) {
 Route::get('/modulos', [ModuloController::class, 'index']);
 Route::get('/modulos/{modulo}', [ModuloController::class, 'show']);
 
-//marca os modulos como concluido
-Route::post(
-    '/modulos/{modulo:codigo}/concluir',
-    [ModuloController::class, 'concluir']
-)->middleware('auth:sanctum');
+//marca/desmarca os modulos como concluido
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post(
+        '/modulos/{modulo:codigo}/alternar-conclusao',
+        [ModuloController::class, 'alternarConclusao']
+    );
+});

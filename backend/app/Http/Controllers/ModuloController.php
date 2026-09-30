@@ -43,4 +43,38 @@ class ModuloController extends Controller
             'message' => 'Módulo concluído.',
         ]);
     } 
+
+    //para permitir que o módulo seja "resetado"
+    public function alternarConclusao(Request $request, Modulo $modulo) {
+        $usuario = $request->user();
+        $relacao = $usuario->modulos()
+            ->where('modulo_id', $modulo->id)
+            ->first();
+
+        //se já tiver concluído, remove a conclusão
+        if ($relacao && $relacao->pivot->completed_at !== null) {
+            $usuario->modulos()->updateExistingPivot(
+                $modulo->id,
+                [
+                    'completed_at' => null,
+                ]
+            );
+            return response()->json([
+                'concluido' => false,
+                'message' => 'Módulo marcado como não concluído.',
+            ]);
+        }
+
+        //caso contrário, conclui o módulo
+        $usuario->modulos()->syncWithoutDetaching([
+            $modulo->id => [
+                'completed_at' => now(),
+            ],
+        ]);
+
+        return response()->json([
+            'concluido' => true,
+            'message' => 'Módulo concluído.',
+        ]);
+    }
 }

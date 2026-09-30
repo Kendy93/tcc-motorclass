@@ -90,3 +90,9 @@ export interface AnotacaoAnimacao3D {
     fim: number;
     posicao: [number, number, number];
 }
+
+export interface Recompensa {
+    codigo: string;
+    nome: string;
+    objeto: string;
+}

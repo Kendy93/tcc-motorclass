@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../lib/api";
 import type { Modulo } from "../types";
+import { recompensasPorModulo } from "../data/recompensas";
 import Botao from "./Botao";
 
 interface FinalizarModuloProps {
@@ -20,9 +21,15 @@ export default function FinalizarModulo({
     const [autenticado, setAutenticado] = useState(false);
     const [verificandoUsuario, setVerificandoUsuario] = useState(true);
 
+    const [concluido, setConcluido] = useState(false);
+    const [toast, setToast] = useState<string | null>(null);
+    const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
     const navigate = useNavigate();
 
-    //verificando se o usuário está logado
+//-------------------------------------------------------
+
+    //verifica se o usuário está logado
     useEffect(() => {
         api.get("/api/user")
             .then(() => {
@@ -36,31 +43,94 @@ export default function FinalizarModulo({
             });
     }, []);
 
-    const indiceAtual = modulos.findIndex((modulo) => modulo.codigo === moduloAtual);
+    //obtém o estado do módulo
+    useEffect(() => {
+        const modulo = modulos.find(
+            (modulo) => modulo.codigo === moduloAtual
+        );
+        setConcluido(modulo?.concluido ?? false);
+    }, [modulos, moduloAtual]);
 
-    const moduloSeguinte = indiceAtual >= 0 && indiceAtual < modulos.length - 1
-        ? modulos[indiceAtual + 1]
-        : null;
+    //faz a limpeza do timer do toast
+    useEffect(() => {
+        return () => {
+            if (toastTimer.current) {
+                clearTimeout(toastTimer.current);
+            }
+        };
+    }, []);
+
+//-------------------------------------------------------
+
+    const indiceAtual = modulos.findIndex((modulo) => modulo.codigo === moduloAtual);
+    const moduloSeguinte =
+        indiceAtual >= 0 && indiceAtual < modulos.length - 1
+            ? modulos[indiceAtual + 1]
+            : null;
+    const mostrarToast = (mensagem: string) => {
+        setToast(mensagem);
+        if (toastTimer.current) {
+            clearTimeout(toastTimer.current);
+        }
+        toastTimer.current = setTimeout(() => {
+            setToast(null);
+        }, 1800);
+    };
 
     const finalizar = async () => {
-        if (!autenticado) { 
-            setError("Você precisa estar logado para salvar seu progresso.");
-            return; 
+        if (!autenticado) {
+            setError(
+                "Você precisa estar logado para salvar seu progresso."
+            );
+            return;
         }
         setLoading(true);
         setError("");
         try {
-            await api.post(
-                `/api/modulos/${moduloAtual}/concluir`
+            const estavaConcluido = concluido;
+            const resposta = await api.post(
+                `/api/modulos/${moduloAtual}/alternar-conclusao`
             );
-            if (moduloSeguinte) {
-                navigate(`/modulos/${moduloSeguinte.codigo}`);
-            } else {
-                navigate("/modulos");
+            const novoEstado = resposta.data.concluido;
+            setConcluido(novoEstado);
+            //exibe a recompensa no toast
+            if (!estavaConcluido && novoEstado) {
+                const recompensa =
+                    recompensasPorModulo[moduloAtual];
+
+                if (recompensa) {
+                    mostrarToast(
+                        `Módulo concluído! Você desbloqueou: ${recompensa.nome}.`
+                    );
+                } else {
+                    mostrarToast("Módulo concluído!");
+                }
+                //deixa um tempo para o toast antes de seguir para o próx módulo
+                await new Promise((resolve) =>
+                    setTimeout(resolve, 1800)
+                );
+
+                if (moduloSeguinte) {
+                    navigate(`/modulos/${moduloSeguinte.codigo}`);
+                } else {
+                    navigate("/modulos");
+                }
+                return;
+            }
+            //remove a conclusão
+            if (estavaConcluido && !novoEstado) {
+                mostrarToast(
+                    "A conclusão do módulo foi removida."
+                );
             }
         } catch (error) {
-            console.error("Erro ao concluir módulo:", error);
-            setError("Não foi possível concluir o módulo.");
+            console.error(
+                "Erro ao atualizar conclusão do módulo:",
+                error
+            );
+            setError(
+                "Não foi possível atualizar o progresso do módulo."
+            );
         } finally {
             setLoading(false);
         }
@@ -78,15 +148,51 @@ export default function FinalizarModulo({
 
             <Botao
                 onClick={finalizar}
-                disabled={loading}
-                className="px-6 py-3 w-full"
+                disabled={
+                    loading ||
+                    verificandoUsuario ||
+                    !autenticado
+                }
+                className={`w-full px-6 py-3 transition ${
+                    concluido
+                        ? "border border-blue3 bg-blue1 text-mainlight hover:bg-blue5"
+                        : ""
+                }`}
             >
-                {loading
-                    ? "Finalizando..."
-                    : moduloSeguinte
-                        ? "Finalizar módulo e continuar"
-                        : "Finalizar módulo"}
+                {verificandoUsuario
+                    ? "Verificando..."
+                    : loading
+                        ? "Atualizando..."
+                        : concluido
+                            ? "✓ Módulo concluído"
+                            : moduloSeguinte
+                                ? "Finalizar módulo e continuar"
+                                : "Finalizar módulo"}
             </Botao>
+
+            {toast && (
+                <div
+                    className="
+                        fixed
+                        right-6
+                        top-6
+                        z-[100]
+                        max-w-sm
+                        rounded-lg
+                        border
+                        border-gray-200
+                        bg-white
+                        px-5
+                        py-4
+                        text-left
+                        shadow-lg
+                    "
+                >
+                    <p className="text-sm">
+                        {toast}
+                    </p>
+                </div>
+            )}
         </div>
     );
 }
