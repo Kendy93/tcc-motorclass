@@ -26,10 +26,15 @@ Route::get('/user', function (Request $request) {
 Route::get('/modulos', [ModuloController::class, 'index']);
 Route::get('/modulos/{modulo}', [ModuloController::class, 'show']);
 
-//marca/desmarca os modulos como concluido
+//faz a montagem das garagens e finaliza modulos
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get(
+        '/garagem', [ModuloController::class, 'garagem']
+    );
     Route::post(
-        '/modulos/{modulo:codigo}/alternar-conclusao',
-        [ModuloController::class, 'alternarConclusao']
+        '/garagem/{recompensa}/alternar', [ModuloController::class, 'alternarRecompensa']
+    );
+    Route::post(
+        '/modulos/{modulo:codigo}/alternar-conclusao', [ModuloController::class, 'alternarConclusao']
     );
 });

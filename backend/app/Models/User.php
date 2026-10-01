@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use App\Models\RecompensaUsuario;
+
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
@@ -35,5 +37,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Modulo::class)
             ->withPivot('completed_at')
             ->withTimestamps();
+    }
+
+    public function recompensas(){
+        return $this->hasMany(RecompensaUsuario::class);
     }
 }

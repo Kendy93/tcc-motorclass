@@ -13,26 +13,43 @@ interface Usuario {
     email: string;
 }
 
+interface RecompensaGaragem {
+    codigo: string;
+    nome: string;
+    objeto: string;
+    desbloqueada: boolean;
+    equipada: boolean;
+    modulo: string;
+}
+
 //===========================================================================
 
 export default function Perfil() {
     const navigate = useNavigate();
     const [usuario, setUsuario] = useState<Usuario | null>(null);
     const [modulos, setModulos] = useState<Modulo[]>([]);
+    const [recompensasGaragem, setRecompensasGaragem] = useState<RecompensaGaragem[]>([]);
     const [loading, setLoading] = useState(true);
     const [erro, setErro] = useState("");
+    const [atualizandoRecompensa, setAtualizandoRecompensa] = useState<string | null>(null);
 
+    //carregando os dados
     useEffect(() => {
         async function carregarPerfil() {
             try {
-                const [respostaUsuario, respostaModulos] =
-                    await Promise.all([
-                        api.get("/api/user"),
-                        api.get("/api/modulos"),
-                    ]);
+                const [
+                    respostaUsuario,
+                    respostaModulos,
+                    respostaGaragem,
+                ] = await Promise.all([
+                    api.get("/api/user"),
+                    api.get("/api/modulos"),
+                    api.get("/api/garagem"),
+                ]);
 
                 setUsuario(respostaUsuario.data.user);
                 setModulos(respostaModulos.data);
+                setRecompensasGaragem(respostaGaragem.data,);
             } catch (erro) {
                 console.error("Erro ao carregar perfil:", erro);
                 setErro("Não foi possível carregar seu perfil.");
@@ -43,18 +60,21 @@ export default function Perfil() {
         carregarPerfil();
     }, []);
 
-    const modulosConcluidos = useMemo(() => modulos.filter((modulo) => modulo.concluido), [modulos]);
+    const modulosConcluidos = useMemo(() => 
+        modulos.filter((modulo) => modulo.concluido), [modulos]);
     const quantidadeConcluida = modulosConcluidos.length;
     const porcentagem = modulos.length > 0
             ? Math.round((quantidadeConcluida / modulos.length) * 100,)
             : 0;
 
-    const recompensasDesbloqueadas = useMemo(() => obterRecompensasDesbloqueadas(modulos), [modulos]);
-    const proximaRecompensa = useMemo(() => obterProximaRecompensa(modulos), [modulos]);
+    const recompensasDesbloqueadas = useMemo(() => 
+        obterRecompensasDesbloqueadas(modulos), [modulos]);
+    const proximaRecompensa = useMemo(() => 
+        obterProximaRecompensa(modulos), [modulos]);
     const recompensasVisiveis = useMemo(() => {
         return modulos
             .map((modulo) => {
-                const recompensa =recompensasPorModulo[modulo.codigo];
+                const recompensa = recompensasPorModulo[modulo.codigo];
                 if (!recompensa) {
                     return null;
                 }
@@ -64,15 +84,72 @@ export default function Perfil() {
                 };
             })
             .filter(
-                (
-                    item,
-                ): item is {
+                (item): item is {
                     modulo: Modulo;
                     recompensa: Recompensa;
                 } => item !== null,
             );
     }, [modulos]);
 
+    //carrega com base na configuração
+    const pecasEquipadas = useMemo(() => {
+        return recompensasGaragem
+            .filter(
+                (recompensa) =>
+                    recompensa.desbloqueada &&
+                    recompensa.equipada,
+            )
+            .map(
+                (recompensa) =>
+                    recompensa.codigo,
+            );
+    }, [recompensasGaragem]);
+    const recompensasVisiveisNoCarro = useMemo(() => {
+        const equipadas = new Set(pecasEquipadas);
+
+        return recompensasDesbloqueadas.filter(
+            (recompensa) =>
+                equipadas.has(
+                    recompensa.codigo,
+                ),
+        );
+    }, [
+        recompensasDesbloqueadas,
+        pecasEquipadas,
+    ]);
+
+    //alterna se as recompensas ficam visíveis ou não
+    const alternarRecompensa = async (
+        recompensa: RecompensaGaragem,
+    ) => {
+        if (!recompensa.desbloqueada) {
+            return;
+        }
+        try {
+            setAtualizandoRecompensa(recompensa.codigo);
+            const resposta = await api.post(`/api/garagem/${recompensa.codigo}/alternar`);
+            const equipada = resposta.data.equipada;
+
+            setRecompensasGaragem(
+                (atual) =>
+                    atual.map((item) =>
+                        item.codigo ===
+                        recompensa.codigo? {
+                                ...item,
+                                equipada,
+                            }
+                        : item,
+                    ),
+            );
+        } catch (erro) {
+            console.error("Erro ao atualizar recompensa:", erro);
+        } finally {
+            setAtualizandoRecompensa(null);
+        }
+    };
+
+
+    //logout
     const sair = async () => {
         try {
             await api.post("/logout");
@@ -81,6 +158,8 @@ export default function Perfil() {
             console.error("Erro ao sair:", erro);
         }
     };
+
+//-------------------------------------------------------
 
     if (loading) {
         return (
@@ -105,12 +184,13 @@ export default function Perfil() {
         );
     }
 
-//-------------------------------------------------------
+
+//===========================================================================
 
     return (
         <main className="min-h-screen bg-module px-6 py-10">
             <div className="mx-auto max-w-[120rem]">
-                <header className="mt-2 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between !w-6xl">
+                <header className="mx-auto mt-2 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between !w-6xl">
                     <div>
                         <h1 className="text-3xl">
                             Olá, {usuario.name}
@@ -123,6 +203,8 @@ export default function Perfil() {
                         Sair
                     </Botao>
                 </header>
+
+{/*//-------------------------------------------------------*/}
 
                 <section className="mb-8 grid gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(320px,0.5fr)]">
                     {/* carro */}
@@ -137,10 +219,12 @@ export default function Perfil() {
                         </div>
                         <div className="bg-maindark">
                             <ModeloGamificacao
-                                recompensas={recompensasDesbloqueadas}
+                                recompensas={recompensasVisiveisNoCarro}
                             />
                         </div>
                     </div>
+
+{/*//-------------------------------------------------------*/}
 
                     {/* progresso */}
                     <div className="rounded-2xl bg-white p-6 shadow-sm text-left">
@@ -169,6 +253,8 @@ export default function Perfil() {
                                 {porcentagem}% concluído
                             </p>
                         </div>
+
+{/*//-------------------------------------------------------*/}
 
                         {/* próxima recompensa */}
                         <div className="mt-8 border-t border-gray-200 pt-6">
@@ -200,69 +286,111 @@ export default function Perfil() {
                     </div>
                 </section>
 
+{/*//-------------------------------------------------------*/}
+
                 {/* todas as recompensas */}
-                <section className="rounded-2xl bg-white p-6 shadow-sm text-left">
+                <section className="rounded-2xl bg-white p-6 text-left shadow-sm">
+
                     <div className="mb-6">
-                        <h2 className="text-xl font-semibold">
+                        <h2 className="text-xl">
                             Recompensas da sua garagem
                         </h2>
                         <p className="text-sm !text-gray-500">
-                            As peças são desbloqueadas conforme você conclui
-                            os módulos.
+                            As peças são desbloqueadas conforme você conclui os módulos. Escolha quais deseja equipar no carro.
                         </p>
                     </div>
 
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {recompensasVisiveis.map(
-                            ({ modulo, recompensa }) => {
+                            ({
+                                modulo,
+                                recompensa,
+                            }) => {
                                 const desbloqueada = modulo.concluido;
+                                //procura o estado para a recompensa
+                                const recompensaGaragem =
+                                    recompensasGaragem.find(
+                                        (item) =>
+                                            item.codigo ===
+                                            recompensa.codigo,
+                                    );
+                                const equipada = recompensaGaragem?.equipada ?? false;
+                                const atualizando = atualizandoRecompensa === recompensa.codigo;
+
                                 return (
-                                    <div
+                                    <label
                                         key={recompensa.codigo}
                                         className={`
+                                            flex
+                                            items-start
+                                            gap-3
                                             rounded-xl
                                             border
                                             p-5
                                             transition
                                             ${
                                                 desbloqueada
-                                                    ? "border-gray-200 bg-blue1/10"
-                                                    : "border-gray-200 bg-gray-50 opacity-50"
+                                                    ? "cursor-pointer border-gray-200 bg-blue1/10 hover:bg-blue1/15"
+                                                    : "cursor-not-allowed border-gray-200 bg-gray-50 opacity-50"
                                             }
                                         `}
                                     >
-                                        <div className="flex items-start justify-between gap-4">
-                                            <div>
-                                                <p
-                                                    className={`text-xs font-medium uppercase tracking-wide ${
+                                        <input
+                                            type="checkbox"
+                                            checked={
+                                                desbloqueada &&
+                                                equipada
+                                            }
+                                            disabled={
+                                                !desbloqueada ||
+                                                atualizando
+                                            }
+                                            onChange={() =>
+                                                recompensaGaragem &&
+                                                alternarRecompensa(
+                                                    recompensaGaragem,
+                                                )
+                                            }
+                                            className="h-4 w-4 cursor-pointer"
+                                        />
+
+                                        <div className="min-w-0">
+                                            <p
+                                                className={`
+                                                    text-xs
+                                                    font-medium
+                                                    uppercase
+                                                    tracking-wide
+                                                    ${
                                                         desbloqueada
                                                             ? "!text-blue1"
                                                             : "!text-gray-400"
-                                                    }`}
-                                                >
-                                                    {desbloqueada
-                                                        ? "Desbloqueada"
-                                                        : "Bloqueada"}
-                                                </p>
-                                                <h3 className="mt-1 font-semibold">
-                                                    {recompensa.nome}
-                                                </h3>
-                                            </div>
-                                            <span className="text-xl">
+                                                    }
+                                                `}
+                                            >
                                                 {desbloqueada
-                                                    ? "✓"
-                                                    : "✗"}
-                                            </span>
+                                                    ? equipada
+                                                        ? "Equipada"
+                                                        : "Desbloqueada"
+                                                    : "Bloqueada"}
+                                            </p>
+
+                                            <h3 className="mt-1 font-semibold">
+                                                {recompensa.nome}
+                                            </h3>
+                                            <p className="mt-2 text-sm !text-gray-500">
+                                                {desbloqueada
+                                                    ? equipada
+                                                        ? "Aparecendo no carro."
+                                                        : "Oculta do carro."
+                                                    : `Conclua "${modulo.titulo}" para desbloquear.`}
+                                            </p>
                                         </div>
-                                        <p className="mt-3 text-sm !text-gray-500">
-                                            {desbloqueada
-                                                ? `Desbloqueada ao concluir "${modulo.titulo}".`
-                                                : `Conclua "${modulo.titulo}" para desbloquear.`}
-                                        </p>
-                                    </div>
+                                    </label>
                                 );
                             },
                         )}
+
                     </div>
                 </section>
             </div>
