@@ -169,85 +169,110 @@
     </Problema>
 
 <hr className="border-gray-300 mb-6"/>
+    <Questionario id="quest-freios">
+        <Identificacao3D
+            id="identificacao-partes-freio"
+            nome="sistemaCompleto"
+            perguntas={[
+                {
+                    id: "tambor",
+                    pergunta: "Identifique o tambor de freio.",
+                    resposta: "tambor",
+                },
+                {
+                    id: "pastilha",
+                    pergunta: "Identifique a pastilha de freio.",
+                    resposta: "pastilha",
+                },
+                {
+                    id: "hidrovacuo",
+                    pergunta: "Identifique o hidrovácuo.",
+                    resposta: "hidrovacuo",
+                },
+            ]}
+        />
 
-    <Pergunta3D
-        nome="sistemaCompleto"
-        pergunta="Qual parte é a pastilha de freio?"
-        resposta="pastilha"
-    />
+        <QuestaoMultiplaEscolha
+            id="energia-cinetica"
+            pergunta="No geral, o que acontece com a energia cinética do carro durante uma frenagem?"
+            alternativas={[
+                {
+                    id: "a",
+                    texto: "Ela é armazenada na bateria.",
+                },
+                {
+                    id: "b",
+                    texto: "Ela é transformada principalmente em calor pelo atrito.",
+                },
+                {
+                    id: "c",
+                    texto: "Ela desaparece quando o pedal é pressionado.",
+                },
+            ]}
+            respostaCorreta="b"
+            explicacao="A energia cinética não pode apenas sumir quando o motorista freia. Os componentes do sistema de freios utilizam o atrito para se opor ao movimento das rodas, transformando a energia cinética principalmente em calor." 
+        />
 
-    <QuestaoMultiplaEscolha
-        pergunta="No geral, o que acontece com a energia cinética do carro durante uma frenagem?"
-        alternativas={[
-            {
-                texto: "Ela é armazenada na bateria.",
-                correta: false,
-            },
-            {
-                texto: "Ela é transformada principalmente em calor pelo atrito.",
-                correta: true,
-            },
-            {
-                texto: "Ela desaparece quando o pedal é pressionado.",
-                correta: false,
-            },
-        ]}
-        explicacao="A energia cinética não pode apenas sumir quando o motorista freia. Os componentes do sistema de freios utilizam o atrito para se opor ao movimento das rodas, transformando a energia cinética principalmente em calor." 
-    />
+        <QuestaoMultiplaEscolha
+            id="funcao-cilindro-mestre"
+            pergunta="Qual é a principal função do cilindro mestre no sistema de freios?"
+            alternativas={[
+                {
+                    id: "a",
+                    texto: "Transformar a pressão feita no pedal em pressão hidráulica no fluido.",
+                },
+                {
+                    id: "b",
+                    texto: "Resfriar os discos de freio.",
+                },
+                {
+                    id: "c",
+                    texto: "Armazenar o fluido de freio utilizado.",
+                },
+            ]}
+            respostaCorreta="a"
+            explicacao="Ao pisar no pedal, uma articulação empurra o pistão dentro do cilindro mestre. Esse pistão pressiona o fluido, fazendo com que ele percorra as linhas de freio até chegar às partes responsáveis por gerar o atrito nas rodas."
+        />
 
-    <QuestaoMultiplaEscolha
-        pergunta="Qual é a principal função do cilindro mestre no sistema de freios?"
-        alternativas={[
-            {
-                texto: "Transformar a pressão feita no pedal em pressão hidráulica no fluido.",
-                correta: true,
-            },
-            {
-                texto: "Resfriar os discos de freio.",
-                correta: false,
-            },
-            {
-                texto: "Armazenar o fluido de freio utilizado.",
-                correta: false,
-            },
-        ]}
-        explicacao="Ao pisar no pedal, uma articulação empurra o pistão dentro do cilindro mestre. Esse pistão pressiona o fluido, fazendo com que ele percorra as linhas de freio até chegar às partes responsáveis por gerar o atrito nas rodas."
-    />
+        <QuestaoMultiplaEscolha
+            id="funcao-fluido"
+            pergunta="Por que o fluido de freio é utilizado em um sistema hidráulico?"
+            alternativas={[
+                {
+                    id: "a",
+                    texto: "Porque ele é comprimido facilmente e aumenta a força aplicada.",
+                },
+                {
+                    id: "b",
+                    texto: "Porque ele transmite a pressão pelo sistema com pouca compressão.",
+                },
+                {
+                    id: "c",
+                    texto: "Porque ele lubrifica diretamente os discos e as pastilhas.",
+                },
+            ]}
+            respostaCorreta="b"
+            explicacao="Quando o pedal é pressionado, o cilindro mestre empurra o fluido pelas linhas de freio. Como o fluido praticamente não muda de volume quando submetido à pressão, ele consegue transmitir essa força até os freios localizados nas rodas."
+        />
 
-    <QuestaoMultiplaEscolha
-        pergunta="Por que o fluido de freio é utilizado em um sistema hidráulico?"
-        alternativas={[
-            {
-                texto: "Porque ele é comprimido facilmente e aumenta a força aplicada.",
-                correta: false,
-            },
-            {
-                texto: "Porque ele transmite a pressão pelo sistema com pouca compressão.",
-                correta: true,
-            },
-            {
-                texto: "Porque ele lubrifica diretamente os discos e as pastilhas.",
-                correta: false,
-            },
-        ]}
-        explicacao="Quando o pedal é pressionado, o cilindro mestre empurra o fluido pelas linhas de freio. Como o fluido praticamente não muda de volume quando submetido à pressão, ele consegue transmitir essa força até os freios localizados nas rodas."
-    />
-
-    <QuestaoMultiplaEscolha
-        pergunta="Qual é a principal diferença entre um freio a disco e um freio a tambor?"
-        alternativas={[
-            {
-                texto: "O freio a disco utiliza óleo de motor, enquanto o tambor utiliza fluido de freio.",
-                correta: false,
-            },
-            {
-                texto: "O freio a disco é usado apenas na dianteira, enquanto o freio a tambor fica sempre na traseira dos veículos.",
-                correta: false,
-            },
-            {
-                texto: "O freio a disco utiliza uma pastilha pressionada contra um disco, enquanto o tambor utiliza sapatas que atuam contra uma superfície interna do tambor.",
-                correta: true,
-            },
-        ]}
-        explicacao="No freio a tambor, as sapatas ficam dentro de um tambor que gira junto com a roda. Quando o freio é acionado, elas são pressionadas contra a parte interna do tambor, criando o atrito necessário para diminuir o movimento. Já no freio a disco, pastilhas são pressionadas contra um disco que gira junto com a roda."
-    />
+        <QuestaoMultiplaEscolha
+            id="dif-disco-tambor"
+            pergunta="Qual é a principal diferença entre um freio a disco e um freio a tambor?"
+            alternativas={[
+                {
+                    id: "a",
+                    texto: "O freio a disco utiliza óleo de motor, enquanto o tambor utiliza fluido de freio.",
+                },
+                {
+                    id: "b",
+                    texto: "O freio a disco é usado apenas na dianteira, enquanto o freio a tambor fica sempre na traseira dos veículos.",
+                },
+                {
+                    id: "c",
+                    texto: "O freio a disco utiliza uma pastilha pressionada contra um disco, enquanto o tambor utiliza sapatas que atuam contra uma superfície interna do tambor.",
+                },
+            ]}
+            respostaCorreta="c"
+            explicacao="No freio a tambor, as sapatas ficam dentro de um tambor que gira junto com a roda. Quando o freio é acionado, elas são pressionadas contra a parte interna do tambor, criando o atrito necessário para diminuir o movimento. Já no freio a disco, pastilhas são pressionadas contra um disco que gira junto com a roda."
+        />
+    </Questionario>

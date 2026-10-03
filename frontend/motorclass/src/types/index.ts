@@ -96,3 +96,55 @@ export interface Recompensa {
     nome: string;
     objeto: string;
 }
+
+export type TipoQuestao =
+    | "multipla-escolha"
+    | "identificacao-3d";
+
+export type RespostaQuestionario =
+    | string
+    | string[];
+
+export interface QuestaoRegistrada {
+    id: string;
+    tipo: TipoQuestao;
+    pergunta: string;
+    explicacao?: string;
+    respostaCorreta?: RespostaQuestionario;
+    opcoes?: Record<string, string>;
+}
+
+export interface TentativaQuestionario {
+    questionarioId: string;
+    questoes: QuestaoRegistrada[];
+    respostas: Record<string, RespostaQuestionario>;
+    resultado: ResultadoQuestionario;
+}
+
+export interface PerguntaIdentificacao3D {
+    id: string;
+    pergunta: string;
+    resposta: string;
+}
+
+export interface ResultadoQuestao {
+    id: string;
+    tipo: TipoQuestao;
+    pergunta: string;
+    explicacao?: string;
+    resposta: RespostaQuestionario;
+    respostaCorreta: RespostaQuestionario;
+    correta: boolean;
+    respostaTexto?: string;
+    respostaCorretaTexto?: string;
+}
+
+export interface ResultadoQuestionario {
+    total: number;
+    acertos: number;
+    erros: number;
+    percentual: number;
+    nota: number;
+    questoes: ResultadoQuestao[];
+}
+

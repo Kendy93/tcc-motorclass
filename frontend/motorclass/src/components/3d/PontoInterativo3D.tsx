@@ -10,6 +10,7 @@ interface PontoInterativo3DProps {
     titulo: string;
     onClick: () => void;
     mostrarTitulo?: boolean;
+    selecionado?: boolean;
 }
 
 //===========================================================================
@@ -19,6 +20,7 @@ export default function PontoInterativo3D({
     titulo,
     onClick,
     mostrarTitulo = true,
+    selecionado = false,
 }: PontoInterativo3DProps) {
     const grupoRef = useRef<THREE.Group>(null);
     const posicao = useRef(new THREE.Vector3());
@@ -52,24 +54,35 @@ export default function PontoInterativo3D({
                 >
                     {/* círculo pulsante */}
                     <span
-                        className="
+                        className={`
                             absolute
-                            h-7 w-7
+                            h-7
+                            w-7
                             rounded-full
-                            bg-blue1/40
                             animate-ping
-                        "
+                            ${
+                                selecionado
+                                    ? "bg-yellow-400/70"
+                                    : "bg-blue-400/40"
+                            }
+                        `}
                     />
                     {/* ponto central */}
                     <span
-                        className="
+                        className={`
                             relative
-                            h-5 w-5
+                            h-3
+                            w-3
                             rounded-full
-                            border-3
+                            border-2
                             border-white
-                            bg-red
-                        "
+                            shadow-md
+                            ${
+                                selecionado
+                                    ? "bg-blue1"
+                                    : "bg-red"
+                            }
+                        `}
                     />
                     {/* label com o nome da parte */}
                     {mostrarTitulo && (

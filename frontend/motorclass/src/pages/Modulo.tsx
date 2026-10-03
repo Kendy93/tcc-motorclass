@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
-import type { Modulo, Animacao3DConfig } from "../types";
+import type { Modulo, Animacao3DConfig, PerguntaIdentificacao3D } from "../types";
 
 import { configuracoesModulos } from "../data/modulos.ts";
 import Visualizador3D from "../components/3d/Visualizador3D.tsx";
@@ -13,6 +13,7 @@ import NavegacaoModulos from "../components/navigation/NavegacaoModulos.tsx";
 import FinalizarModulo from "../components/FinalizarModulo.tsx";
 import type { ConfiguracaoModulo } from "../types";
 import Anotacao3D from "../components/3d/Anotacao3D.tsx";
+import Identificacao3D from "../components/3d/Identificacao3D.tsx";
 
 import AnimacaoVideo from "../components/AnimacaoVideo";
 import { BordaImagem } from "../components/BordaImagem.tsx";
@@ -20,6 +21,7 @@ import Problema from "../components/Problema.tsx";
 import QuestaoMultiplaEscolha from "../components/QuestaoMultiplaEscolha.tsx";
 import Pergunta3D from "../components/3d/Pergunta3D.tsx";
 import Animacao3D from "../components/3d/Animacao3D";
+import Questionario from "../components/Questionario.tsx";
 
 //===========================================================================
 
@@ -147,6 +149,35 @@ export default function Modulo() {
         );
     }
 
+    //mais um wrapper
+    interface Identificacao3DMDXProps {
+        id: string;
+        nome: string;
+        perguntas: PerguntaIdentificacao3D[];
+    }
+    function Identificacao3DMDX({
+        id,
+        nome,
+        perguntas,
+    }: Identificacao3DMDXProps) {
+        const modelo =
+            configuracao.modelos3D[nome];
+        if (!modelo) {
+            return (
+                <p>
+                    Modelo 3D "{nome}" não encontrado.
+                </p>
+            );
+        }
+        return (
+            <Identificacao3D
+                id={id}
+                configuracao={modelo}
+                perguntas={perguntas}
+            />
+        );
+    }
+
 //-------------------------------------------------------
 
     return (
@@ -183,8 +214,10 @@ export default function Modulo() {
                             BordaImagem,
                             Problema,
                             QuestaoMultiplaEscolha,
+                            Questionario,
                             Visualizador3D: Visualizador3DMDX,
                             Pergunta3D: Pergunta3DMDX,
+                            Identificacao3D: Identificacao3DMDX,
                             Animacao3D: Animacao3DMDX,
                         }}
                     />
