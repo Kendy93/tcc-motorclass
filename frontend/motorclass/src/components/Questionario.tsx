@@ -8,7 +8,21 @@ import {
     type ReactNode,
 } from "react";
 import Botao from "./Botao";
-import type { TipoQuestao, RespostaQuestionario, QuestaoRegistrada, TentativaQuestionario, ResultadoQuestao, ResultadoQuestionario } from "../types";
+import type { 
+    TipoQuestao, 
+    RespostaQuestionario, 
+    QuestaoRegistrada, 
+    TentativaQuestionario, 
+    ResultadoQuestao, 
+    ResultadoQuestionario,
+    QuestaoPublica, 
+    ConfiguracaoModelo3D,
+    BlocoQuestionario,
+} from "../types";
+
+import QuestaoMultiplaEscolha from "./QuestaoMultiplaEscolha";
+import Identificacao3D from "./3d/Identificacao3D";
+import { api } from "../lib/api";
 
 //===========================================================================
 
@@ -74,9 +88,10 @@ function transformarRespostaEmTexto(
 interface QuestionarioProps {
     id: string;
     titulo?: string;
-    children: ReactNode;
+    questoes: QuestaoPublica[];
+    modelos3D: Record<string, ConfiguracaoModelo3D>;
     resultadoInicial?: ResultadoQuestionario | null;
-    onEnviar?: (
+    onEnviar: (
         tentativa: TentativaQuestionario,
     ) => Promise<ResultadoQuestionario>;
 }
@@ -86,45 +101,15 @@ interface QuestionarioProps {
 export default function Questionario({
     id,
     titulo,
-    children,
+    questoes,
+    modelos3D,
     resultadoInicial = null,
     onEnviar,
 }: QuestionarioProps) {
-    const [questoes, setQuestoes] = useState<QuestaoRegistrada[]>([]);
     const [respostas, setRespostas] = useState<Record<string, RespostaQuestionario>>({});
     const [enviado, setEnviado] = useState(false);
     const [enviando, setEnviando] = useState(false);
     const [resultado, setResultado] = useState<ResultadoQuestionario | null>(null);
-
-    const registrarQuestao = useCallback(
-        (questao: QuestaoRegistrada) => {
-            setQuestoes((atual) => {
-                const existente = atual.find((item) => item.id === questao.id);
-                if (existente) {
-                    return atual;
-                }
-                return [
-                    ...atual,
-                    questao,
-                ];
-            });
-        },
-        [],
-    );
-
-    const removerQuestao = useCallback(
-        (questaoId: string) => {
-            setQuestoes((atual) =>
-                atual.filter((questao) => questao.id !== questaoId),
-            );
-            setRespostas((atual) => {
-                const nova = {...atual};
-                delete nova[questaoId];
-                return nova;
-            });
-        },
-        [],
-    );
 
     const registrarResposta = useCallback(
         (
@@ -147,60 +132,10 @@ export default function Questionario({
             return false;
         }
         return questoes.every(
-            (questao) =>
-                respostas[questao.id] !== undefined,
+            (questao) => respostas[questao.codigo] !== undefined,
         );
     }, [questoes, respostas]);
 
-    const corrigir = useCallback(() => {
-        const resultados = questoes.map((questao) => {
-            const resposta = respostas[questao.id];
-            const respostaCorreta =questao.respostaCorreta;
-
-            const correta =
-                respostaCorreta !== undefined &&
-                resposta !== undefined &&
-                respostasIguais(
-                    resposta,
-                    respostaCorreta,
-                );
-
-            return {
-                id: questao.id,
-                tipo: questao.tipo,
-                pergunta: questao.pergunta,
-                resposta,
-                respostaCorreta,
-                correta,
-                respostaTexto:
-                    resposta !== undefined
-                        ? transformarRespostaEmTexto(
-                            resposta,
-                        )
-                        : undefined,
-                respostaCorretaTexto:
-                    respostaCorreta !== undefined
-                        ? transformarRespostaEmTexto(
-                            respostaCorreta,
-                        )
-                        : undefined,
-            };
-        });
-
-        const total = resultados.length;
-        const acertos = resultados.filter((questao) => questao.correta).length;
-        const erros = total - acertos;
-        const percentual = total > 0 ? Math.round((acertos / total) * 100) : 0;
-        const nota = Number(((acertos / total) * 10).toFixed(1));
-        return {
-            total,
-            acertos,
-            erros,
-            percentual,
-            nota,
-            questoes: resultados,
-        };
-    }, [questoes, respostas]);
 
     const enviar = useCallback(async () => {
         if (!completo || enviado || enviando) {
@@ -235,35 +170,6 @@ export default function Questionario({
         setEnviado(false);
     }, []);
 
-    const contexto = useMemo(
-        () => ({
-            registrarQuestao,
-            removerQuestao,
-            registrarResposta,
-            respostas,
-            questoes,
-            enviado,
-            enviando,
-            completo,
-            resultado,
-            enviar,
-            reiniciar,
-        }),
-        [
-            registrarQuestao,
-            removerQuestao,
-            registrarResposta,
-            respostas,
-            questoes,
-            enviado,
-            enviando,
-            completo,
-            resultado,
-            enviar,
-            reiniciar,
-        ],
-    );
-
     const quantidadeRespondida =
         questoes.filter(
             (questao) =>
@@ -281,6 +187,56 @@ export default function Questionario({
         setEnviado(true);
     }, [resultadoInicial]);
 
+    const blocos = useMemo<BlocoQuestionario[]>(() => {
+        const resultado: BlocoQuestionario[] = [];
+        for (const questao of questoes) {
+            //questões 3D no mesmo grupo
+            if (questao.tipo === "identificacao-3d") {
+                const grupo =
+                    questao.grupo_3d ??
+                    questao.codigo;
+                const ultimo = resultado[resultado.length - 1];
+                if (ultimo?.tipo === "identificacao-3d" && ultimo.grupo3D === grupo) {
+                    ultimo.perguntas3D?.push(questao);
+                    continue;
+                }
+                resultado.push({
+                    tipo: "identificacao-3d",
+                    modelo3D: questao.modelo_3d ?? "",
+                    grupo3D: grupo,
+                    perguntas3D: [questao],
+                });
+                continue;
+            }
+
+            resultado.push({tipo: "multipla-escolha", questao});
+        }
+        return resultado;
+    }, [questoes]);
+
+    const contexto = useMemo(
+        () => ({
+            registrarResposta,
+            respostas,
+            enviado,
+            enviando,
+            completo,
+            resultado,
+            enviar,
+            reiniciar,
+        }),
+        [
+            registrarResposta,
+            respostas,
+            enviado,
+            enviando,
+            completo,
+            resultado,
+            enviar,
+            reiniciar,
+        ],
+    );
+
 //-------------------------------------------------------
 
     return (
@@ -297,122 +253,165 @@ export default function Questionario({
                     </p>
                 </header>
 
+                {/* pergunta */}
                 <div className="space-y-8 px-6 py-8">
-                    {children}
+                    {blocos.map((bloco) => {
+                        if (bloco.tipo === "multipla-escolha") {
+                            const questao = bloco.questao!;
+
+                            return (
+                                <QuestaoMultiplaEscolha
+                                    key={questao.codigo}
+                                    id={questao.codigo}
+                                    pergunta={questao.pergunta}
+                                    alternativas={Object.entries(questao.opcoes ?? {}).map(
+                                        ([id, texto]) => ({
+                                            id,
+                                            texto,
+                                        }),
+                                    )}
+                                />
+                            );
+                        }
+                        const configuracao = modelos3D[bloco.modelo3D!];
+                        if (!configuracao) {
+                            return (
+                                <p
+                                    key={bloco.grupo3D}
+                                    className="text-red-600"
+                                >
+                                    Modelo 3D "{bloco.modelo3D}" não encontrado.
+                                </p>
+                            );
+                        }
+
+                        return (
+                            <Identificacao3D
+                                key={bloco.grupo3D}
+                                id={bloco.grupo3D!}
+                                configuracao={configuracao}
+                                perguntas={bloco.perguntas3D!.map(
+                                    (questao) => ({
+                                        codigo: questao.codigo,
+                                        pergunta: questao.pergunta,
+                                    }),
+                                )}
+                            />
+                        );
+                    })}
                 </div>
 
                 {/* resultado */}
-                {enviado &&
-                    resultado && (
-                        <section className="border-t border-gray-200 px-6 py-8 text-left">
-                            <div className="rounded-xl bg-gray-50 p-6">
-                                <p className="text-xs font-medium uppercase tracking-wide !text-blue1">
-                                    Resultado
-                                </p>
-                                <h3 className="text-2xl font-bold">
-                                    Nota:{" "}{resultado.nota}{" "}/ 10
-                                </h3>
-                                <p className="mt-2 text-sm">
-                                    {resultado.acertos}{" "} de{" "} {resultado.total}{" "} questões corretas.
-                                </p>
+                {enviado && resultado && (
+                    <section className="border-t border-gray-200 px-6 py-8 text-left">
+                        <div className="rounded-xl bg-gray-50 p-6">
+                            <p className="text-xs font-medium uppercase tracking-wide !text-blue1">
+                                Resultado
+                            </p>
+                            <h3 className="text-2xl font-bold">
+                                Nota:{" "}{resultado.nota}{" "}/ 10
+                            </h3>
+                            <p className="mt-2 text-sm">
+                                {resultado.acertos}{" "} de{" "} {resultado.total}{" "} questões corretas.
+                            </p>
 
-                                <p className="mt-1 text-sm">
-                                    Você errou{" "}
-                                    {
-                                        resultado.erros
-                                    }{" "}
-                                    quest
-                                    {resultado.erros !==
-                                    1
-                                        ? "ões"
-                                        : "ão"}{" "}
-                                    ({100 -
-                                        resultado.percentual}
-                                    %).
-                                </p>
-                            </div>
+                            <p className="mt-1 text-sm">
+                                Você errou{" "}
+                                {
+                                    resultado.erros
+                                }{" "}
+                                quest
+                                {resultado.erros !==
+                                1
+                                    ? "ões"
+                                    : "ão"}{" "}
+                                ({100 -
+                                    resultado.percentual}
+                                %).
+                            </p>
+                        </div>
 
-                            {/* correção */}
-                            <div className="mt-8">
-                                <h3 className="text-lg font-semibold !text-blue3">
-                                    Correção
-                                </h3>
-                                <div className="mt-2 space-y-4">
-                                    {resultado.questoes.map(
-                                        (questao, indice) => (
-                                            <div
-                                                key={
-                                                    questao.id
+                        {/* correção */}
+                        <div className="mt-8">
+                            <h3 className="text-lg font-semibold !text-blue3">
+                                Correção
+                            </h3>
+                            <div className="mt-2 space-y-4">
+                                {resultado.questoes.map(
+                                    (questao, indice) => (
+                                        <div
+                                            key={
+                                                questao.id
+                                            }
+                                            className={`
+                                                rounded-lg
+                                                border
+                                                px-5
+                                                pt-4
+                                                ${
+                                                    questao.correta
+                                                        ? "border-green-200 bg-green-50"
+                                                        : "border-red-200 bg-red-50"
                                                 }
-                                                className={`
-                                                    rounded-lg
-                                                    border
-                                                    px-5
-                                                    pt-4
-                                                    ${
-                                                        questao.correta
-                                                            ? "border-green-200 bg-green-50"
-                                                            : "border-red-200 bg-red-50"
-                                                    }
-                                                `}
-                                            >
-                                                <div className="flex items-start justify-between gap-4">
-                                                    <div>
-                                                        <p className="text-xs font-medium uppercase tracking-wide !text-blue1">
-                                                            Questão{" "}{indice + 1}
-                                                        </p>
-                                                        <p className="font-medium">
-                                                            {questao.pergunta}
-                                                        </p>
-                                                    </div>
-                                                    <span
-                                                        className={`text-sm font-semibold ${
-                                                            questao.correta
-                                                                ? "text-green-700"
-                                                                : "text-red-700"
-                                                        }`}
-                                                    >
-                                                        {questao.correta
-                                                            ? "✓ Correta"
-                                                            : "✗ Incorreta"}
-                                                    </span>
+                                            `}
+                                        >
+                                            <div className="flex items-start justify-between gap-4">
+                                                <div>
+                                                    <p className="text-xs font-medium uppercase tracking-wide !text-blue1">
+                                                        Questão{" "}{indice + 1}
+                                                    </p>
+                                                    <p className="font-medium">
+                                                        {questao.pergunta}
+                                                    </p>
                                                 </div>
+                                                <span
+                                                    className={`text-sm font-semibold ${
+                                                        questao.correta
+                                                            ? "text-green-700"
+                                                            : "text-red-700"
+                                                    }`}
+                                                >
+                                                    {questao.correta
+                                                        ? "✓ Correta"
+                                                        : "✗ Incorreta"}
+                                                </span>
+                                            </div>
 
-                                                <div className="space-y-2 text-sm">
+                                            <div className="space-y-2 text-sm">
+                                                <p>
+                                                    <span className="font-medium">
+                                                        Sua resposta:
+                                                    </span>{" "}
+                                                    {questao.respostaTexto}
+                                                </p>
+
+                                                {!questao.correta && questao.tipo === "multipla-escolha" && (
                                                     <p>
                                                         <span className="font-medium">
-                                                            Sua resposta:
+                                                            Resposta correta:
                                                         </span>{" "}
-                                                        {questao.respostaTexto}
+                                                        {questao.respostaCorretaTexto}
                                                     </p>
-
-                                                    {!questao.correta && questao.tipo === "multipla-escolha" && (
-                                                        <p>
+                                                )}
+                                                {questao.explicacao && (
+                                                    <div className="mt-3 border-t border-gray-200 pt-3">
+                                                        <p className="text-sm">
                                                             <span className="font-medium">
-                                                                Resposta correta:
+                                                                Explicação:
                                                             </span>{" "}
-                                                            {questao.respostaCorretaTexto}
+                                                            {questao.explicacao}
                                                         </p>
-                                                    )}
-                                                    {questao.explicacao && (
-                                                        <div className="mt-3 border-t border-gray-200 pt-3">
-                                                            <p className="text-sm">
-                                                                <span className="font-medium">
-                                                                    Explicação:
-                                                                </span>{" "}
-                                                                {questao.explicacao}
-                                                            </p>
-                                                        </div>
-                                                    )}
-                                                </div>
-
+                                                    </div>
+                                                )}
                                             </div>
-                                        ),
-                                    )}
-                                </div>
+
+                                        </div>
+                                    ),
+                                )}
                             </div>
-                        </section>
-                    )}
+                        </div>
+                    </section>
+                )}
 
                 {/* rodapé */}
                 <footer className="border-t border-gray-200 px-6 py-5">

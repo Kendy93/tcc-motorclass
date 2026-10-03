@@ -361,4 +361,30 @@ class QuestionarioController extends Controller
             ],
         ]);
     }
+
+    public function mostrar(
+        Questionario $questionario
+    ) {
+        $questoes = $questionario
+            ->questoes()
+            ->orderBy('ordem')
+            ->get();
+
+        return response()->json([
+            'id' => $questionario->id,
+            'codigo' => $questionario->codigo,
+            'titulo' => $questionario->titulo,
+            'questoes' => $questoes->map(function ($questao) {
+                return [
+                    'codigo' => $questao->codigo,
+                    'tipo' => $questao->tipo,
+                    'pergunta' => $questao->pergunta,
+                    'opcoes' => $questao->opcoes,
+                    'ordem' => $questao->ordem,
+                    'modelo_3d' => $questao->modelo_3d,
+                    'grupo_3d' => $questao->grupo_3d,
+                ];
+            }),
+        ]);
+    }
 }

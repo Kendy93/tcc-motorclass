@@ -99,8 +99,6 @@ export default function Identificacao3D({
     perguntas,
 }: Identificacao3DProps) {
     const {
-        registrarQuestao,
-        removerQuestao,
         registrarResposta,
         enviado,
     } = useQuestionario();
@@ -108,27 +106,6 @@ export default function Identificacao3D({
     const [objetoSelecionado, setObjetoSelecionado] = useState<THREE.Object3D | null>(null);
     const perguntasIniciais = useRef(perguntas).current;
 
-    //registra as subquestões
-    useEffect(() => {
-        for (const pergunta of perguntasIniciais) {
-            registrarQuestao({
-                id: `${id}:${pergunta.id}`,
-                tipo: "identificacao-3d",
-                pergunta: pergunta.pergunta,
-            });
-        }
-        return () => {
-            for (const pergunta of perguntasIniciais) {
-                removerQuestao(`${id}:${pergunta.id}`);
-            }
-        };
-    }, [
-        id,
-        perguntasIniciais,
-        registrarQuestao,
-        removerQuestao,
-    ]);
-    
     //reinicia
     useEffect(() => {
         if (!enviado) {
@@ -158,7 +135,7 @@ export default function Identificacao3D({
             return;
         }
         registrarResposta(
-            `${id}:${perguntaAtual.id}`,
+            perguntaAtual.codigo,
             objetoSelecionado.name,
         );
         setObjetoSelecionado(null);

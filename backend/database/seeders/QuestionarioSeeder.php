@@ -29,6 +29,8 @@ class QuestionarioSeeder extends Seeder
                         'pergunta' => 'Identifique o tambor de freio.',
                         'resposta_correta' => 'tambor',
                         'explicacao' => null,
+                        'modelo_3d' => 'sistemaCompleto',
+                        'grupo_3d' => 'identificacao-partes-freio',
                         'opcoes' => [
                             'cilindro_mestre' => 'Cilindro mestre',
                             'hidrovacuo' => 'Hidrovácuo',
@@ -56,6 +58,8 @@ class QuestionarioSeeder extends Seeder
                         'pergunta' => 'Identifique a pastilha de freio.',
                         'resposta_correta' => 'pastilha',
                         'explicacao' => null,
+                        'modelo_3d' => 'sistemaCompleto',
+                        'grupo_3d' => 'identificacao-partes-freio',
                         'opcoes' => [
                             'cilindro_mestre' => 'Cilindro mestre',
                             'hidrovacuo' => 'Hidrovácuo',
@@ -83,6 +87,8 @@ class QuestionarioSeeder extends Seeder
                         'pergunta' => 'Identifique o hidrovácuo.',
                         'resposta_correta' => 'hidrovacuo',
                         'explicacao' => null,
+                        'modelo_3d' => 'sistemaCompleto',
+                        'grupo_3d' => 'identificacao-partes-freio',
                         'opcoes' => [
                             'cilindro_mestre' => 'Cilindro mestre',
                             'hidrovacuo' => 'Hidrovácuo',
@@ -116,6 +122,8 @@ class QuestionarioSeeder extends Seeder
                             'b' => 'Ela é transformada principalmente em calor pelo atrito.',
                             'c' => 'Ela desaparece quando o pedal é pressionado.',
                         ],
+                        'modelo_3d' => null,
+                        'grupo_3d' => null,
                     ],
                     [
                         'ordem' => 5,
@@ -129,6 +137,8 @@ class QuestionarioSeeder extends Seeder
                             'b' => 'Resfriar os discos de freio.',
                             'c' => 'Armazenar o fluido de freio utilizado.',
                         ],
+                        'modelo_3d' => null,
+                        'grupo_3d' => null,
                     ],
                     [
                         'ordem' => 6,
@@ -142,6 +152,8 @@ class QuestionarioSeeder extends Seeder
                             'b' => 'Porque ele transmite a pressão pelo sistema com pouca compressão.',
                             'c' => 'Porque ele lubrifica diretamente os discos e as pastilhas.',
                         ],
+                        'modelo_3d' => null,
+                        'grupo_3d' => null,
                     ],
                     [
                         'ordem' => 7,
@@ -155,6 +167,8 @@ class QuestionarioSeeder extends Seeder
                             'b' => 'O freio a disco é usado apenas na dianteira, enquanto o freio a tambor fica sempre na traseira dos veículos.',
                             'c' => 'O freio a disco utiliza uma pastilha pressionada contra um disco, enquanto o tambor utiliza sapatas que atuam contra uma superfície interna do tambor.',
                         ],
+                        'modelo_3d' => null,
+                        'grupo_3d' => null,
                     ],
                 ],
             ],
@@ -193,6 +207,8 @@ class QuestionarioSeeder extends Seeder
                         'explicacao' => $questao['explicacao'] ?? null,
                         'opcoes' => $questao['opcoes'] ?? null,
                         'ordem' => $questao['ordem'],
+                        'modelo_3d' => $questao['modelo_3d'] ?? null,
+                        'grupo_3d' => $questao['grupo_3d'] ?? null,
                     ]
                 );
             }

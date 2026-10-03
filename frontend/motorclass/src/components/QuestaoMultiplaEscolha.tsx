@@ -20,29 +20,10 @@ export default function QuestaoMultiplaEscolha({
     alternativas,
 }: QuestaoMultiplaEscolhaProps) {
     const {
-        registrarQuestao,
-        removerQuestao,
         registrarResposta,
         respostas,
         enviado,
     } = useQuestionario();
-
-    //registra no questionário
-    useEffect(() => {
-        registrarQuestao({
-            id,
-            tipo: "multipla-escolha",
-            pergunta,
-        });
-        return () => {
-            removerQuestao(id);
-        };
-    }, [
-        id,
-        pergunta,
-        registrarQuestao,
-        removerQuestao,
-    ]);
 
     const respostaSelecionada = typeof respostas[id] === "string"
         ? respostas[id]

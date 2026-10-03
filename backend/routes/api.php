@@ -50,3 +50,6 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post(
     '/questionarios/{questionario:codigo}/corrigir', [QuestionarioController::class, 'corrigir']
 );
+Route::get(
+    '/questionarios/{questionario:codigo}', [QuestionarioController::class, 'mostrar']
+);

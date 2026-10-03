@@ -16,6 +16,8 @@ class QuestaoQuestionario extends Model
         'explicacao',
         'opcoes',
         'ordem',
+        'modelo_3d',
+        'grupo_3d',
     ];
     protected $casts = [
         'opcoes' => 'array',

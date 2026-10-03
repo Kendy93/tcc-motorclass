@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
-import type { Modulo, Animacao3DConfig, PerguntaIdentificacao3D, TentativaQuestionario, ResultadoQuestionario } from "../types";
+import type { 
+    Modulo, 
+    Animacao3DConfig, 
+    PerguntaIdentificacao3D, 
+    TentativaQuestionario, 
+    ResultadoQuestionario,
+    QuestaoPublica,
+} from "../types";
 
 import { configuracoesModulos } from "../data/modulos.ts";
 import Visualizador3D from "../components/3d/Visualizador3D.tsx";
@@ -11,15 +18,10 @@ import MenuModulos from "../components/navigation/MenuModulos.tsx";
 import MenuModulosMobile from "../components/navigation/MenuModulosMobile.tsx";
 import NavegacaoModulos from "../components/navigation/NavegacaoModulos.tsx";
 import FinalizarModulo from "../components/FinalizarModulo.tsx";
-import type { ConfiguracaoModulo } from "../types";
-import Anotacao3D from "../components/3d/Anotacao3D.tsx";
-import Identificacao3D from "../components/3d/Identificacao3D.tsx";
 
 import AnimacaoVideo from "../components/AnimacaoVideo";
 import { BordaImagem } from "../components/BordaImagem.tsx";
 import Problema from "../components/Problema.tsx";
-import QuestaoMultiplaEscolha from "../components/QuestaoMultiplaEscolha.tsx";
-import Pergunta3D from "../components/3d/Pergunta3D.tsx";
 import Animacao3D from "../components/3d/Animacao3D";
 import Questionario from "../components/Questionario.tsx";
 
@@ -93,37 +95,6 @@ export default function Modulo() {
     }
 
     //wrapper para funcionar dentro do MDX
-    interface Pergunta3DMDXProps {
-        nome: string;
-        pergunta: string;
-        resposta: string;
-    }
-    function Pergunta3DMDX({
-        nome,
-        pergunta,
-        resposta,
-    }: Pergunta3DMDXProps) {
-        const modelo = configuracao.modelos3D[nome];
-        if (!modelo) {
-            console.warn(
-                `Modelo 3D "${nome}" não encontrado no módulo "${codigo}".`
-            );
-            return (
-                <p>
-                    Modelo 3D "{nome}" não encontrado.
-                </p>
-            );
-        }
-        return (
-            <Pergunta3D
-                configuracao={modelo}
-                pergunta={pergunta}
-                resposta={resposta}
-            />
-        );
-    }
-
-    //wrapper para funcionar dentro do MDX
     interface Animacao3DMDXProps {
         nome: string;
         animacoes: Animacao3DConfig[];
@@ -151,75 +122,52 @@ export default function Modulo() {
         );
     }
 
-    //mais um wrapper
-    interface Identificacao3DMDXProps {
-        id: string;
-        nome: string;
-        perguntas: PerguntaIdentificacao3D[];
-    }
-    function Identificacao3DMDX({
-        id,
-        nome,
-        perguntas,
-    }: Identificacao3DMDXProps) {
-        const modelo = configuracao.modelos3D[nome];
-        if (!modelo) {
-            return (
-                <p>
-                    Modelo 3D "{nome}" não encontrado.
-                </p>
-            );
-        }
-        return (
-            <Identificacao3D
-                id={id}
-                configuracao={modelo}
-                perguntas={perguntas}
-            />
-        );
-    }
-
     //wrapper para ligar com o banco
     interface QuestionarioMDXProps {
         id: string;
         titulo?: string;
-        children: React.ReactNode;
     }
     function QuestionarioMDX({
         id,
         titulo,
-        children,
     }: QuestionarioMDXProps) {
-        const [resultadoInicial, setResultadoInicial] = useState<ResultadoQuestionario | null>(null);
-        const [carregandoResultado, setCarregandoResultado] = useState(true);
+        const [questoes, setQuestoes] = useState<QuestaoPublica[]>([]);
+        const [resultadoInicial, setResultadoInicial] =
+            useState<ResultadoQuestionario | null>(null);
+        const [carregando, setCarregando] = useState(true);
 
         useEffect(() => {
-            async function carregarTentativa() {
+            async function carregar() {
                 try {
-                    const resposta = await api.get(`/api/questionarios/${id}/ultima-tentativa`,);
-                    const tentativa = resposta.data.tentativa;
-                    if (tentativa) {
-                        setResultadoInicial(tentativa.resultado);
+                    const resposta = await api.get(`/api/questionarios/${id}`);
+                    setQuestoes(resposta.data.questoes);
+
+                    try {
+                        const ultima = await api.get(`/api/questionarios/${id}/ultima-tentativa`);
+                        if (ultima.data.tentativa) {
+                            setResultadoInicial(ultima.data.tentativa.resultado);
+                        }
+                    } catch (erro) {
+                        if (!axios.isAxiosError(erro) || erro.response ?.status !== 401) {
+                            console.error("Erro ao carregar tentativa:", erro);
+                        }
                     }
                 } catch (erro) {
-                    if (axios.isAxiosError(erro) && erro.response?.status !== 401) {
-                        console.error("Erro ao carregar tentativa:", erro);
-                    }
+                    console.error("Erro ao carregar questionário:", erro);
                 } finally {
-                    setCarregandoResultado(false);
+                    setCarregando(false);
                 }
             }
-            carregarTentativa();
+            carregar();
         }, [id]);
 
-        const enviarQuestionario = async (
-            tentativa: TentativaQuestionario,
-        ) => {
-            const resposta = await api.post(
-                `/api/questionarios/${id}/corrigir`,
-                {
+        const enviarQuestionario =
+            async (
+                tentativa: TentativaQuestionario,
+            ) => {
+                const resposta = await api.post(`/api/questionarios/${id}/corrigir`,{
                     respostas:
-                        Object.entries(tentativa.respostas).map(
+                        Object.entries(tentativa.respostas,).map(
                             ([
                                 questaoId,
                                 resposta,
@@ -228,12 +176,11 @@ export default function Modulo() {
                                 resposta,
                             }),
                         ),
-                },
-            );
-            return resposta.data.resultado;
-        };
+                });
+                return resposta.data.resultado;
+            };
 
-        if (carregandoResultado) {
+        if (carregando) {
             return (
                 <div className="my-10 rounded-xl bg-white p-8 text-center">
                     <p className="text-sm !text-gray-500">
@@ -242,15 +189,16 @@ export default function Modulo() {
                 </div>
             );
         }
+
         return (
             <Questionario
                 id={id}
                 titulo={titulo}
-                resultadoInicial={resultadoInicial}
+                questoes={questoes}
+                modelos3D={configuracao.modelos3D}
+                resultadoInicial={ resultadoInicial}
                 onEnviar={enviarQuestionario}
-            >
-                {children}
-            </Questionario>
+            />
         );
     }
 
@@ -289,11 +237,8 @@ export default function Modulo() {
                             AnimacaoVideo,
                             BordaImagem,
                             Problema,
-                            QuestaoMultiplaEscolha,
                             Questionario: QuestionarioMDX,
                             Visualizador3D: Visualizador3DMDX,
-                            Pergunta3D: Pergunta3DMDX,
-                            Identificacao3D: Identificacao3DMDX,
                             Animacao3D: Animacao3DMDX,
                         }}
                     />

@@ -117,7 +117,7 @@ export interface TentativaQuestionario {
 }
 
 export interface PerguntaIdentificacao3D {
-    id: string;
+    codigo: string;
     pergunta: string;
 }
 
@@ -138,5 +138,27 @@ export interface ResultadoQuestionario {
     percentual: number;
     nota: number;
     questoes: ResultadoQuestao[];
+}
+
+export interface QuestaoPublica {
+    codigo: string;
+    tipo:
+        | "multipla-escolha"
+        | "identificacao-3d";
+    pergunta: string;
+    opcoes?: Record<string, string> | null;
+    ordem: number;
+    modelo_3d?: string | null;
+    grupo_3d?: string | null;
+}
+
+export interface BlocoQuestionario {
+    tipo:
+        | "multipla-escolha"
+        | "identificacao-3d";
+    questao?: QuestaoPublica;
+    modelo3D?: string;
+    grupo3D?: string;
+    perguntas3D?: QuestaoPublica[];
 }
 
