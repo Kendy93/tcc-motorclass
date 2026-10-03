@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\JsonResponse;
 
 use App\Http\Controllers\ModuloController;
+use App\Http\Controllers\QuestionarioController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -26,8 +27,8 @@ Route::get('/user', function (Request $request) {
 Route::get('/modulos', [ModuloController::class, 'index']);
 Route::get('/modulos/{modulo}', [ModuloController::class, 'show']);
 
-//faz a montagem das garagens e finaliza modulos
 Route::middleware('auth:sanctum')->group(function () {
+    //faz a montagem das garagens e finaliza modulos
     Route::get(
         '/garagem', [ModuloController::class, 'garagem']
     );
@@ -37,4 +38,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post(
         '/modulos/{modulo:codigo}/alternar-conclusao', [ModuloController::class, 'alternarConclusao']
     );
+    
+    Route::post(
+        '/questionarios/{questionario:codigo}/tentativas', [QuestionarioController::class, 'registrarTentativa']
+    );
+    Route::get(
+        '/questionarios/{questionario:codigo}/ultima-tentativa', [QuestionarioController::class, 'ultimaTentativa']
+    );
 });
+
+Route::post(
+    '/questionarios/{questionario:codigo}/corrigir', [QuestionarioController::class, 'corrigir']
+);

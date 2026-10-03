@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
-import type { Modulo, Animacao3DConfig, PerguntaIdentificacao3D } from "../types";
+import type { Modulo, Animacao3DConfig, PerguntaIdentificacao3D, TentativaQuestionario, ResultadoQuestionario } from "../types";
 
 import { configuracoesModulos } from "../data/modulos.ts";
 import Visualizador3D from "../components/3d/Visualizador3D.tsx";
@@ -22,6 +22,8 @@ import QuestaoMultiplaEscolha from "../components/QuestaoMultiplaEscolha.tsx";
 import Pergunta3D from "../components/3d/Pergunta3D.tsx";
 import Animacao3D from "../components/3d/Animacao3D";
 import Questionario from "../components/Questionario.tsx";
+
+import axios from "axios";
 
 //===========================================================================
 
@@ -160,8 +162,7 @@ export default function Modulo() {
         nome,
         perguntas,
     }: Identificacao3DMDXProps) {
-        const modelo =
-            configuracao.modelos3D[nome];
+        const modelo = configuracao.modelos3D[nome];
         if (!modelo) {
             return (
                 <p>
@@ -175,6 +176,81 @@ export default function Modulo() {
                 configuracao={modelo}
                 perguntas={perguntas}
             />
+        );
+    }
+
+    //wrapper para ligar com o banco
+    interface QuestionarioMDXProps {
+        id: string;
+        titulo?: string;
+        children: React.ReactNode;
+    }
+    function QuestionarioMDX({
+        id,
+        titulo,
+        children,
+    }: QuestionarioMDXProps) {
+        const [resultadoInicial, setResultadoInicial] = useState<ResultadoQuestionario | null>(null);
+        const [carregandoResultado, setCarregandoResultado] = useState(true);
+
+        useEffect(() => {
+            async function carregarTentativa() {
+                try {
+                    const resposta = await api.get(`/api/questionarios/${id}/ultima-tentativa`,);
+                    const tentativa = resposta.data.tentativa;
+                    if (tentativa) {
+                        setResultadoInicial(tentativa.resultado);
+                    }
+                } catch (erro) {
+                    if (axios.isAxiosError(erro) && erro.response?.status !== 401) {
+                        console.error("Erro ao carregar tentativa:", erro);
+                    }
+                } finally {
+                    setCarregandoResultado(false);
+                }
+            }
+            carregarTentativa();
+        }, [id]);
+
+        const enviarQuestionario = async (
+            tentativa: TentativaQuestionario,
+        ) => {
+            const resposta = await api.post(
+                `/api/questionarios/${id}/corrigir`,
+                {
+                    respostas:
+                        Object.entries(tentativa.respostas).map(
+                            ([
+                                questaoId,
+                                resposta,
+                            ]) => ({
+                                questao_id: questaoId,
+                                resposta,
+                            }),
+                        ),
+                },
+            );
+            return resposta.data.resultado;
+        };
+
+        if (carregandoResultado) {
+            return (
+                <div className="my-10 rounded-xl bg-white p-8 text-center">
+                    <p className="text-sm !text-gray-500">
+                        Carregando questionário...
+                    </p>
+                </div>
+            );
+        }
+        return (
+            <Questionario
+                id={id}
+                titulo={titulo}
+                resultadoInicial={resultadoInicial}
+                onEnviar={enviarQuestionario}
+            >
+                {children}
+            </Questionario>
         );
     }
 
@@ -214,7 +290,7 @@ export default function Modulo() {
                             BordaImagem,
                             Problema,
                             QuestaoMultiplaEscolha,
-                            Questionario,
+                            Questionario: QuestionarioMDX,
                             Visualizador3D: Visualizador3DMDX,
                             Pergunta3D: Pergunta3DMDX,
                             Identificacao3D: Identificacao3DMDX,

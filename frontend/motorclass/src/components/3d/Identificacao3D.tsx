@@ -115,15 +115,6 @@ export default function Identificacao3D({
                 id: `${id}:${pergunta.id}`,
                 tipo: "identificacao-3d",
                 pergunta: pergunta.pergunta,
-                respostaCorreta: pergunta.resposta,
-                opcoes: Object.fromEntries(
-                    Object.entries(
-                        configuracao.pecas ?? {},
-                    ).map(([codigo, peca]) => [
-                        codigo,
-                        peca.titulo,
-                    ]),
-                ),
             });
         }
         return () => {

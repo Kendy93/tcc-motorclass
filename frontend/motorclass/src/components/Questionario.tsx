@@ -4,6 +4,7 @@ import {
     useContext,
     useMemo,
     useState,
+    useEffect,
     type ReactNode,
 } from "react";
 import Botao from "./Botao";
@@ -74,9 +75,10 @@ interface QuestionarioProps {
     id: string;
     titulo?: string;
     children: ReactNode;
+    resultadoInicial?: ResultadoQuestionario | null;
     onEnviar?: (
         tentativa: TentativaQuestionario,
-    ) => void | Promise<void>;
+    ) => Promise<ResultadoQuestionario>;
 }
 
 //===========================================================================
@@ -85,6 +87,7 @@ export default function Questionario({
     id,
     titulo,
     children,
+    resultadoInicial = null,
     onEnviar,
 }: QuestionarioProps) {
     const [questoes, setQuestoes] = useState<QuestaoRegistrada[]>([]);
@@ -166,7 +169,6 @@ export default function Questionario({
                 id: questao.id,
                 tipo: questao.tipo,
                 pergunta: questao.pergunta,
-                explicacao: questao.explicacao,
                 resposta,
                 respostaCorreta,
                 correta,
@@ -174,14 +176,12 @@ export default function Questionario({
                     resposta !== undefined
                         ? transformarRespostaEmTexto(
                             resposta,
-                            questao.opcoes,
                         )
                         : undefined,
                 respostaCorretaTexto:
                     respostaCorreta !== undefined
                         ? transformarRespostaEmTexto(
                             respostaCorreta,
-                            questao.opcoes,
                         )
                         : undefined,
             };
@@ -202,45 +202,32 @@ export default function Questionario({
         };
     }, [questoes, respostas]);
 
-    const enviar = useCallback(
-        async () => {
-            if (!completo || enviado || enviando) {
-                return;
-            }
-            try {
-                setEnviando(true);
-                const novoResultado = corrigir();
-                const tentativa: TentativaQuestionario = {
-                    questionarioId: id,
-                    questoes,
-                    respostas,
-                    resultado: novoResultado,
-                };
-
-                if (onEnviar) {
-                    await onEnviar(tentativa);
-                }
-                setResultado(novoResultado);
-                setEnviado(true);
-            } catch (erro) {
-                console.error(
-                    "Erro ao enviar questionário:",
-                    erro,
-                );
-            } finally {
-                setEnviando(false);
-            }
-        },
-        [
-            completo,
-            enviado,
-            enviando,
-            corrigir,
-            questoes,
-            respostas,
-            onEnviar,
-        ],
-    );
+    const enviar = useCallback(async () => {
+        if (!completo || enviado || enviando) {
+            return;
+        }
+        try {
+            setEnviando(true);
+            const tentativa: TentativaQuestionario = {
+                questionarioId: id,
+                respostas,
+            };
+            const novoResultado = await onEnviar(tentativa);
+            setResultado(novoResultado);
+            setEnviado(true);
+        } catch (erro) {
+            console.error("Erro ao enviar questionário:", erro);
+        } finally {
+            setEnviando(false);
+        }
+    }, [
+        id,
+        completo,
+        enviado,
+        enviando,
+        respostas,
+        onEnviar,
+    ]);
 
     const reiniciar = useCallback(() => {
         setRespostas({});
@@ -284,6 +271,15 @@ export default function Questionario({
                     questao.id
                 ] !== undefined,
         ).length;
+
+    //preenche se já tiver resposta anterior
+    useEffect(() => {
+        if (!resultadoInicial) {
+            return;
+        }
+        setResultado(resultadoInicial);
+        setEnviado(true);
+    }, [resultadoInicial]);
 
 //-------------------------------------------------------
 
@@ -362,7 +358,7 @@ export default function Questionario({
                                             >
                                                 <div className="flex items-start justify-between gap-4">
                                                     <div>
-                                                        <p className="text-xs font-medium uppercase tracking-wide !text-gray-500">
+                                                        <p className="text-xs font-medium uppercase tracking-wide !text-blue1">
                                                             Questão{" "}{indice + 1}
                                                         </p>
                                                         <p className="font-medium">

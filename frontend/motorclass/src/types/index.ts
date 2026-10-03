@@ -109,34 +109,26 @@ export interface QuestaoRegistrada {
     id: string;
     tipo: TipoQuestao;
     pergunta: string;
-    explicacao?: string;
-    respostaCorreta?: RespostaQuestionario;
-    opcoes?: Record<string, string>;
 }
 
 export interface TentativaQuestionario {
     questionarioId: string;
-    questoes: QuestaoRegistrada[];
     respostas: Record<string, RespostaQuestionario>;
-    resultado: ResultadoQuestionario;
 }
 
 export interface PerguntaIdentificacao3D {
     id: string;
     pergunta: string;
-    resposta: string;
 }
 
 export interface ResultadoQuestao {
     id: string;
     tipo: TipoQuestao;
     pergunta: string;
-    explicacao?: string;
-    resposta: RespostaQuestionario;
-    respostaCorreta: RespostaQuestionario;
     correta: boolean;
     respostaTexto?: string;
     respostaCorretaTexto?: string;
+    explicacao?: string;
 }
 
 export interface ResultadoQuestionario {

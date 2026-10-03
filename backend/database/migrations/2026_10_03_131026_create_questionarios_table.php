@@ -14,6 +14,12 @@ return new class extends Migration
         Schema::create('questionarios', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->foreignId('modulo_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->string('codigo')->unique();
+            $table->string('titulo');
         });
     }
 

@@ -10,8 +10,6 @@ interface QuestaoMultiplaEscolhaProps {
     id: string;
     pergunta: string;
     alternativas: Alternativa[];
-    respostaCorreta: string;
-    explicacao: string;
 }
 
 //===========================================================================
@@ -20,8 +18,6 @@ export default function QuestaoMultiplaEscolha({
     id,
     pergunta,
     alternativas,
-    respostaCorreta,
-    explicacao,
 }: QuestaoMultiplaEscolhaProps) {
     const {
         registrarQuestao,
@@ -37,21 +33,13 @@ export default function QuestaoMultiplaEscolha({
             id,
             tipo: "multipla-escolha",
             pergunta,
-            explicacao,
-            respostaCorreta,
-            opcoes: Object.fromEntries(
-                alternativas.map((alternativa) => [
-                    alternativa.id,
-                    alternativa.texto,
-                ]),
-            ),
         });
         return () => {
             removerQuestao(id);
         };
     }, [
         id,
-        respostaCorreta,
+        pergunta,
         registrarQuestao,
         removerQuestao,
     ]);

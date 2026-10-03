@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use App\Models\RecompensaUsuario;
+use App\Models\TentativaQuestionario;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
@@ -41,5 +42,11 @@ class User extends Authenticatable
 
     public function recompensas(){
         return $this->hasMany(RecompensaUsuario::class);
+    }
+
+    public function tentativasQuestionario(){
+        return $this->hasMany(
+            TentativaQuestionario::class
+        );
     }
 }
