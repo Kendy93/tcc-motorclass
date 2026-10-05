@@ -16,6 +16,57 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
                     origem: [0, 0.25, 0],
                 },
             },
+                configuracoesMotor: {
+                modelo: "/models/01_como_o_motor_funciona/tcc-configuracoes_motor.glb",
+                escala: 1,
+                interativo: true,
+                camera: {
+                    camerapos: [5, 2, 5],
+                    origem: [0, 0, 0],
+                },
+                pecas: {
+                    f4: {
+                        titulo: "Motor horizontal / deitado",
+                        descricao:
+                            "Como o nome diz, nesse motor os pistões ficam deitados. Existem 2 configurações usadas, o 'boxer', onde os pistões movem em direções diferentes, e o 'flat', onde eles se movem na mesma direção. Exemplos famosos são o Boxer-4 do Subaru Impreza, Flat-6 do Porsche 911, Flat-12 do Ferari Testarossa e o Boxer-4 do famoso Fusca.",
+                    },
+                    i6: {
+                        titulo: "Motor em linha",
+                        descricao:
+                            "Possivelmente a configuração mais comum, onde os cilindros ficam um atrás do outro, formando uma linha. Nosso carro usa essa configuração, um I6. Também podemos citar a série K de motores 4 cilindros em linha da Honda, os 6 em linha da BMW, Toyota Supra e Nissan Skyline.",
+                    },
+                    radial: {
+                        titulo: "Motor radial",
+                        descricao:
+                            "uma configuração raramente vista atualmente, principalmente em carros. Devido ao tamanho e disposição, costumava ser mais usada em aviões, como o R-4360 Wasp Major de 28 cilindros. Nos carros, o Monaco Trossi de 1935 usava um motor radial de 16 cilindros. Este modelo mostra um motor com 7 cilindros e apenas uma fileira.",
+                    },
+                    v8: {
+                        titulo: "Motor em V",
+                        descricao:
+                            "Ganhou esse nome pois olhando de frente, os cilindros formam um V. Essa é a segunda configuração mais comum e, possivelmente, a mais amada. Quanto aos exemplares notáveis, temos o V6 Busso da Alfa Romeo, os V8 americanos, os V10 do Lexus LFA e do Porsche Carrera GT e também os V12 italianos.",
+                    },
+                    vr6: {
+                        titulo: "Motor VR",
+                        descricao:
+                            "Essa é uma configuração usada praticamente apenas pelas marcas do grupo VW. É um tipo de V tão estreito que acaba usando apenas um cabeçote. Muito conhecido pelos VR6 usados nos VW Golf, Corrado e Passat.",
+                    },
+                    w12: {
+                        titulo: "Motor em W",
+                        descricao:
+                            "Assim como o motor em V, este recebeu seu nome pelo formato quando visto de frente. Mais uma opção raramente usada em carros, principalmente neste formato com 3 bancadas de cilindros. Sua aplicação mais famosa é no Napier-Railton W12, um motor de avião que chegou a ser colocado em um carro de corrida em 1933, o Napier-Railton.",
+                    },
+                    wankel4: {
+                        titulo: "Motor wankel / rotativo",
+                        descricao:
+                            "Diferente dos outros, não usa um pistão, em vez disso usa esses triângulos, chamados de rotores. Embora seja um conceito alemão, ele ficou famoso com os carros da Mazda, principalmente pelo seu uso no RX-7.",
+                    },
+                    wr16: {
+                        titulo: "Motor em W (WR)",
+                        descricao:
+                            "Outro tipo de motor em W, aqui sua configuração é basicamente um motor VR em V. Também famosa pelo uso em carros do grupo VW, como nos W16 do Bugatti Veyron e Chiron, nos W8 do Volkswagem Phaeton e Passat, e também no W12 do Bentley Continental.",
+                    },
+                },
+            },
         },
         secoes: [
             {
@@ -104,8 +155,6 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
                 nivel: 2,
             },
         ],
-        //modelo3D: "/models/10_parando_o_carro/tcc_models-brakes_full.glb",
-
     },
     "freios": {
         modelos3D: {
