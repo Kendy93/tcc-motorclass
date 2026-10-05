@@ -11,7 +11,13 @@ interface PontoInterativo3DProps {
     onClick: () => void;
     mostrarTitulo?: boolean;
     selecionado?: boolean;
+    tipo?: TipoPontoInterativo;
 }
+
+type TipoPontoInterativo =
+    | "visualizador"
+    | "pergunta"
+    | "animacao";
 
 //===========================================================================
 
@@ -21,9 +27,29 @@ export default function PontoInterativo3D({
     onClick,
     mostrarTitulo = true,
     selecionado = false,
+    tipo = "visualizador",
 }: PontoInterativo3DProps) {
     const grupoRef = useRef<THREE.Group>(null);
     const posicao = useRef(new THREE.Vector3());
+
+    const estilosPorTipo = {
+        visualizador: {
+            ponto: "bg-blue-500",
+            circulo: "bg-blue-400/40",
+            simbolo: null,
+        },
+        pergunta: {
+            ponto: "bg-red-500",
+            circulo: "bg-red-400/40",
+            simbolo: "?",
+        },
+        animacao: {
+            ponto: "bg-green-500",
+            circulo: "bg-green-400/40",
+            simbolo: "▶",
+        },
+    };
+    const estilo = estilosPorTipo[tipo];
 
     useFrame(() => {
         if (!grupoRef.current) {
@@ -37,57 +63,66 @@ export default function PontoInterativo3D({
 
     return (
         <group ref={grupoRef}>
-            <Html
-                center
-                style={{
-                    pointerEvents: "auto",
-                }}
-            >
+            <Html center style={{ pointerEvents: "auto" }}>
                 <button
                     type="button"
                     onClick={(event) => {
                         event.stopPropagation();
                         onClick();
                     }}
-                    className="group relative flex h-10 w-10 items-center justify-center"
+                    className="
+                        group 
+                        relative 
+                        flex 
+                        h-7 w-7 
+                        items-center 
+                        justify-center
+                    "
                     aria-label={`Selecionar ${titulo}`}
                 >
                     {/* círculo pulsante */}
                     <span
                         className={`
-                            absolute
-                            h-7
-                            w-7
-                            rounded-full
-                            animate-ping
+                            absolute 
+                            h-7 w-7 
+                            rounded-full 
+                            animate-ping 
                             ${
                                 selecionado
                                     ? "bg-yellow-400/70"
-                                    : "bg-blue-400/40"
+                                    : estilo.circulo
                             }
                         `}
                     />
+
                     {/* ponto central */}
                     <span
                         className={`
-                            relative
-                            h-3
-                            w-3
-                            rounded-full
-                            border-2
-                            border-white
-                            shadow-md
+                            relative 
+                            flex 
+                            h-4 w-4 
+                            items-center 
+                            justify-center 
+                            rounded-full 
+                            border-2 
+                            border-white 
+                            text-[9px] 
+                            font-bold 
+                            text-white 
+                            shadow-md 
                             ${
                                 selecionado
-                                    ? "bg-blue1"
-                                    : "bg-red"
+                                    ? "bg-yellow-400"
+                                    : estilo.ponto
                             }
                         `}
-                    />
+                    >
+                        {estilo.simbolo}
+                    </span>
+
                     {/* label com o nome da parte */}
                     {mostrarTitulo && (
-                        <span
-                            className="
+                        <span className="
                                 pointer-events-none
                                 absolute
                                 left-10
@@ -95,13 +130,12 @@ export default function PontoInterativo3D({
                                 rounded-md
                                 bg-black
                                 px-2 py-1
-                                text-xl
+                                text-lg
                                 text-white
                                 opacity-0
                                 transition-opacity
                                 group-hover:opacity-100
-                            "
-                        >
+                        ">
                             {titulo}
                         </span>
                     )}

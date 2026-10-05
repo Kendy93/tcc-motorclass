@@ -91,6 +91,7 @@ function Modelo({
             {Object.entries(objetosInterativos).map(
                 ([nome, objeto]) => (
                     <PontoInterativo3D
+                        tipo="visualizador"
                         key={nome}
                         objeto={objeto}
                         titulo={pecas[nome].titulo}

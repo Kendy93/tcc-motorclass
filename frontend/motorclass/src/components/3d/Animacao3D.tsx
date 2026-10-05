@@ -152,6 +152,7 @@ function ModeloAnimado({
 
                     return (
                         <PontoInterativo3D
+                            tipo="animacao"
                             key={configuracaoAnimacao.gatilho}
                             objeto={objeto}
                             titulo={configuracaoAnimacao.titulo}

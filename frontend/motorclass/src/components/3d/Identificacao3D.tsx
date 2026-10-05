@@ -67,6 +67,7 @@ function ModeloIdentificacao3D({
             <primitive object={modelo} />
             {objetosInterativos.map((objeto) => (
                 <PontoInterativo3D
+                    tipo="pergunta"
                     key={objeto.uuid}
                     objeto={objeto}
                     titulo={
