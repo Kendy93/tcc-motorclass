@@ -77,7 +77,9 @@ function ModeloAnimado({
                 }
             }
         );
+
         //reinicia a animação e toca 1 vez
+        action.stop();
         action.reset();
         action.setLoop(THREE.LoopOnce, 1);
         action.clampWhenFinished = true;

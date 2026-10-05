@@ -1,4 +1,6 @@
 import { Billboard, Text } from "@react-three/drei";
+import type { ComponentProps, ComponentType } from "react";
+import Texto3D from "./Texto3D";
 
 interface Anotacao3DProps {
     texto: string;
@@ -13,7 +15,7 @@ export default function Anotacao3D({
 }: Anotacao3DProps) {
     return (
         <Billboard position={posicao} renderOrder={1000}>
-            <Text
+            <Texto3D
                 fontSize={0.05}
                 color="white"
                 anchorX="center"
@@ -32,7 +34,7 @@ export default function Anotacao3D({
                     depthTest={false}
                     depthWrite={false}
                 />
-            </Text>
+            </Texto3D>
         </Billboard>
     );
 }
