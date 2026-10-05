@@ -31,7 +31,7 @@ export default function CardModulo({
 
             "
         >
-            <div className="relative aspect-[3/4] overflow-hidden">
+            <div className="relative aspect-[3/4] overflow-hidden bg-gray-800">
                 <img
                     src={modulo.imagem}
                     alt={modulo.titulo}
@@ -57,7 +57,7 @@ export default function CardModulo({
                         text-[8rem]
                         font-bold
                         leading-none
-                        text-mainlight
+                        !text-mainlight
                     "
                 >
                     {String(modulo.ordem).padStart(2, "0")}

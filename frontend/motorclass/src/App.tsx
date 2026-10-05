@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
+import RotasProtegidas from "./components/RotasProtegidas";
+import RotasPublicas from "./components/RotasPublicas";
+
 import Login from "./pages/Login";
 import Dashboard from "./pages/Modulos";
 import Modulo from "./pages/Modulo";
@@ -12,15 +15,20 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/cadastro" element={<Cadastro />} />
+                <Route element={<RotasPublicas />}>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/cadastro" element={<Cadastro />} />
+                </Route>
                 
                 <Route element={<Layout />}>
 
                     <Route path="/" element={<LandingPage />}/>
                     <Route path="/modulos" element={<Dashboard />} />
                     <Route path="/modulos/:codigo" element={<Modulo />}/>
-                    <Route path="/perfil" element={<Perfil />} />
+
+                    <Route element={<RotasProtegidas />}>
+                        <Route path="/perfil" element={<Perfil />} />
+                    </Route>
 
                 </Route>
             </Routes>
