@@ -145,6 +145,23 @@ export default function Identificacao3D({
         );
     };
 
+    function renderizarPergunta(pergunta: string, destaque?: string) {
+        if (!destaque) {
+            return pergunta;
+        }
+        const indice = pergunta.indexOf(destaque);
+        if (indice === -1) {
+            return pergunta;
+        }
+        return (
+            <>
+                {pergunta.slice(0, indice)}
+                <strong>{destaque}</strong>
+                {pergunta.slice(indice + destaque.length)}
+            </>
+        );
+    }
+
 //-------------------------------------------------------
 
     return (
@@ -159,8 +176,12 @@ export default function Identificacao3D({
 
             {!finalizada ? (
                 <>
-                    <p className="mb-5 text-base font-medium leading-relaxed text-gray-900">
-                        {perguntaAtual.pergunta}
+                    <p className="mb-5 text-base leading-relaxed text-gray-900">
+                        <span className="!text-blue1 font-bold">{indiceAtual + 1}. </span> 
+                            {renderizarPergunta(
+                                perguntaAtual.pergunta,
+                                perguntaAtual.destaque
+                            )}
                     </p>
                     <div className="mb-5 h-[600px] overflow-hidden rounded-xl bg-maindark">
                         <Canvas

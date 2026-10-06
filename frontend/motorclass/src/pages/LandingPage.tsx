@@ -37,7 +37,7 @@ export default function LandingPage() {
                     />
                 </div>
 
-//-------------------------------------------------------
+{/*//-------------------------------------------------------*/}
 
                 <section className="relative z-10 bg-mainlight/60 backdrop-blur-md">
                     <div className="mx-auto grid min-h-200 w-full max-w-7xl px-8 py-10 md:grid-cols-2 md:items-center">
@@ -75,11 +75,11 @@ export default function LandingPage() {
                 </section>
             </div>
 
-//-------------------------------------------------------
+{/*//-------------------------------------------------------*/}
 
             <CarrosselModulos modulos={modulos} />
 
-//-------------------------------------------------------
+{/*//-------------------------------------------------------*/}
 
             {/* parte da gamificação */}
             <section>

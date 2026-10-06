@@ -119,6 +119,7 @@ export interface TentativaQuestionario {
 export interface PerguntaIdentificacao3D {
     codigo: string;
     pergunta: string;
+    destaque?: string;
 }
 
 export interface ResultadoQuestao {
@@ -146,6 +147,7 @@ export interface QuestaoPublica {
         | "multipla-escolha"
         | "identificacao-3d";
     pergunta: string;
+    destaque?: string;
     opcoes?: Record<string, string> | null;
     ordem: number;
     modelo_3d?: string | null;

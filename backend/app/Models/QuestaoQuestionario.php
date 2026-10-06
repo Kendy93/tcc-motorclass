@@ -12,6 +12,7 @@ class QuestaoQuestionario extends Model
         'codigo',
         'tipo',
         'pergunta',
+        'destaque',
         'resposta_correta',
         'explicacao',
         'opcoes',

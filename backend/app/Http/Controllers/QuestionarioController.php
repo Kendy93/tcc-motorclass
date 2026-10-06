@@ -379,6 +379,7 @@ class QuestionarioController extends Controller
                     'codigo' => $questao->codigo,
                     'tipo' => $questao->tipo,
                     'pergunta' => $questao->pergunta,
+                    'destaque' => $questao->destaque,
                     'opcoes' => $questao->opcoes,
                     'ordem' => $questao->ordem,
                     'modelo_3d' => $questao->modelo_3d,

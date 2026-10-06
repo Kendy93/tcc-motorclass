@@ -294,6 +294,7 @@ export default function Questionario({
                                     (questao) => ({
                                         codigo: questao.codigo,
                                         pergunta: questao.pergunta,
+                                        destaque: questao.destaque,
                                     }),
                                 )}
                             />
