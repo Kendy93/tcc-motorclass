@@ -5,6 +5,7 @@ import type { Modulo, Recompensa } from "../types";
 import Botao from "../components/Botao";
 import ModeloGamificacao from "../components/3d/ModeloGamificacao";
 import { obterProximaRecompensa, obterRecompensasDesbloqueadas, recompensasPorModulo } from "../data/recompensas";
+import { CheckCircle2, Trophy } from "lucide-react";
 
 //===========================================================================
 
@@ -291,14 +292,21 @@ export default function Perfil() {
                 {/* todas as recompensas */}
                 <section className="rounded-2xl bg-white p-6 text-left shadow-sm">
 
-                    <div className="mb-6">
-                        <h2 className="text-xl">
+                <div className="mb-6 flex items-start gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-yellow-100">
+                        <Trophy className="h-6 w-6 text-yellow-600" />
+                    </div>
+                    <div>
+                        <h2 className="text-xl font-semibold">
                             Recompensas da sua garagem
                         </h2>
-                        <p className="text-sm !text-gray-500">
-                            As peças são desbloqueadas conforme você conclui os módulos. Escolha quais deseja equipar no carro.
+
+                        <p className="mt-1 text-sm !text-gray-500">
+                            As peças são desbloqueadas conforme você conclui os módulos.
+                            Escolha quais deseja equipar no carro.
                         </p>
                     </div>
+                </div>
 
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {recompensasVisiveis.map(
@@ -321,63 +329,94 @@ export default function Perfil() {
                                     <label
                                         key={recompensa.codigo}
                                         className={`
+                                            group
                                             flex
                                             items-start
-                                            gap-3
-                                            rounded-xl
+                                            gap-4
+                                            rounded-2xl
                                             border
                                             p-5
                                             transition
                                             ${
                                                 desbloqueada
-                                                    ? "cursor-pointer border-gray-200 bg-blue1/10 hover:bg-blue1/15"
-                                                    : "cursor-not-allowed border-gray-200 bg-gray-50 opacity-50"
+                                                    ? "cursor-pointer border-gray-200 bg-white hover:-translate-y-0.5 hover:border-blue1/30 hover:bg-blue1/5 hover:shadow-sm"
+                                                    : "cursor-not-allowed border-gray-200 bg-gray-50 opacity-55"
                                             }
                                         `}
                                     >
-                                        <input
-                                            type="checkbox"
-                                            checked={
-                                                desbloqueada &&
-                                                equipada
-                                            }
-                                            disabled={
-                                                !desbloqueada ||
-                                                atualizando
-                                            }
-                                            onChange={() =>
-                                                recompensaGaragem &&
-                                                alternarRecompensa(
-                                                    recompensaGaragem,
-                                                )
-                                            }
-                                            className="h-4 w-4 cursor-pointer"
-                                        />
-
-                                        <div className="min-w-0">
-                                            <p
+                                        <div
+                                            className={`
+                                                flex
+                                                h-11
+                                                w-11
+                                                shrink-0
+                                                items-center
+                                                justify-center
+                                                rounded-full
+                                                ${
+                                                    !desbloqueada
+                                                        ? "bg-gray-200"
+                                                        : equipada
+                                                            ? "bg-blue1/10"
+                                                            : "bg-yellow-100"
+                                                }
+                                            `}
+                                        >
+                                            <Trophy
                                                 className={`
-                                                    text-xs
-                                                    font-medium
-                                                    uppercase
-                                                    tracking-wide
+                                                    h-5
+                                                    w-5
                                                     ${
-                                                        desbloqueada
-                                                            ? "!text-blue1"
-                                                            : "!text-gray-400"
+                                                        !desbloqueada
+                                                            ? "text-gray-400"
+                                                            : equipada
+                                                                ? "text-blue1"
+                                                                : "text-yellow-600"
                                                     }
                                                 `}
-                                            >
-                                                {desbloqueada
-                                                    ? equipada
-                                                        ? "Equipada"
-                                                        : "Desbloqueada"
-                                                    : "Bloqueada"}
-                                            </p>
+                                            />
+                                        </div>
+
+                                        <div className="min-w-0 flex-1">
+                                            <div className="flex items-center justify-between gap-3">
+                                                <p
+                                                    className={`
+                                                        text-xs
+                                                        font-semibold
+                                                        uppercase
+                                                        tracking-wide
+                                                        ${
+                                                            !desbloqueada
+                                                                ? "!text-gray-400"
+                                                                : equipada
+                                                                    ? "!text-blue1"
+                                                                    : "!text-yellow-600"
+                                                        }
+                                                    `}
+                                                >
+                                                    {!desbloqueada
+                                                        ? "Bloqueada"
+                                                        : equipada
+                                                            ? "Equipada"
+                                                            : "Desbloqueada"}
+                                                </p>
+
+                                                <input
+                                                    type="checkbox"
+                                                    checked={desbloqueada && equipada}
+                                                    disabled={!desbloqueada || atualizando}
+                                                    onChange={() =>
+                                                        recompensaGaragem &&
+                                                        alternarRecompensa(recompensaGaragem)
+                                                    }
+                                                    className="h-4 w-4 cursor-pointer"
+                                                />
+                                            </div>
 
                                             <h3 className="mt-1 font-semibold">
                                                 {recompensa.nome}
                                             </h3>
+
                                             <p className="mt-2 text-sm !text-gray-500">
                                                 {desbloqueada
                                                     ? equipada

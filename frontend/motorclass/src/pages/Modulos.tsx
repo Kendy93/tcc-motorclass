@@ -4,6 +4,7 @@ import { api } from "../lib/api";
 
 import type { User, Modulo } from "../types";
 import { configuracoesModulos } from "../data/modulos";
+import BotaoLink from "../components/BotaoLink";
 
 //===========================================================================
 
@@ -110,7 +111,7 @@ export default function Modulos() {
                             </div>
 
                             <p className="text-sm !text-mainlight">
-                                {modulosConcluidos} de{" "} {totalModulos} módulos concluídos
+                                {modulosConcluidos} de {totalModulos} módulos concluídos
                             </p>
                         </div>
 
@@ -122,6 +123,20 @@ export default function Modulos() {
                                 }}
                             />
                         </div>
+
+                        <div className="mt-4 flex items-center justify-between gap-4">
+                            <p className="text-sm !text-mainlight">
+                                Continue aprendendo para desbloquear novas peças para sua garagem.
+                            </p>
+
+                            <BotaoLink
+                                to="/perfil"
+                                variant="secondary"
+                                className="shrink-0 px-4 py-2"
+                            >
+                                Ver garagem
+                            </BotaoLink>
+                        </div>
                     </section>
                 )}
 
@@ -129,9 +144,23 @@ export default function Modulos() {
                 <section className="mt-8">
                     <div className="mb-6">
                         {!user && (
-                            <p className="text-sm !text-blue1">
-                                Entre na sua conta para salvar seu progresso.
-                            </p>
+                            <div className="rounded-xl border border-blue1/20 bg-blue1/5 px-5 py-4">
+                                <p className="text-sm font-semibold !text-blue1">
+                                    Crie sua garagem
+                                </p>
+
+                                <p className="mt-1 text-sm text-gray-600">
+                                    Conclua módulos para desbloquear novas peças e personalize seu
+                                    carro conforme você aprende.
+                                </p>
+
+                                <BotaoLink
+                                    to="/cadastro"
+                                    className="mt-3 px-4 py-2"
+                                >
+                                    Criar minha conta
+                                </BotaoLink>
+                            </div>
                         )}
                     </div>
 

@@ -4,6 +4,7 @@ import { api } from "../lib/api";
 import type { Modulo } from "../types";
 import { recompensasPorModulo } from "../data/recompensas";
 import Botao from "./Botao";
+import { CheckCircle2, Trophy } from "lucide-react";
 
 interface FinalizarModuloProps {
     moduloAtual: string;
@@ -20,9 +21,14 @@ export default function FinalizarModulo({
     const [error, setError] = useState("");
     const [autenticado, setAutenticado] = useState(false);
     const [verificandoUsuario, setVerificandoUsuario] = useState(true);
-
     const [concluido, setConcluido] = useState(false);
-    const [toast, setToast] = useState<string | null>(null);
+
+    type ToastData = {
+        tipo: "recompensa" | "sucesso";
+        mensagem: string;
+        recompensa?: string;
+    };
+    const [toast, setToast] = useState<ToastData | null>(null);
     const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const navigate = useNavigate();
@@ -67,14 +73,16 @@ export default function FinalizarModulo({
         indiceAtual >= 0 && indiceAtual < modulos.length - 1
             ? modulos[indiceAtual + 1]
             : null;
-    const mostrarToast = (mensagem: string) => {
-        setToast(mensagem);
+    const mostrarToast = (dados: ToastData) => {
+        setToast(dados);
+
         if (toastTimer.current) {
             clearTimeout(toastTimer.current);
         }
+
         toastTimer.current = setTimeout(() => {
             setToast(null);
-        }, 1800);
+        }, 2000);
     };
 
     const finalizar = async () => {
@@ -99,15 +107,20 @@ export default function FinalizarModulo({
                     recompensasPorModulo[moduloAtual];
 
                 if (recompensa) {
-                    mostrarToast(
-                        `Módulo concluído! Você desbloqueou: ${recompensa.nome}.`
-                    );
+                    mostrarToast({
+                        tipo: "recompensa",
+                        mensagem: "Nova recompensa desbloqueada:",
+                        recompensa: recompensa.nome,
+                    });
                 } else {
-                    mostrarToast("Módulo concluído!");
+                    mostrarToast({
+                        tipo: "sucesso",
+                        mensagem: "Seu progresso foi salvo.",
+                    });
                 }
                 //deixa um tempo para o toast antes de seguir para o próx módulo
                 await new Promise((resolve) =>
-                    setTimeout(resolve, 1800)
+                    setTimeout(resolve, 2000)
                 );
 
                 if (moduloSeguinte) {
@@ -117,12 +130,12 @@ export default function FinalizarModulo({
                 }
                 return;
             }
-            //remove a conclusão
-            if (estavaConcluido && !novoEstado) {
-                mostrarToast(
-                    "A conclusão do módulo foi removida."
-                );
-            }
+            // //remove a conclusão
+            // if (estavaConcluido && !novoEstado) {
+            //     mostrarToast(
+            //         "A conclusão do módulo foi removida."
+            //     );
+            // }
         } catch (error) {
             console.error(
                 "Erro ao atualizar conclusão do módulo:",
@@ -177,20 +190,57 @@ export default function FinalizarModulo({
                         right-6
                         top-6
                         z-[100]
-                        max-w-sm
-                        rounded-lg
+                        w-[360px]
+                        overflow-hidden
+                        rounded-2xl
                         border
                         border-gray-200
                         bg-white
-                        px-5
-                        py-4
-                        text-left
-                        shadow-lg
+                        shadow-xl
                     "
                 >
-                    <p className="text-sm">
-                        {toast}
-                    </p>
+                    <div className="flex items-center gap-4 px-5 py-4">
+                        <div
+                            className={`
+                                flex
+                                h-12
+                                w-12
+                                shrink-0
+                                items-center
+                                justify-center
+                                rounded-full
+                                ${
+                                    toast.tipo === "recompensa"
+                                        ? "bg-yellow-100"
+                                        : "bg-green-100"
+                                }
+                            `}
+                        >
+                            {toast.tipo === "recompensa" ? (
+                                <Trophy className="h-6 w-6 text-yellow-600" />
+                            ) : (
+                                <CheckCircle2 className="h-6 w-6 text-green-600" />
+                            )}
+                        </div>
+
+                        <div className="min-w-0 text-left">
+                            <p className="font-bold">
+                                Módulo concluído!
+                            </p>
+                            <p className="text-sm !text-gray-600">
+                                {toast.mensagem}
+                            </p>
+                            {toast.recompensa && (
+                                <p className="mt-1 font-semibold !text-blue1">
+                                    {toast.recompensa}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="h-1 bg-gray-100">
+                        <div className="h-full w-full origin-left bg-blue1" />
+                    </div>
                 </div>
             )}
         </div>

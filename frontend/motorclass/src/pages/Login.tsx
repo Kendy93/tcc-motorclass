@@ -26,7 +26,7 @@ export default function Login() {
             });
             const response = await api.get("/api/user");
             console.log("Usuário autenticado:", response.data);
-            window.location.href = "/modulos";
+            window.location.href = "/perfil";
         } catch (error: any) {
             if (error.response?.status === 422) {
                 setError("E-mail ou senha incorretos.");
