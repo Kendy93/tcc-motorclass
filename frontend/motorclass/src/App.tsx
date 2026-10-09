@@ -10,6 +10,7 @@ import Layout from "./MainLayout";
 import LandingPage from "./pages/LandingPage";
 import Cadastro from "./pages/Cadastro";
 import Perfil from "./pages/Perfil";
+import Sobre from "./pages/Sobre";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/" element={<LandingPage />}/>
                     <Route path="/modulos" element={<Dashboard />} />
                     <Route path="/modulos/:codigo" element={<Modulo />}/>
+                    <Route path="/sobre" element={<Sobre />} />
 
                     <Route element={<RotasProtegidas />}>
                         <Route path="/perfil" element={<Perfil />} />
