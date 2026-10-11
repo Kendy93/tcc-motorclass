@@ -1,6 +1,6 @@
 import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useEffect, useMemo } from "react";
+import { useLayoutEffect, useMemo } from "react";
 import type { Recompensa } from "../../types";
 import { recompensasPorModulo } from "../../data/recompensas.ts";
 
@@ -9,23 +9,23 @@ import { recompensasPorModulo } from "../../data/recompensas.ts";
 const MODELO = "/models/tcc_model-gaming.glb";
 
 interface ModeloGamificacaoProps {
-    recompensas: Recompensa[];
+    recompensasEquipadas: string[];
 }
 
 interface ModeloCarroProps {
-    recompensas: Recompensa[];
+    recompensasEquipadas: string[];
 }
 
 //-------------------------------------------------------
 
-function ModeloCarro({ recompensas }: ModeloCarroProps) {
+function ModeloCarro({ recompensasEquipadas }: ModeloCarroProps) {
     const { scene } = useGLTF(MODELO);
     //cria uma cópia do modelo para não afetar outras instâncias
     const modelo = useMemo(() => scene.clone(true), [scene]);
     //busca os itens desbloqueados
-    const objetosDesbloqueados = useMemo(
-        () => new Set(recompensas.map((recompensa) => recompensa.objeto)),
-        [recompensas],
+    const codigosEquipados = useMemo(
+        () => new Set(recompensasEquipadas),
+        [recompensasEquipadas],
     );
     const objetosDeRecompensa = useMemo(
         () =>
@@ -38,14 +38,32 @@ function ModeloCarro({ recompensas }: ModeloCarroProps) {
     );
 
     //muda a visibilidade de acordo com as recompensas desbloqueados
-    useEffect(() => {
-        modelo.traverse((objeto) => {
-            if (!objetosDeRecompensa.has(objeto.name)) {
+    useLayoutEffect(() => {
+        const alterarVisibilidade = (
+            nome: string,
+            visivel: boolean,
+        ) => {
+            const objeto = modelo.getObjectByName(nome);
+            if (!objeto) {
+                console.warn(`Objeto "${nome}" não encontrado no modelo de gamificação.`);
                 return;
             }
-            objeto.visible = objetosDesbloqueados.has(objeto.name);
-        });
-    }, [modelo, objetosDeRecompensa, objetosDesbloqueados]);
+            objeto.visible = visivel;
+        };
+
+        // aplica o estado de cada recompensa equipada
+        Object.values(recompensasPorModulo).forEach(
+            (recompensa) => {
+                const equipada = codigosEquipados.has(recompensa.codigo);
+                // a peça nova aparece apenas quando equipada
+                alterarVisibilidade(recompensa.objeto, equipada);
+                // a antiga volta quando a recompensa não está equipada
+                if (recompensa.objetoSubstituido) {
+                    alterarVisibilidade(recompensa.objetoSubstituido, !equipada);
+                }
+            },
+        );
+    }, [modelo, codigosEquipados]);
 
     return <primitive object={modelo} />;
 }
@@ -53,7 +71,7 @@ function ModeloCarro({ recompensas }: ModeloCarroProps) {
 //===========================================================================
 
 export default function ModeloGamificacao({
-    recompensas,
+    recompensasEquipadas,
 }: ModeloGamificacaoProps) {
     return (
         <div className="h-[800px] w-full">
@@ -70,7 +88,7 @@ export default function ModeloGamificacao({
                 />
                 <Environment files="/hdri/cloudy_cliffside_road_2k.hdr"/>
 
-                <ModeloCarro recompensas={recompensas} />
+                <ModeloCarro recompensasEquipadas={recompensasEquipadas} />
                 <OrbitControls
                     minDistance={2}
                     maxDistance={6}

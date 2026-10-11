@@ -95,6 +95,7 @@ export interface Recompensa {
     codigo: string;
     nome: string;
     objeto: string;
+    objetoSubstituido?: string;
 }
 
 export type TipoQuestao =

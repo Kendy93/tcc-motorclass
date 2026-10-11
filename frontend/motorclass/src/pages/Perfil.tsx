@@ -6,6 +6,7 @@ import Botao from "../components/Botao";
 import ModeloGamificacao from "../components/3d/ModeloGamificacao";
 import { obterProximaRecompensa, obterRecompensasDesbloqueadas, recompensasPorModulo } from "../data/recompensas";
 import { CheckCircle2, Trophy } from "lucide-react";
+import IntroducaoGaragem from "../components/IntroducaoGaragem";
 
 //===========================================================================
 
@@ -91,7 +92,7 @@ export default function Perfil() {
                 } => item !== null,
             );
     }, [modulos]);
-
+    
     //carrega com base na configuração
     const pecasEquipadas = useMemo(() => {
         return recompensasGaragem
@@ -118,6 +119,13 @@ export default function Perfil() {
         recompensasDesbloqueadas,
         pecasEquipadas,
     ]);
+    const codigosEquipados = useMemo(
+        () =>
+            recompensasGaragem
+                .filter((recompensa) => recompensa.equipada)
+                .map((recompensa) => recompensa.codigo),
+        [recompensasGaragem],
+    );
 
     //alterna se as recompensas ficam visíveis ou não
     const alternarRecompensa = async (
@@ -207,6 +215,8 @@ export default function Perfil() {
 
 {/*//-------------------------------------------------------*/}
 
+                <IntroducaoGaragem />
+
                 <section className="mb-8 grid gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(320px,0.5fr)]">
                     {/* carro */}
                     <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
@@ -218,9 +228,10 @@ export default function Perfil() {
                                 Continue aprendendo para desbloquear novas peças.
                             </p>
                         </div>
+
                         <div className="bg-maindark">
                             <ModeloGamificacao
-                                recompensas={recompensasVisiveisNoCarro}
+                                recompensasEquipadas={codigosEquipados}
                             />
                         </div>
                     </div>

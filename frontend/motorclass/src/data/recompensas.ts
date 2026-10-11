@@ -5,6 +5,7 @@ export const recompensasPorModulo: Record<string, Recompensa> = {
         codigo: "carro_base",
         nome: "Um carro?",
         objeto: "recompensa_fundamento",
+        objetoSubstituido: "carro_antigo",
     },
     ar: {
         codigo: "capo_ar",
@@ -50,6 +51,7 @@ export const recompensasPorModulo: Record<string, Recompensa> = {
         codigo: "freio_paraqueda",
         nome: "Um paraquedas?",
         objeto: "recompensa_freio",
+        objetoSubstituido: "freios_antigo",
     },
     suspensao: {
         codigo: "suspensao",
