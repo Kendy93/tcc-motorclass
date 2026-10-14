@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useQuestionario } from "./Questionario";
 
+import { tocarSomSelecao, tocarSomEnvio } from "../utils/efeitosSonoros";
+
 interface Alternativa {
     id: string;
     texto: string;
@@ -83,11 +85,10 @@ export default function QuestaoMultiplaEscolha({
                                     value={alternativa.id}
                                     checked={selecionada}
                                     disabled={enviado}
-                                    onChange={() =>
-                                        selecionarResposta(
-                                            alternativa.id,
-                                        )
-                                    }
+                                    onChange={() => {
+                                        selecionarResposta(alternativa.id);
+                                        tocarSomSelecao();
+                                    }}
                                     className="mt-1 h-4 w-4"
                                 />
                                 <span className="text-sm leading-relaxed">

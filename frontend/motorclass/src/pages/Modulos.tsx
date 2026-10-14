@@ -5,6 +5,7 @@ import { api } from "../lib/api";
 import type { User, Modulo } from "../types";
 import { configuracoesModulos } from "../data/modulos";
 import BotaoLink from "../components/BotaoLink";
+import Visualizador3D from "../components/3d/Visu3DBase";
 
 //===========================================================================
 
@@ -96,74 +97,102 @@ export default function Modulos() {
                     </p>
                 </header>
 
-                {/* barra de progresso */}
-                {user && (
-                    <section className="mt-6 rounded-xl border border-gray-200 bg-blue2 p-6 shadow-sm">
-                        <div className="flex items-end justify-between gap-4">
-                            <div>
+                {/* progresso / propaganda da garagem */}
+                <section className={`
+                    mt-6 
+                    grid 
+                    grid-cols-1 
+                    items-center 
+                    gap-6
+                    rounded-xl 
+                    border 
+                    p-6 
+                    shadow-sm
+                    lg:grid-cols-[minmax(0,1fr)_280px]
+                    ${user
+                        ? "border-gray-200 bg-blue2"
+                        : "border-blue1/20 bg-blue1/5"
+                    }
+                `}>
+                    {/* esquerda */}
+                    <div className="min-w-0 text-left">
+                        {user ? (
+                            <>
                                 <p className="text-sm !text-mainlight">
                                     Seu progresso
                                 </p>
-
                                 <p className="mt-1 text-3xl font-bold !text-mainlight">
                                     {progresso}%
                                 </p>
-                            </div>
-
-                            <p className="text-sm !text-mainlight">
-                                {modulosConcluidos} de {totalModulos} módulos concluídos
-                            </p>
-                        </div>
-
-                        <div className="mt-4 h-3 overflow-hidden rounded-full bg-mainlight">
-                            <div
-                                className="h-full rounded-full bg-blue5 transition-all"
-                                style={{
-                                    width: `${progresso}%`,
-                                }}
-                            />
-                        </div>
-
-                        <div className="mt-4 flex items-center justify-between gap-4">
-                            <p className="text-sm !text-mainlight">
-                                Continue aprendendo para desbloquear novas peças para sua garagem.
-                            </p>
-
-                            <BotaoLink
-                                to="/perfil"
-                                variant="secondary"
-                                className="shrink-0 px-4 py-2"
-                            >
-                                Ver garagem
-                            </BotaoLink>
-                        </div>
-                    </section>
-                )}
-
-                {/* cards dos módulos */}
-                <section className="mt-8">
-                    <div className="mb-6">
-                        {!user && (
-                            <div className="rounded-xl border border-blue1/20 bg-blue1/5 px-5 py-4">
-                                <p className="text-sm font-semibold !text-blue1">
+                                <p className="mt-2 text-sm !text-mainlight">
+                                    {modulosConcluidos} de {totalModulos} módulos concluídos
+                                </p>
+                                <div className="mt-2 h-3 overflow-hidden rounded-full bg-mainlight">
+                                    <div
+                                        className="h-full rounded-full bg-blue5 transition-all"
+                                        style={{
+                                            width: `${progresso}%`,
+                                        }}
+                                    />
+                                </div>
+                                <div className="mt-3 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+                                    <p className="text-sm !text-mainlight">
+                                        Continue aprendendo para desbloquear novas peças para seu projeto.
+                                    </p>
+                                    <BotaoLink
+                                        to="/perfil"
+                                        variant="secondary"
+                                        className="shrink-0 px-4 py-2"
+                                    >
+                                        Ver garagem
+                                    </BotaoLink>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <p className="text-sm font-semibold uppercase tracking-widest !text-blue1">
+                                    Seu próximo projeto
+                                </p>
+                                <h2 className="mt-2 text-2xl font-bold">
                                     Crie sua garagem
+                                </h2>
+                                <p className="mt-2 leading-relaxed">
+                                    Comece a aprender sobre mecânica automotiva, desbloqueie novas peças e transforme seu carro conforme avança pelos módulos.
                                 </p>
-
-                                <p className="mt-1 text-sm text-gray-600">
-                                    Conclua módulos para desbloquear novas peças e personalize seu
-                                    carro conforme você aprende.
-                                </p>
-
-                                <BotaoLink
-                                    to="/cadastro"
-                                    className="mt-3 px-4 py-2"
-                                >
-                                    Criar minha conta
-                                </BotaoLink>
-                            </div>
+                                <div className="mt-5">
+                                    <BotaoLink
+                                        to="/cadastro"
+                                        className="px-5 py-2.5"
+                                    >
+                                        Começar meu projeto
+                                    </BotaoLink>
+                                </div>
+                            </>
                         )}
                     </div>
 
+                    <div className="relative h-[200px] w-full min-w-0">
+                        <Visualizador3D
+                            modelo="/models/tcc_model-gaming.glb"
+                            escala={1}
+                            camerapos={[3.75, 1.5, 2.5]}
+                            origem={[0, 0.5, 0]}
+                            altura="200px"
+                            zoom={false}
+                        />
+
+                        <div className="
+                            pointer-events-none absolute right-2 top-2 z-10
+                            rounded border border-blue1
+                            bg-blue1 px-3 py-1
+                            text-xs font-semibold text-mainlight shadow-sm
+                        ">
+                            Seu projeto
+                        </div>
+                    </div>
+                </section>
+
+                <section className="mt-8">
                     {/* cards */}
                     <div className="grid items-stretch gap-5 md:grid-cols-2 lg:grid-cols-3">
                         {modulos.map((modulo) => {

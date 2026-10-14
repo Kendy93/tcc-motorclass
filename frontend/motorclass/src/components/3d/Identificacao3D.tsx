@@ -6,6 +6,8 @@ import {useQuestionario} from "../Questionario";
 import PontoInterativo3D from "./PontoInterativo3D";
 import type {ConfiguracaoModelo3D, PerguntaIdentificacao3D} from "../../types";
 
+import { tocarSomSelecao, tocarSomEnvio } from "../../utils/efeitosSonoros";
+
 //===========================================================================
 
 interface Identificacao3DProps {
@@ -125,6 +127,7 @@ export default function Identificacao3D({
     const selecionarObjeto = (
         objeto: THREE.Object3D,
     ) => {
+        tocarSomSelecao();
         if (enviado || finalizada) {
             return;
         }
@@ -132,6 +135,7 @@ export default function Identificacao3D({
     };
 
     const confirmar = () => {
+        tocarSomEnvio();
         if (!objetoSelecionado || !perguntaAtual || enviado) {
             return;
         }

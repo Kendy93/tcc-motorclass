@@ -1,5 +1,5 @@
 import LinkNav from "./LinkNav";
-import { CircleUserRound } from "lucide-react";
+import { Warehouse } from "lucide-react";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/api";
 
@@ -53,7 +53,7 @@ export default function MenuSuperior() {
 
                     <LinkNav
                         tipo="icone"
-                        icone={<CircleUserRound size={24} />}
+                        icone={<Warehouse size={24} />}
                         destino={autenticado ? "/perfil" : "/login"}
                         tamanho="medio"
                     />

@@ -23,6 +23,7 @@ import type {
 import QuestaoMultiplaEscolha from "./QuestaoMultiplaEscolha";
 import Identificacao3D from "./3d/Identificacao3D";
 import { api } from "../lib/api";
+import { tocarSomEnvio } from "../utils/efeitosSonoros";
 
 //===========================================================================
 
@@ -138,6 +139,7 @@ export default function Questionario({
 
 
     const enviar = useCallback(async () => {
+        tocarSomEnvio();
         if (!completo || enviado || enviando) {
             return;
         }

@@ -109,13 +109,13 @@ export default function FinalizarModulo({
                 if (recompensa) {
                     mostrarToast({
                         tipo: "recompensa",
-                        mensagem: "Nova recompensa desbloqueada:",
+                        mensagem: "Uma nova peça está disponível para seu projeto:",
                         recompensa: recompensa.nome,
                     });
                 } else {
                     mostrarToast({
                         tipo: "sucesso",
-                        mensagem: "Seu progresso foi salvo.",
+                        mensagem: "Seu progresso foi salvo. Continue aprendendo!",
                     });
                 }
                 //deixa um tempo para o toast antes de seguir para o próx módulo
