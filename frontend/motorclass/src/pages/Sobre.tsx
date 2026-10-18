@@ -4,7 +4,7 @@ export default function Sobre() {
 
     return (
         <main className="min-h-screen bg-module px-6 py-10">
-            <div className="mx-auto max-w-[1400px]">
+            <div className="mx-auto max-w-[1400px] text-left">
                 <header className="mb-8">
                     <h1 className="!mt-12 font-semibold !text-blue1">
                         Sobre o MOTORCLASS

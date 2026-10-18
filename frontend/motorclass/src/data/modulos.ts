@@ -7,10 +7,10 @@ import Ignicao from "../content/texto/04_a_faisca_do_motor.mdx";
 import Temperatura from "../content/texto/05_controlando_a_temperatura.mdx";
 import Lubrificacao from "../content/texto/06_lubrificacao_e_protecao.mdx";
 import Eletrica from "../content/texto/07_energia_eletrica_no_veiculo.mdx";
-
-
+import Potencia from "../content/texto/08_aumentando_a_potencia.mdx";
+import Transmissao from "../content/texto/09_como_a_potencia_chega_ao_asfalto.mdx";
 import FreiosTexto from "../content/texto/10_parando_o_carro.mdx";
-
+import SuspensaoDirecao from "../content/texto/11_suspensao_e_direcao.mdx";
 
 export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
     "fundamentos":{
@@ -446,6 +446,249 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
             {
                 id: "os-problemas-na-lubrificação",
                 titulo: "Os problemas na lubrificação",
+                nivel: 2,
+            },
+        ],
+    },
+    "potencia":{
+        conteudo: Potencia,
+        modelos3D: {
+            principal: {
+                modelo: "/models/tcc_model-landingpage.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [8, 3, 0],
+                    origem: [0, 1.3, 0],
+                },
+            },
+        },
+        secoes: [
+            {
+                id: "aumentando-a-potência",
+                titulo: "Aumentando a potência",
+                nivel: 1,
+            },
+            {
+                id: "de-onde-vem-a-potência-extra",
+                titulo: "De onde vem a potência extra?",
+                nivel: 2,
+            },
+            {
+                id: "indução-forçada",
+                titulo: "Indução forçada",
+                nivel: 3,
+            },
+            {
+                id: "o-turbocompressor",
+                titulo: "O turbocompressor",
+                nivel: 4,
+            },
+            {
+                id: "o-compressor-mecânico",
+                titulo: "O compressor mecânico",
+                nivel: 4,
+            },
+            {
+                id: "apimentando-as-coisas",
+                titulo: "Apimentando as coisas",
+                nivel: 2,
+            },
+            {
+                id: "dois-é-mais-do-que-um",
+                titulo: "Dois é mais do que um",
+                nivel: 3,
+            },
+            {
+                id: "superchargers-também-são-legais",
+                titulo: "Superchargers também são legais",
+                nivel: 3,
+            },
+            {
+                id: "o-mais-legal-twin-charging",
+                titulo: "O mais legal: twin charging",
+                nivel: 3,
+            },
+            {
+                id: "resfriando-o-ar",
+                titulo: "Resfriando o ar",
+                nivel: 2,
+            },
+            {
+                id: "aumentando-a-potência-de-outras-formas",
+                titulo: "Aumentando a potência de outras formas",
+                nivel: 2,
+            },
+            {
+                id: "mais-potência--mais-problemas",
+                titulo: "Mais potência = mais problemas?",
+                nivel: 2,
+            },
+        ],
+    },
+    "transmissao":{
+        conteudo: Transmissao,
+        modelos3D: {
+            principal: {
+                modelo: "/models/tcc_model-landingpage.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [8, 3, 0],
+                    origem: [0, 1.3, 0],
+                },
+            },
+        },
+        secoes: [
+            {
+                id: "como-a-potência-chega-ao-asfalto",
+                titulo: "Como a potência chega ao asfalto",
+                nivel: 1,
+            },
+            {
+                id: "a-embreagem",
+                titulo: "A embreagem",
+                nivel: 2,
+            },
+            {
+                id: "mas-porque-desacoplar-o-motor",
+                titulo: "Mas porque desacoplar o motor?",
+                nivel: 3,
+            },
+            {
+                id: "a-caixa-de-câmbio",
+                titulo: "A caixa de câmbio",
+                nivel: 2,
+            },
+            {
+                id: "como-as-engrenagens-mudam-a-força",
+                titulo: "Como as engrenagens mudam a força",
+                nivel: 3,
+            },
+            {
+                id: "trocando-de-marcha",
+                titulo: "Trocando de marcha",
+                nivel: 3,
+            },
+            {
+                id: "câmbios-automáticos",
+                titulo: "Câmbios automáticos",
+                nivel: 4,
+            },
+            {
+                id: "levando-a-potência-para-as-rodas",
+                titulo: "Levando a potência para as rodas",
+                nivel: 2,
+            },
+            {
+                id: "tração-dianteira-traseira-e-integral",
+                titulo: "Tração dianteira, traseira e integral",
+                nivel: 3,
+            },
+            {
+                id: "o-diferencial",
+                titulo: "O diferencial",
+                nivel: 2,
+            },
+            {
+                id: "a-borracha-também-importa",
+                titulo: "A borracha também importa",
+                nivel: 2,
+            },
+            {
+                id: "Problemas",
+                titulo: "Problemas",
+                nivel: 2,
+            },
+        ],
+    },
+    "suspensao_direcao":{
+        conteudo: SuspensaoDirecao,
+        modelos3D: {
+            principal: {
+                modelo: "/models/tcc_model-landingpage.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [8, 3, 0],
+                    origem: [0, 1.3, 0],
+                },
+            },
+        },
+        secoes: [
+            {
+                id: "suspensão-e-direção",
+                titulo: "Suspensão e direção",
+                nivel: 1,
+            },
+            {
+                id: "suspensão",
+                titulo: "Suspensão",
+                nivel: 2,
+            },
+            {
+                id: "as-partes-da-suspensão",
+                titulo: "As partes da suspensão",
+                nivel: 3,
+            },
+            {
+                id: "segurando-a-suspensão",
+                titulo: "Segurando a suspensão",
+                nivel: 4,
+            },
+            {
+                id: "a-barra-estabilizadora",
+                titulo: "A barra estabilizadora",
+                nivel: 4,
+            },
+            {
+                id: "os-tipos-de-suspensão",
+                titulo: "Os tipos de suspensão",
+                nivel: 3,
+            },
+            {
+                id: "suspensão-dependente",
+                titulo: "Suspensão dependente",
+                nivel: 4,
+            },
+            {
+                id: "suspensão-independetes",
+                titulo: "Suspensão independetes",
+                nivel: 4,
+            },
+            {
+                id: "alguns-tipos-de-suspensões-independentes",
+                titulo: "Alguns tipos de suspensões independentes",
+                nivel: 4,
+            },
+            {
+                id: "direção",
+                titulo: "Direção",
+                nivel: 2,
+            },
+            {
+                id: "seguindo-o-movimento",
+                titulo: "Seguindo o movimento",
+                nivel: 3,
+            },
+            {
+                id: "alguns-tipos-de-direção",
+                titulo: "Alguns tipos de direção",
+                nivel: 3,
+            },
+            {
+                id: "alinhamento-das-rodas",
+                titulo: "Alinhamento das rodas",
+                nivel: 2,
+            },
+            {
+                id: "juntando-suspensão-e-direção",
+                titulo: "Juntando suspensão e direção",
+                nivel: 2,
+            },
+            {
+                id: "problemas-no-caminho",
+                titulo: "Problemas no caminho",
                 nivel: 2,
             },
         ],
