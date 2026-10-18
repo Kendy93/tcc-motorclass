@@ -1,22 +1,31 @@
 import type { ConfiguracaoModulo, ConfiguracaoModelo3D } from "../types/index";
 
 import FundamentosTexto from "../content/texto/01_como_o_motor_funciona.mdx";
+import AdmissaoEscape from "../content/texto/02_entrada_e_saida_do_ar.mdx";
+import Combustivel from "../content/texto/03_o_caminho_do_combustivel.mdx";
+import Ignicao from "../content/texto/04_a_faisca_do_motor.mdx";
+import Temperatura from "../content/texto/05_controlando_a_temperatura.mdx";
+import Lubrificacao from "../content/texto/06_lubrificacao_e_protecao.mdx";
+import Eletrica from "../content/texto/07_energia_eletrica_no_veiculo.mdx";
+
+
 import FreiosTexto from "../content/texto/10_parando_o_carro.mdx";
+
 
 export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
     "fundamentos":{
         conteudo: FundamentosTexto,
         modelos3D: {
             principal: {
-                modelo: "/models/10_parando_o_carro/tcc_models-brakesMAIN.glb",
+                modelo: "/models/tcc_model-landingpage.glb",
                 escala: 1,
                 interativo: false,
                 camera: {
-                    camerapos: [3.2, 1.1, 0],
-                    origem: [0, 0.25, 0],
+                    camerapos: [8, 3, 0],
+                    origem: [0, 1.3, 0],
                 },
             },
-                configuracoesMotor: {
+            configuracoesMotor: {
                 modelo: "/models/01_como_o_motor_funciona/tcc-configuracoes_motor.glb",
                 escala: 1,
                 interativo: true,
@@ -95,7 +104,7 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
                 nivel: 3,
             },
             {
-                id: "por-que-4-e-nao-2-tempos",
+                id: "por-quê-4-e-não-2-tempos",
                 titulo: "Por quê 4 e não 2 tempos?",
                 nivel: 3,
             },
@@ -105,12 +114,12 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
                 nivel: 3,
             },
             {
-                id: "as-partes-que-fazem-isso-ser-possivel",
+                id: "as-partes-que-fazem-isso-ser-possível",
                 titulo: "As partes que fazem isso ser possível",
                 nivel: 2,
             },
             {
-                id: "o-basico",
+                id: "o-básico",
                 titulo: "O básico",
                 nivel: 3,
             },
@@ -120,7 +129,7 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
                 nivel: 3,
             },
             {
-                id: "valvulas-e-a-sincronia",
+                id: "válvulas-e-a-sincronia",
                 titulo: "Válvulas e a sincronia",
                 nivel: 3,
             },
@@ -135,12 +144,12 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
                 nivel: 3,
             },
             {
-                id: "cabecotes",
+                id: "cabeçotes",
                 titulo: "Cabeçotes",
                 nivel: 3,
             },
             {
-                id: "valvulas",
+                id: "válvulas",
                 titulo: "Válvulas",
                 nivel: 3,
             },
@@ -152,6 +161,357 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
             {
                 id: "problemas-comuns",
                 titulo: "Problemas comuns",
+                nivel: 2,
+            },
+        ],
+    },
+    "ar":{
+        conteudo: AdmissaoEscape,
+        modelos3D: {
+            principal: {
+                modelo: "/models/tcc_model-landingpage.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [8, 3, 0],
+                    origem: [0, 1.3, 0],
+                },
+            },
+        },
+        secoes: [
+            {
+                id: "entrada-e-saida-do-ar",
+                titulo: "Entrada e saída do ar",
+                nivel: 1,
+            },
+            {
+                id: "uma-aula-de-física",
+                titulo: "Uma aula de física",
+                nivel: 2,
+            },
+            {
+                id: "diferenças-de-pressão",
+                titulo: "Diferenças de pressão",
+                nivel: 3,
+            },
+            {
+                id: "temperatura-e-altitude",
+                titulo: "Temperatura e altitude",
+                nivel: 3,
+            },
+            {
+                id: "capturando-o-ar",
+                titulo: "Capturando o ar",
+                nivel: 2,
+            },
+            {
+                id: "limpando-as-impurezas",
+                titulo: "Limpando as impurezas",
+                nivel: 3,
+            },
+            {
+                id: "onde-a-mágica-acontece",
+                titulo: "Onde a mágica acontece",
+                nivel: 3,
+            },
+            {
+                id: "expulsando-o-ar",
+                titulo: "Expulsando o ar",
+                nivel: 2,
+            },
+            {
+                id: "a-porta-de-saída",
+                titulo: "A porta de saída",
+                nivel: 3,
+            },
+            {
+                id: "fazendo-barulho-ou-não",
+                titulo: "Fazendo barulho, ou não",
+                nivel: 3,
+            },
+            {
+                id: "problemas-respiratórios",
+                titulo: "Problemas respiratórios",
+                nivel: 2,
+            },
+        ],
+    },
+    "combustivel":{
+        conteudo: Combustivel,
+        modelos3D: {
+            principal: {
+                modelo: "/models/tcc_model-landingpage.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [8, 3, 0],
+                    origem: [0, 1.3, 0],
+                },
+            },
+        },
+        secoes: [
+            {
+                id: "o-caminho-do-combustível",
+                titulo: "O caminho do combustível",
+                nivel: 1,
+            },
+            {
+                id: "como-o-combustível-chega-ao-motor",
+                titulo: "Como o combustível chega ao motor",
+                nivel: 2,
+            },
+            {
+                id: "onde-a-mágica-acontece",
+                titulo: "Onde a mágica acontece",
+                nivel: 2,
+            },
+            {
+                id: "o-efeito-venturi",
+                titulo: "O efeito Venturi",
+                nivel: 3,
+            },
+            {
+                id: "as-partes-do-carburador",
+                titulo: "As partes do carburador",
+                nivel: 3,
+            },
+            {
+                id: "alimentando-o-motor",
+                titulo: "Alimentando o motor",
+                nivel: 2,
+            },
+            {
+                id: "os-combustíveis",
+                titulo: "Os combustíveis",
+                nivel: 3,
+            },
+            {
+                id: "e-se-a-mistura-não-estiver-certa",
+                titulo: "E se a mistura não estiver certa",
+                nivel: 3,
+            },
+            {
+                id: "um-pouco-da-injeção-eletrônica",
+                titulo: "Um pouco da injeção eletrônica",
+                nivel: 3,
+            },
+            {
+                id: "problemas-na-alimentação",
+                titulo: "Problemas na alimentação",
+                nivel: 2,
+            },
+        ],
+    },
+    "ignicao":{
+        conteudo: Ignicao,
+        modelos3D: {
+            principal: {
+                modelo: "/models/tcc_model-landingpage.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [8, 3, 0],
+                    origem: [0, 1.3, 0],
+                },
+            },
+        },
+        secoes: [
+            {
+                id: "a-faísca-do-motor",
+                titulo: "A faísca do motor",
+                nivel: 1,
+            },
+            {
+                id: "por-que-uma-faísca",
+                titulo: "Por que uma faísca?",
+                nivel: 2,
+            },
+            {
+                id: "gerando-a-faísca",
+                titulo: "Gerando a faísca",
+                nivel: 2,
+            },
+            {
+                id: "a-vela-de-ignição",
+                titulo: "A vela de ignição",
+                nivel: 3,
+            },
+            {
+                id: "voltando-no-tempo",
+                titulo: "Voltando no tempo?",
+                nivel: 3,
+            },
+            {
+                id: "avançando-no-tempo",
+                titulo: "Avançando no tempo",
+                nivel: 3,
+            },
+            {
+                id: "problemas-com-a-faísca",
+                titulo: "Problemas com a faísca",
+                nivel: 2,
+            },
+        ],
+    },
+    "arrefecimento":{
+        conteudo: Temperatura,
+        modelos3D: {
+            principal: {
+                modelo: "/models/tcc_model-landingpage.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [8, 3, 0],
+                    origem: [0, 1.3, 0],
+                },
+            },
+        },
+        secoes: [
+            {
+                id: "controlando-a-temperatura",
+                titulo: "Controlando a temperatura",
+                nivel: 1,
+            },
+            {
+                id: "o-problema-do-calor",
+                titulo: "O problema do calor",
+                nivel: 2,
+            },
+            {
+                id: "esfriando-a-cabeça",
+                titulo: "Esfriando a cabeça",
+                nivel: 2,
+            },
+            {
+                id: "o-caminho-do-líquido-de-arrefecimento",
+                titulo: "O caminho do líquido de arrefecimento",
+                nivel: 3,
+            },
+            {
+                id: "afinal-o-que-é-o-líquido-de-arrefecimento",
+                titulo: "Afinal, o que é o líquido de arrefecimento?",
+                nivel: 3,
+            },
+            {
+                id: "quente-demais",
+                titulo: "Quente demais",
+                nivel: 2,
+            },
+        ],
+    },
+    "lubrificacao":{
+        conteudo: Lubrificacao,
+        modelos3D: {
+            principal: {
+                modelo: "/models/tcc_model-landingpage.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [8, 3, 0],
+                    origem: [0, 1.3, 0],
+                },
+            },
+        },
+        secoes: [
+            {
+                id: "lubrificação-e-proteção",
+                titulo: "Lubrificação e proteção",
+                nivel: 1,
+            },
+            {
+                id: "o-problema-do-atrito",
+                titulo: "O problema do atrito",
+                nivel: 2,
+            },
+            {
+                id: "o-caminho-do-óleo-pelo-motor",
+                titulo: "O caminho do óleo pelo motor",
+                nivel: 2,
+            },
+            {
+                id: "os-tipos-de-óleo",
+                titulo: "Os tipos de óleo",
+                nivel: 2,
+            },
+            {
+                id: "óleo-mineral-e-sintético",
+                titulo: "Óleo mineral e sintético",
+                nivel: 3,
+            },
+            {
+                id: "viscosidades",
+                titulo: "Viscosidades",
+                nivel: 3,
+            },
+            {
+                id: "os-problemas-na-lubrificação",
+                titulo: "Os problemas na lubrificação",
+                nivel: 2,
+            },
+        ],
+    },
+    "eletrica":{
+        conteudo: Eletrica,
+        modelos3D: {
+            principal: {
+                modelo: "/models/tcc_model-landingpage.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [8, 3, 0],
+                    origem: [0, 1.3, 0],
+                },
+            },
+        },
+        secoes: [
+            {
+                id: "o-sistema-elétrico",
+                titulo: "O sistema elétrico",
+                nivel: 1,
+            },
+            {
+                id: "o-que-é-eletricidade",
+                titulo: "O que é eletricidade?",
+                nivel: 2,
+            },
+            {
+                id: "tensão-corrente-e-resistência",
+                titulo: "Tensão, corrente e resistência",
+                nivel: 3,
+            },
+            {
+                id: "como-funciona-um-circuito-elétrico",
+                titulo: "Como funciona um circuito elétrico?",
+                nivel: 2,
+            },
+            {
+                id: "aterramento",
+                titulo: "Aterramento",
+                nivel: 3,
+            },
+            {
+                id: "o-caminho-da-eletricidade",
+                titulo: "O caminho da eletricidade",
+                nivel: 2,
+            },
+            {
+                id: "consumindo-a-eletricidade",
+                titulo: "Consumindo a eletricidade",
+                nivel: 3,
+            },
+            {
+                id: "o-circuito-de-partida",
+                titulo: "O circuito de partida",
+                nivel: 3,
+            },
+            {
+                id: "outros-detalhes",
+                titulo: "Outros detalhes",
+                nivel: 3,
+            },
+            {
+                id: "problemas-eletrizantes",
+                titulo: "Problemas eletrizantes",
                 nivel: 2,
             },
         ],

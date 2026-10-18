@@ -1,0 +1,59 @@
+# Controlando a temperatura
+
+Considerando que estamos trabalhando com explosões dentro do motor, isso obviamente leve a um efeito colateral: muito calor.
+
+Nem toda a energia liberada na combustão vira movimento, parte dela vira calor, que se não removido, pode causar sérios problemas ao motor. Ao mesmo tempo, é necessário deixar algum calor, para que o motor atinja e opere dentro de uma faixa de temperatura ideal.
+
+Quem faz esse controle é o sistema de arrefecimento, que iremos estudar neste módulo. Ele utiliza um líquido para absorver parte do calor e enviar até o radiador, onde esse calor é transferido para o ambiente. Iremos acompanahar o caminho desse líquido e conhecer os componentes que ajudar nesse controle.
+
+## O problema do calor
+
+O calor gerado pelo motor é uma perda de eficiência que sempre acontece, parte dele é absolvido pelos pistões, cilindros, cabeçote e outras partes próximas da câmara de combustão. O problema começa quando a temperatura continua aumentando, peças metálicas podem se deformar, o óleo pode perder parte de sua habilidade de lubrificação e os componentes podem sofrer mais desgaste do que realmente necessário.
+
+Porém, se frio demais, o óleo fica mais viscoso, as folgas entre as peças podem não estar de acordo com o previsto no projeto e a combustão pode não acontecer da forma mais eficiente. Por esse motivo, que ao ligar o carro em dias frios, é algo relativamente comum deixar ele funcionando por um tempo para que ele esquente e entre na faixa de temperatura ideal. 
+
+## Esfriando a cabeça
+
+Agora sabemos que o motor gera calor e que pouco calor é ruim e demais também é ruim, então como controlar essa temperatura?
+
+Uma maneira simples é colocar várias **aletas** no motor e deixar que o ar leve o calor embora, essa é o princípio usado em motores resfriados a ar, como do Volkswagem Fusca e os usados em boa parde das motos mais antigas.
+
+Embora funcional, essa não é a opção mais eficiente, a solução mais usada é utilizar um **líquido de arrefecimento**. Ele passa por várias passagens no motor e circula pelas regiões mais quentes, absorvendo parte do calor e saindo mais quente do que entrou. 
+
+Esse líquido não sai do motor, então é preciso resfriá-lo antes dele entrar novamente, para isso serve o **radiador**. Ele possui uma série de canais cercados por aletas, que aumentam a área de contato com o ar e permitem que o calor seja transferido do líquido para o ambiente, **ventuinhas** deixam essa transferência ainda mais eficiente.
+
+### O caminho do líquido de arrefecimento
+
+Você pode pensar no líquido de arrefecimento como um ônibus de calor, ele pega o calor de dentro do motor e o leva até o radiador para ser liberado, ele começa a viagem mais uma vez.
+
+Então, começando pelo radiador, o líquido frio sai pela parte de baixo e segue para o motor. Depois disso, ele costuma ir para a **bomba d'água**, responsável por manter o líquido em movimento. 
+
+Em motores como o nosso, ela é uma bomba mecânica acionada pelo próprio motor. Uma correia lega era ao virabrequim, girando uma polia que então gira a bomba. Dentro dela fica um rotor com pás que impulsionam o líquido pelo sistema. As bombas elétricas possuem um motor elétrico próprio e permitem um controle mais independende na circulação do líquido.
+
+A partir da bomba, o líquido é forçado para dentro de galerias no bloco e cabeçote, onde ele captura o calor. Depois disso, ele chega na **válvula termostática**. Sua função é controlar o fluxo, se o motor está frio, ele bloqueia o líquido para que a temperatura suba. A medida que começa a esquentar, ele libera a circulação para gerenciar a temperatura, voltando a bloquear se necessário.
+
+Saindo da válvula, o líquido volta ao radiador onde é resfriado e o ciclo recomeça. Toda a ligação entre as partes desse caminho é feita através de mangueiras.
+
+### Afinal, o que é o líquido de arrefecimento?
+
+O principal componente desse líquido é a água, porém, usar apenas água leva a certos problemas. Em temperaturas muito baixas ela congela e em altas demais, evapora, ao mesmo tempo ela pode levar à corrosão dos componentes metálicos e deixar impurezas dentro do sistema.
+
+Por isso motivo, ela é misturada a outras substâncias, que alteram as temperaturas de congelamento e ebulição, além de possuir aditivos que ajudam a proteger o sistema contra corrosão e a formação de depósitos.
+
+## Quente demais
+
+    <Problema titulo="Vazamento de líquido de arrefecimento">
+        Mangueiras ressecadas ou furadas, conexões frouxas, radiador furado e juntas desgastadas podem permitir que o líquido escape. Conforme o nível diminui, o motor começa a esquentar mais. Fique atento a marcas no chão e verifique o nível no reservatório de tempos em tempos, faça isso sempre com o carro frio, nunca tente abrir o reservatório com o motor quente!
+    </Problema>
+    <Problema titulo="Radiador obstruído">
+        Sujeira e resíduos podem bloquear a passagem do ar pelas aletas enquanto depósitos internos dificultam o percurso do líquido.
+    </Problema>
+    <Problema titulo="Problemas com bomba d'água">
+        Se a bomba estiver com problemas, como danos no rotor, o líquido para de ciruclar, como resultado, o motor super aquece mais uma vez.
+    </Problema>
+    <Problema titulo="Válvula termostática travada">
+        Se ela fica sempre travada, o líquido quente não chega ao radiador para ser resfriado. Em contrapartida, se travar aberta, o motor pode demorar demais para atingir a temperatura ideal.
+    </Problema>
+    <Problema titulo="Ventoinha com defeito">
+        Muitas vezes quando o carro está parado ou andando devagar, o fluxo de ar passando pelo radiador é pequeno. Nesses casos, a ventoinha é necessária para evitar o superaquecimento, se ela não funciona, o radiador perde uma grande parte da sua eficiência.
+    </Problema>

@@ -28,7 +28,7 @@ export default function LandingPage() {
                 {/* desativado o zoom para não conflitar com o hero */}
                 <div className="sticky top-16 z-0 h-[900px]">
                     <Visualizador3D
-                        modelo="/models/Caravan_landingpage.glb"
+                        modelo="/models/tcc_model-landingpage.glb"
                         escala={1}
                         camerapos={[8, 3, 0]}
                         origem={[0, 1.3, 0]}
