@@ -75,12 +75,25 @@ export interface PecaSelecionada {
     informacao: InformacaoPeca;
 }
 
+export interface EtapaMaterial3D {
+    inicio: number;
+    fim: number;
+    cor: string;
+    opacidade: number;
+}
+
+export interface MaterialAnimado3D {
+    objeto: string;
+    etapas: EtapaMaterial3D[];
+}
+
 export interface Animacao3DConfig {
     gatilho: string;
     titulo: string;
     animacao: string;
     anotacoes?: AnotacaoAnimacao3D[];
     velocidade?: number;
+    materiais?: MaterialAnimado3D[];
 }
 
 export interface AnotacaoAnimacao3D {

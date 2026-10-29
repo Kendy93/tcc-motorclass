@@ -265,6 +265,7 @@ export default function Questionario({
                                 <QuestaoMultiplaEscolha
                                     key={questao.codigo}
                                     id={questao.codigo}
+                                    ordem={questao.ordem}
                                     pergunta={questao.pergunta}
                                     alternativas={Object.entries(questao.opcoes ?? {}).map(
                                         ([id, texto]) => ({

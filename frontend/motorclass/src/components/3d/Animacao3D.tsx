@@ -1,10 +1,10 @@
-import { Suspense, useMemo, useRef, useState } from "react";
+import { Suspense, useMemo, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, type ThreeEvent } from "@react-three/fiber";
 import { Environment, OrbitControls, useAnimations, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
 import PontoInterativo3D from "./PontoInterativo3D";
-import type { ConfiguracaoModelo3D, Animacao3DConfig, AnotacaoAnimacao3D } from "../../types";
+import type { ConfiguracaoModelo3D, Animacao3DConfig, AnotacaoAnimacao3D, EtapaMaterial3D, MaterialAnimado3D } from "../../types";
 import Anotacao3D from "./Anotacao3D";
 
 //============================================================================
@@ -39,6 +39,7 @@ function ModeloAnimado({
     const [anotacoesAtivas, setAnotacoesAtivas] = useState<string[]>([]);
 
     const ultimaChaveAnotacoes = useRef("");
+    const materiaisAnimados = useRef<Record<string, THREE.MeshStandardMaterial>>({});
 
     //busca pelos gatilhos no modelo
     const gatilhos = useMemo(() => {
@@ -100,6 +101,58 @@ function ModeloAnimado({
 
 //-------------------------------------------------------
 
+    useEffect(() => {
+        const materiaisOriginais = new Map<
+            THREE.Mesh,
+            THREE.Material | THREE.Material[]
+        >();
+        const materiaisCriados: THREE.MeshStandardMaterial[] = [];
+
+        scene.traverse((objeto) => {
+            if (!(objeto instanceof THREE.Mesh)) {
+                return;
+            }
+
+            // os objetos configurados devem usar um único material.
+            const nomesConfigurados = new Set(
+                animacoes.flatMap((animacao) =>
+                    (animacao.materiais ?? []).map(
+                        (material) => material.objeto
+                    )
+                )
+            );
+            if (!nomesConfigurados.has(objeto.name)) {
+                return;
+            }
+
+            if (Array.isArray(objeto.material)) {
+                console.warn(`O objeto "${objeto.name}" utiliza vários materiais. ` + "Este exemplo espera um único material.");
+                return;
+            }
+            if (!(objeto.material instanceof THREE.MeshStandardMaterial)) {
+                console.warn(`Material incompatível no objeto "${objeto.name}".`);
+                return;
+            }
+
+            const original = objeto.material;
+            const copia = original.clone();
+            copia.transparent = true;
+            copia.depthWrite = false;
+            materiaisOriginais.set(objeto, original);
+            materiaisCriados.push(copia);
+            objeto.material = copia;
+            materiaisAnimados.current[objeto.name] = copia;
+        });
+
+        return () => {
+            materiaisOriginais.forEach((original, objeto) => {objeto.material = original;});
+            materiaisCriados.forEach((material) => material.dispose());
+            materiaisAnimados.current = {};
+        };
+    }, [scene, animacoes]);
+
+//-------------------------------------------------------
+
     //verifica qual animação deve tocar naquele momento, executa a cada frame
     useFrame(() => {
         //verifica se tem animação e paga a atual
@@ -114,13 +167,50 @@ function ModeloAnimado({
         //busca a configuração correspondente
         const configuracaoAnimacao =
             animacoes.find(
-                (item) =>
-                    item.animacao ===
-                    animacaoAtual
+                (item) => item.animacao === animacaoAtual
             );
         if (!configuracaoAnimacao) {
             return;
         }
+
+        // atualiza os materiais de acordo com o tempo da animação
+        (configuracaoAnimacao.materiais ?? []).forEach(
+            (configuracaoMaterial) => {
+                const material = materiaisAnimados.current[configuracaoMaterial.objeto];
+                if (!material) {return;}
+
+                const etapas = configuracaoMaterial.etapas;
+                // encontra a etapa correspondente ao tempo atual
+                const indice = etapas.findIndex((etapa) => tempo >= etapa.inicio && tempo < etapa.fim);
+                if (indice === -1) {return;}
+
+                const etapa = etapas[indice];
+                const proximaEtapa = etapas[indice + 1];
+
+                // valores desejados para a etapa atual.
+                let corAlvo = new THREE.Color(etapa.cor);
+                let opacidadeAlvo = etapa.opacidade;
+                // antecipa a transição para a próxima etapa nos últimos 20% da duração da etapa atual
+                if (proximaEtapa) {
+                    const duracao = etapa.fim - etapa.inicio;
+                    const duracaoTransicao = duracao * 0.6;
+                    const inicioTransicao = etapa.fim - duracaoTransicao;
+                    if (tempo >= inicioTransicao) {
+                        const progresso = THREE.MathUtils.clamp((tempo - inicioTransicao) / duracaoTransicao, 0, 1);
+                        // suaviza a transição usando smoothstep.
+                        const suave = progresso * progresso * (3 - 2 * progresso);
+                        const corSeguinte = new THREE.Color(proximaEtapa.cor);
+
+                        corAlvo.lerp(corSeguinte, suave);
+                        opacidadeAlvo = THREE.MathUtils.lerp(etapa.opacidade, proximaEtapa.opacidade, suave);
+                    }
+                }
+                // aplica os valores gradualmente.
+                material.color.copy(corAlvo);
+                material.opacity = opacidadeAlvo;
+            }
+        );
+
         //pega as anotações e decide qual está ativa de acordo com o tempo
         const anotacoes = configuracaoAnimacao.anotacoes ?? [];
         const idsAtivos =

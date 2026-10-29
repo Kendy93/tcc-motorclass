@@ -17,12 +17,12 @@ export const recompensasPorModulo: Record<string, Recompensa> = {
         nome: "Combustível nunca é demais",
         objeto: "recompensa_combustivel",
     },
-    faisca: {
+    ignicao: {
         codigo: "faisca",
         nome: "Garantia da faísca",
         objeto: "recompensa_faisca",
     },
-    temperatura: {
+    arrefecimento: {
         codigo: "temperatura",
         nome: "Para você ficar frio",
         objeto: "recompensa_temperatura",
@@ -53,7 +53,7 @@ export const recompensasPorModulo: Record<string, Recompensa> = {
         objeto: "recompensa_freio",
         objetoSubstituido: "freios_antigo",
     },
-    suspensao: {
+    suspensao_direcao: {
         codigo: "suspensao",
         nome: "Baixo é sempre melhor",
         objeto: "recompensa_suspensao",

@@ -10,6 +10,7 @@ interface Alternativa {
 
 interface QuestaoMultiplaEscolhaProps {
     id: string;
+    ordem: number;
     pergunta: string;
     alternativas: Alternativa[];
 }
@@ -19,6 +20,7 @@ interface QuestaoMultiplaEscolhaProps {
 export default function QuestaoMultiplaEscolha({
     id,
     pergunta,
+    ordem,
     alternativas,
 }: QuestaoMultiplaEscolhaProps) {
     const {
@@ -48,6 +50,9 @@ export default function QuestaoMultiplaEscolha({
     return (
         <section className="border-b border-gray-200 pb-4 last:border-b-0">
             <p className="leading-relaxed text-gray-900">
+                <span className="font-bold text-blue1 mx-2">
+                    {ordem}.
+                </span>
                 {pergunta}
             </p>
 

@@ -7,6 +7,7 @@ import {
     useGLTF,
 } from "@react-three/drei";
 import * as THREE from "three";
+import { createPortal } from "react-dom";
 
 import PontoInterativo3D from "./PontoInterativo3D";
 import type { InformacaoPeca, PecaSelecionada } from "../../types";
@@ -242,6 +243,7 @@ export default function Visu3DInterativo({
                         <Html
                             position={selecionada.posicao}
                             center
+                            zIndexRange={[2147483647, 2147483647]}
                         >
                             <div className="w-68 rounded-lg bg-white p-4 shadow-xl">
                                 <div className="mb-2 flex items-start justify-between gap-3">

@@ -116,6 +116,7 @@ class QuestionarioController extends Controller
         ]);
         $questoes = $questionario
             ->questoes()
+            ->orderBy('ordem')
             ->get()
             ->keyBy('codigo');
         $respostasRecebidas = collect($dados['respostas']);

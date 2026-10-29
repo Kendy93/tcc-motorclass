@@ -181,11 +181,11 @@ export default function Identificacao3D({
             {!finalizada ? (
                 <>
                     <p className="mb-5 text-base leading-relaxed text-gray-900">
-                        <span className="!text-blue1 font-bold">{indiceAtual + 1}. </span> 
-                            {renderizarPergunta(
-                                perguntaAtual.pergunta,
-                                perguntaAtual.destaque
-                            )}
+                        <span className="!text-blue1 font-bold mx-2">{indiceAtual + 1}.</span> 
+                        {renderizarPergunta(
+                            perguntaAtual.pergunta,
+                            perguntaAtual.destaque
+                        )}
                     </p>
                     <div className="mb-5 h-[600px] overflow-hidden rounded-xl bg-maindark">
                         <Canvas

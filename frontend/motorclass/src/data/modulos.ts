@@ -17,12 +17,21 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
         conteudo: FundamentosTexto,
         modelos3D: {
             principal: {
-                modelo: "/models/tcc_model-landingpage.glb",
+                modelo: "/models/01_como_o_motor_funciona/tcc-fundamentos_motor.glb",
                 escala: 1,
                 interativo: false,
                 camera: {
-                    camerapos: [8, 3, 0],
-                    origem: [0, 1.3, 0],
+                    camerapos: [-1.5, 0.8, 1.4],
+                    origem: [0, 0.5, 0],
+                },
+            },
+                motorAnimacao: {
+                modelo: "/models/01_como_o_motor_funciona/tcc-animacao-ciclos.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [0.5, 0.1, 0.1],
+                    origem: [0, 0, 0],
                 },
             },
             configuracoesMotor: {
@@ -31,7 +40,7 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
                 interativo: true,
                 camera: {
                     camerapos: [5, 2, 5],
-                    origem: [0, 0, 0],
+                    origem: [0, -0.3, 0],
                 },
                 pecas: {
                     f4: {
@@ -73,6 +82,288 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
                         titulo: "Motor em W (WR)",
                         descricao:
                             "Outro tipo de motor em W, aqui sua configuração é basicamente um motor VR em V. Também famosa pelo uso em carros do grupo VW, como nos W16 do Bugatti Veyron e Chiron, nos W8 do Volkswagem Phaeton e Passat, e também no W12 do Bentley Continental.",
+                    },
+                },
+            },
+            motor: {
+                modelo: "/models/01_como_o_motor_funciona/tcc-fundamentos_motor.glb",
+                escala: 1,
+                interativo: true,
+                camera: {
+                    camerapos: [-1.5, 0.8, 1.4],
+                    origem: [0, 0.5, 0],
+                },
+                pecas: {
+                    balancim: {
+                        titulo: "Balancim",
+                        descricao:
+                            "Funciona como uma alavanca que transmite o movimento das varetas às válvulas. Ao ser acionado, pressiona a haste da válvula para abri-la, enquanto a mola é responsável por retorná-la à posição fechada.",
+                    },
+
+                    bobina: {
+                        titulo: "Bobina de ignição",
+                        descricao:
+                            "Transforma a baixa tensão elétrica da bateria em uma tensão elevada, necessária para produzir a centelha nas velas de ignição. Essa centelha inicia a combustão da mistura de ar e combustível dentro dos cilindros.",
+                    },
+
+                    cabecote: {
+                        titulo: "Cabeçote",
+                        descricao:
+                            "Fecha a parte superior dos cilindros e abriga componentes importantes, como as válvulas, as velas de ignição e os dutos de admissão e escape. Sua estrutura também participa da formação das câmaras de combustão, onde ocorre a queima da mistura de ar e combustível.",
+                    },
+
+                    carburador: {
+                        titulo: "Carburador",
+                        descricao:
+                            "Mistura o ar e o combustível em proporções adequadas para alimentar o motor. Seu funcionamento influencia a quantidade de mistura admitida pelos cilindros de acordo com as condições de operação do motor.",
+                    },
+
+                    carcaca_valvula_term: {
+                        titulo: "Carcaça da válvula termostática",
+                        descricao:
+                            "Aloja a válvula termostática e conecta esse componente ao circuito de arrefecimento. A válvula controla a passagem do líquido de arrefecimento de acordo com a temperatura do motor, ajudando a manter sua temperatura de funcionamento adequada.",
+                    },
+
+                    coletor_admissao: {
+                        titulo: "Coletor de admissão",
+                        descricao:
+                            "Conduz e distribui a mistura de ar e combustível proveniente do carburador para os cilindros do motor. Seu formato influencia a distribuição da mistura e o fluxo de admissão.",
+                    },
+
+                    coletor_escape: {
+                        titulo: "Coletor de escape",
+                        descricao:
+                            "Reúne os gases resultantes da combustão que saem dos cilindros e os conduz para o restante do sistema de escapamento. Seu funcionamento permite a expulsão dos gases queimados, preparando os cilindros para um novo ciclo.",
+                    },
+
+                    mola_valvula: {
+                        titulo: "Mola da válvula",
+                        descricao:
+                            "Mantém a válvula pressionada contra seu assento quando ela está fechada, ajudando a vedar a câmara de combustão. Também garante que a válvula retorne à posição fechada após ser aberta pelo mecanismo de acionamento.",
+                    },
+
+                    panela: {
+                        titulo: "Panela do filtro de ar",
+                        descricao:
+                            "Abriga o filtro responsável por reter poeira e outras partículas presentes no ar admitido pelo motor. Dessa forma, ajuda a fornecer ar limpo ao carburador, reduzindo a entrada de impurezas no motor.",
+                    },
+
+                    tampa_valvula: {
+                        titulo: "Tampa de válvulas",
+                        descricao:
+                            "Cobre a parte superior do cabeçote, protegendo o conjunto de válvulas e balancins. Também ajuda a conter o óleo lubrificante que circula nessa região, evitando vazamentos quando suas vedações estão em boas condições.",
+                    },
+
+                    valvulas: {
+                        titulo: "Válvulas de admissão e escape",
+                        descricao:
+                            "Controlam a entrada da mistura de ar e combustível e a saída dos gases queimados dos cilindros. As válvulas de admissão permitem o enchimento dos cilindros, enquanto as de escape possibilitam a expulsão dos gases após a combustão.",
+                    },
+
+                    varetas: {
+                        titulo: "Varetas de acionamento",
+                        descricao:
+                            "Transmitem o movimento dos tuchos, acionados pelo comando de válvulas, até os balancins. Esse mecanismo permite que as válvulas sejam abertas no momento adequado do ciclo de funcionamento do motor.",
+                    },
+
+                    velas: {
+                        titulo: "Velas de ignição",
+                        descricao:
+                            "Produzem uma centelha elétrica dentro da câmara de combustão para inflamar a mistura comprimida de ar e combustível. A combustão resultante libera a energia que impulsiona os pistões e permite o funcionamento do motor.",
+                    },
+
+                    aneis: {
+                        titulo: "Anéis do pistão",
+                        descricao:
+                            "Ficam instalados nas ranhuras ao redor do pistão e desempenham funções importantes na vedação dos cilindros. Ajudam a impedir que os gases da combustão escapem para o cárter, controlam o excesso de óleo nas paredes dos cilindros e contribuem para transferir calor do pistão para o cilindro.",
+                    },
+
+                    biela: {
+                        titulo: "Biela",
+                        descricao:
+                            "Conecta o pistão ao virabrequim, transmitindo a força gerada pela combustão. Em conjunto com esses componentes, transforma o movimento alternativo dos pistões em movimento rotacional, utilizado para produzir o torque do motor.",
+                    },
+
+                    bloco: {
+                        titulo: "Bloco do motor",
+                        descricao:
+                            "É a estrutura principal do motor, onde ficam alojados os cilindros e diversos componentes internos. Também pode conter galerias para a circulação do óleo lubrificante e do líquido de arrefecimento, além de servir como base para a montagem de outros componentes.",
+                    },
+
+                    cabo_vela: {
+                        titulo: "Cabo de vela",
+                        descricao:
+                            "Conduz a alta tensão elétrica proveniente do sistema de ignição até a vela correspondente. Essa energia permite produzir a centelha necessária para iniciar a combustão da mistura de ar e combustível dentro do cilindro.",
+                    },
+
+                    distribuidor: {
+                        titulo: "Distribuidor de ignição",
+                        descricao:
+                            "Distribui a alta tensão gerada pela bobina para as velas de ignição, seguindo a ordem de funcionamento dos cilindros. Seu mecanismo também permite sincronizar a distribuição das centelhas com o ciclo do motor, garantindo que a mistura seja inflamada no momento adequado.",
+                    },
+
+                    filtro_oleo: {
+                        titulo: "Filtro de óleo",
+                        descricao:
+                            "Retém partículas e impurezas presentes no óleo lubrificante antes que elas possam circular pelo motor e provocar desgaste nos componentes. Dessa forma, contribui para preservar as superfícies internas e manter a lubrificação adequada.",
+                    },
+
+                    pistao: {
+                        titulo: "Pistão",
+                        descricao:
+                            "Movimenta-se para cima e para baixo dentro do cilindro, comprimindo a mistura de ar e combustível e recebendo a força gerada pela combustão. Essa força é transmitida à biela e, em seguida, ao virabrequim, contribuindo para a produção do movimento rotacional do motor.",
+                    },
+
+                    polias: {
+                        titulo: "Polias do motor",
+                        descricao:
+                            "Transmitem o movimento rotacional entre o motor e componentes auxiliares por meio de correias. Dependendo da configuração, podem acionar equipamentos como o alternador e a bomba de água, permitindo seu funcionamento enquanto o motor está em operação.",
+                    },
+
+                    bomba_combustivel: {
+                        titulo: "Bomba de combustível",
+                        descricao:
+                            "Responsável por transportar o combustível do tanque até o sistema de alimentação do motor. Em motores carburados, fornece combustível ao carburador na pressão e vazão necessárias para manter o funcionamento do motor em diferentes condições de operação.",
+                    },
+
+                    bronzinas: {
+                        titulo: "Bronzinas",
+                        descricao:
+                            "São revestimentos metálicos instalados entre os eixos do motor e seus mancais, reduzindo o atrito durante a rotação. Com a presença de uma película de óleo lubrificante entre as superfícies, permitem que componentes como o virabrequim girem com menor desgaste e suportem os esforços gerados pelo funcionamento do motor.",
+                    },
+
+                    carter: {
+                        titulo: "Cárter de óleo",
+                        descricao:
+                            "Localizado na parte inferior do motor, funciona como reservatório do óleo lubrificante. O óleo retorna ao cárter após circular pelos componentes internos e é novamente aspirado pela bomba de óleo, dando continuidade ao ciclo de lubrificação.",
+                    },
+
+                    comando: {
+                        titulo: "Comando de válvulas",
+                        descricao:
+                            "Controla o momento em que as válvulas de admissão e escape são abertas e fechadas. Possui ressaltos, chamados cames, que transformam o movimento de rotação do eixo em movimentos que acionam o mecanismo das válvulas, sincronizando a admissão da mistura e a expulsão dos gases com o ciclo do motor.",
+                    },
+
+                    mancal: {
+                        titulo: "Mancal",
+                        descricao:
+                            "Serve de apoio e sustentação para eixos rotativos, como o virabrequim, ajudando a mantê-los alinhados durante o funcionamento do motor. Em conjunto com as bronzinas e a lubrificação, suporta os esforços mecânicos e permite a rotação do eixo com atrito reduzido.",
+                    },
+
+                    virabrequim: {
+                        titulo: "Virabrequim",
+                        descricao:
+                            "Transforma o movimento alternativo dos pistões em movimento rotacional por meio da ligação com as bielas. Durante o funcionamento do motor, recebe as forças produzidas pela combustão e transmite o torque gerado para o sistema de transmissão, que o utiliza para movimentar o veículo.",
+                    },
+
+                    motor:{
+                        titulo: "Motor completo",
+                        descricao:
+                            "Esse é o motor utilizado pelo nosso carro. Ele é um 6 cilindros em linha, com cabeçote convencional, utiliza varetas (pushrod) nas válvulas e possui aproximadamente 4 litros de capacidade, gerando em torno de 135 cavalos.",
+                    },
+                },
+            },
+            basico: {
+                modelo: "/models/01_como_o_motor_funciona/tcc-fundamentos-basico.glb",
+                escala: 1,
+                interativo: true,
+                camera: {
+                    camerapos: [1.2, 0.6, 1.2],
+                    origem: [0, 0.2, 0],
+                },
+                pecas: {
+                    cabecote: {
+                        titulo: "Cabeçote",
+                        descricao:
+                            "Fecha a parte superior dos cilindros e abriga componentes importantes, como as válvulas, as velas de ignição e os dutos de admissão e escape. Sua estrutura também participa da formação das câmaras de combustão, onde ocorre a queima da mistura de ar e combustível.",
+                    },
+                    carter: {
+                        titulo: "Cárter de óleo",
+                        descricao:
+                            "Localizado na parte inferior do motor, funciona como reservatório do óleo lubrificante. O óleo retorna ao cárter após circular pelos componentes internos e é novamente aspirado pela bomba de óleo, dando continuidade ao ciclo de lubrificação.",
+                    },
+                    bloco: {
+                        titulo: "Bloco do motor",
+                        descricao:
+                            "É a estrutura principal do motor, onde ficam alojados os cilindros e diversos componentes internos. Também pode conter galerias para a circulação do óleo lubrificante e do líquido de arrefecimento, além de servir como base para a montagem de outros componentes.",
+                    },
+
+                },
+            },
+            rotativo: {
+                modelo: "/models/01_como_o_motor_funciona/tcc-fundamentos-rotativo.glb",
+                escala: 1,
+                interativo: true,
+                camera: {
+                    camerapos: [1, 0.4, 1],
+                    origem: [0, 0.2, 0],
+                },
+                pecas: {
+                    aneis: {
+                        titulo: "Anéis do pistão",
+                        descricao:
+                            "Ficam instalados nas ranhuras ao redor do pistão e desempenham funções importantes na vedação dos cilindros. Ajudam a impedir que os gases da combustão escapem para o cárter, controlam o excesso de óleo nas paredes dos cilindros e contribuem para transferir calor do pistão para o cilindro.",
+                    },
+                    biela: {
+                        titulo: "Biela",
+                        descricao:
+                            "Conecta o pistão ao virabrequim, transmitindo a força gerada pela combustão. Em conjunto com esses componentes, transforma o movimento alternativo dos pistões em movimento rotacional, utilizado para produzir o torque do motor.",
+                    },
+                    pistao: {
+                        titulo: "Pistão",
+                        descricao:
+                            "Movimenta-se para cima e para baixo dentro do cilindro, comprimindo a mistura de ar e combustível e recebendo a força gerada pela combustão. Essa força é transmitida à biela e, em seguida, ao virabrequim, contribuindo para a produção do movimento rotacional do motor.",
+                    },
+                    bronzinas: {
+                        titulo: "Bronzinas",
+                        descricao:
+                            "São revestimentos metálicos instalados entre os eixos do motor e seus mancais, reduzindo o atrito durante a rotação. Com a presença de uma película de óleo lubrificante entre as superfícies, permitem que componentes como o virabrequim girem com menor desgaste e suportem os esforços gerados pelo funcionamento do motor.",
+                    },
+                    virabrequim: {
+                        titulo: "Virabrequim",
+                        descricao:
+                            "Transforma o movimento alternativo dos pistões em movimento rotacional por meio da ligação com as bielas. Durante o funcionamento do motor, recebe as forças produzidas pela combustão e transmite o torque gerado para o sistema de transmissão, que o utiliza para movimentar o veículo.",
+                    },
+                },
+            },
+            valvulas: {
+                modelo: "/models/01_como_o_motor_funciona/tcc-fundamentos-valvulas.glb",
+                escala: 1,
+                interativo: true,
+                camera: {
+                    camerapos: [1, 0.4, 1],
+                    origem: [0, 0.2, 0.2],
+                },
+                pecas: {
+                    balancim: {
+                        titulo: "Balancim",
+                        descricao:
+                            "Funciona como uma alavanca que transmite o movimento das varetas às válvulas. Ao ser acionado, pressiona a haste da válvula para abri-la, enquanto a mola é responsável por retorná-la à posição fechada.",
+                    },
+                    mola_valvula: {
+                        titulo: "Mola da válvula",
+                        descricao:
+                            "Mantém a válvula pressionada contra seu assento quando ela está fechada, ajudando a vedar a câmara de combustão. Também garante que a válvula retorne à posição fechada após ser aberta pelo mecanismo de acionamento.",
+                    },
+                    valvulas: {
+                        titulo: "Válvulas de admissão e escape",
+                        descricao:
+                            "Controlam a entrada da mistura de ar e combustível e a saída dos gases queimados dos cilindros. As válvulas de admissão permitem o enchimento dos cilindros, enquanto as de escape possibilitam a expulsão dos gases após a combustão.",
+                    },
+                    varetas: {
+                        titulo: "Varetas de acionamento",
+                        descricao:
+                            "Transmitem o movimento dos tuchos, acionados pelo comando de válvulas, até os balancins. Esse mecanismo permite que as válvulas sejam abertas no momento adequado do ciclo de funcionamento do motor.",
+                    },
+                    polias: {
+                        titulo: "Polias do motor",
+                        descricao:
+                            "Transmitem o movimento rotacional entre o motor e componentes auxiliares por meio de correias. Dependendo da configuração, podem acionar equipamentos como o alternador e a bomba de água, permitindo seu funcionamento enquanto o motor está em operação.",
+                    },
+                    comando: {
+                        titulo: "Comando de válvulas",
+                        descricao:
+                            "Controla o momento em que as válvulas de admissão e escape são abertas e fechadas. Possui ressaltos, chamados cames, que transformam o movimento de rotação do eixo em movimentos que acionam o mecanismo das válvulas, sincronizando a admissão da mistura e a expulsão dos gases com o ciclo do motor.",
                     },
                 },
             },
@@ -450,6 +741,72 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
             },
         ],
     },
+    "eletrica":{
+        conteudo: Eletrica,
+        modelos3D: {
+            principal: {
+                modelo: "/models/tcc_model-landingpage.glb",
+                escala: 1,
+                interativo: false,
+                camera: {
+                    camerapos: [8, 3, 0],
+                    origem: [0, 1.3, 0],
+                },
+            },
+        },
+        secoes: [
+            {
+                id: "o-sistema-elétrico",
+                titulo: "O sistema elétrico",
+                nivel: 1,
+            },
+            {
+                id: "o-que-é-eletricidade",
+                titulo: "O que é eletricidade?",
+                nivel: 2,
+            },
+            {
+                id: "tensão-corrente-e-resistência",
+                titulo: "Tensão, corrente e resistência",
+                nivel: 3,
+            },
+            {
+                id: "como-funciona-um-circuito-elétrico",
+                titulo: "Como funciona um circuito elétrico?",
+                nivel: 2,
+            },
+            {
+                id: "aterramento",
+                titulo: "Aterramento",
+                nivel: 3,
+            },
+            {
+                id: "o-caminho-da-eletricidade",
+                titulo: "O caminho da eletricidade",
+                nivel: 2,
+            },
+            {
+                id: "consumindo-a-eletricidade",
+                titulo: "Consumindo a eletricidade",
+                nivel: 3,
+            },
+            {
+                id: "o-circuito-de-partida",
+                titulo: "O circuito de partida",
+                nivel: 3,
+            },
+            {
+                id: "outros-detalhes",
+                titulo: "Outros detalhes",
+                nivel: 3,
+            },
+            {
+                id: "problemas-eletrizantes",
+                titulo: "Problemas eletrizantes",
+                nivel: 2,
+            },
+        ],
+    },
     "potencia":{
         conteudo: Potencia,
         modelos3D: {
@@ -689,72 +1046,6 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
             {
                 id: "problemas-no-caminho",
                 titulo: "Problemas no caminho",
-                nivel: 2,
-            },
-        ],
-    },
-    "eletrica":{
-        conteudo: Eletrica,
-        modelos3D: {
-            principal: {
-                modelo: "/models/tcc_model-landingpage.glb",
-                escala: 1,
-                interativo: false,
-                camera: {
-                    camerapos: [8, 3, 0],
-                    origem: [0, 1.3, 0],
-                },
-            },
-        },
-        secoes: [
-            {
-                id: "o-sistema-elétrico",
-                titulo: "O sistema elétrico",
-                nivel: 1,
-            },
-            {
-                id: "o-que-é-eletricidade",
-                titulo: "O que é eletricidade?",
-                nivel: 2,
-            },
-            {
-                id: "tensão-corrente-e-resistência",
-                titulo: "Tensão, corrente e resistência",
-                nivel: 3,
-            },
-            {
-                id: "como-funciona-um-circuito-elétrico",
-                titulo: "Como funciona um circuito elétrico?",
-                nivel: 2,
-            },
-            {
-                id: "aterramento",
-                titulo: "Aterramento",
-                nivel: 3,
-            },
-            {
-                id: "o-caminho-da-eletricidade",
-                titulo: "O caminho da eletricidade",
-                nivel: 2,
-            },
-            {
-                id: "consumindo-a-eletricidade",
-                titulo: "Consumindo a eletricidade",
-                nivel: 3,
-            },
-            {
-                id: "o-circuito-de-partida",
-                titulo: "O circuito de partida",
-                nivel: 3,
-            },
-            {
-                id: "outros-detalhes",
-                titulo: "Outros detalhes",
-                nivel: 3,
-            },
-            {
-                id: "problemas-eletrizantes",
-                titulo: "Problemas eletrizantes",
                 nivel: 2,
             },
         ],
