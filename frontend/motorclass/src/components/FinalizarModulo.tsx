@@ -5,10 +5,20 @@ import type { Modulo } from "../types";
 import { recompensasPorModulo } from "../data/recompensas";
 import Botao from "./Botao";
 import { CheckCircle2, Trophy } from "lucide-react";
+import ModeloGamificacao from "./3d/ModeloGamificacao";
 
 interface FinalizarModuloProps {
     moduloAtual: string;
     modulos: Modulo[];
+}
+
+interface RecompensaGaragem {
+    codigo: string;
+    nome: string;
+    objeto: string;
+    desbloqueada: boolean;
+    equipada: boolean;
+    modulo: string;
 }
 
 //===========================================================================
@@ -22,6 +32,8 @@ export default function FinalizarModulo({
     const [autenticado, setAutenticado] = useState(false);
     const [verificandoUsuario, setVerificandoUsuario] = useState(true);
     const [concluido, setConcluido] = useState(false);
+    const [mostrarModalConclusao, setMostrarModalConclusao] = useState(false);
+    const [codigosEquipadosFinal, setCodigosEquipadosFinal] = useState<string[]>([]);
 
     type ToastData = {
         tipo: "recompensa" | "sucesso";
@@ -75,11 +87,9 @@ export default function FinalizarModulo({
             : null;
     const mostrarToast = (dados: ToastData) => {
         setToast(dados);
-
         if (toastTimer.current) {
             clearTimeout(toastTimer.current);
         }
-
         toastTimer.current = setTimeout(() => {
             setToast(null);
         }, 2000);
@@ -103,9 +113,8 @@ export default function FinalizarModulo({
             setConcluido(novoEstado);
             //exibe a recompensa no toast
             if (!estavaConcluido && novoEstado) {
-                const recompensa =
-                    recompensasPorModulo[moduloAtual];
-
+                // exibe a recompensa do módulo, se houver.
+                const recompensa = recompensasPorModulo[moduloAtual];
                 if (recompensa) {
                     mostrarToast({
                         tipo: "recompensa",
@@ -118,7 +127,30 @@ export default function FinalizarModulo({
                         mensagem: "Seu progresso foi salvo. Continue aprendendo!",
                     });
                 }
-                //deixa um tempo para o toast antes de seguir para o próx módulo
+
+                // verifica se esta conclusão encerrou toda a jornada.
+                const finalizouTodos = resposta.data.progresso?.finalizou_todos_agora === true;
+                if (finalizouTodos) {
+                    try {
+                        const respostaGaragem = await api.get("/api/garagem");
+                        const recompensas = respostaGaragem.data as RecompensaGaragem[];
+
+                        const equipadas = recompensas
+                            .filter((recompensa) => recompensa.equipada)
+                            .map((recompensa) => recompensa.codigo);
+
+                        setCodigosEquipadosFinal(equipadas);
+                    } catch (erroGaragem) {
+                        console.error(
+                            "Não foi possível carregar as peças da garagem:",
+                            erroGaragem
+                        );
+                    }
+
+                    setMostrarModalConclusao(true);
+                    return;
+                }
+                // se ainda houver módulos pendentes, mantém a navegação atual.
                 await new Promise((resolve) =>
                     setTimeout(resolve, 2000)
                 );
@@ -241,6 +273,92 @@ export default function FinalizarModulo({
                     <div className="h-1 bg-gray-100">
                         <div className="h-full w-full origin-left bg-blue1" />
                     </div>
+                </div>
+            )}
+
+            {mostrarModalConclusao && (
+                <div className="
+                    fixed inset-0 z-[90]
+                    flex items-center justify-center
+                    overflow-y-auto
+                    bg-black/70 p-4
+                ">
+                    <section
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="titulo-conclusao"
+                        className="
+                            relative my-auto w-full max-w-5xl
+                            rounded-2xl bg-white p-6 shadow-2xl
+                            md:p-10
+                        "
+                    >
+                        <button
+                            type="button"
+                            onClick={() => setMostrarModalConclusao(false)}
+                            aria-label="Fechar modal de conclusão"
+                            className="
+                                absolute right-4 top-4
+                                rounded-full px-3 py-2
+                                text-gray-500 hover:bg-gray-100
+                            "
+                        >
+                            ✕
+                        </button>
+
+                        <div className="
+                            grid items-center gap-8
+                            md:grid-cols-2
+                        ">
+                            <div>
+                                <p className="
+                                    mb-3 text-sm font-bold
+                                    uppercase tracking-widest !text-blue3
+                                ">
+                                    Jornada concluída
+                                </p>
+                                <h2
+                                    id="titulo-conclusao"
+                                    className="
+                                        mb-4 text-3xl font-bold
+                                        text-gray-900 md:text-4xl
+                                    "
+                                >
+                                    Parabéns!
+                                    Você concluiu o MOTORCLASS.
+                                </h2>
+                                <p className="mb-6 !text-gray-600">
+                                    Você concluiu todos os módulos e conquistou
+                                    novas peças para o seu carro. Sua garagem
+                                    representa sua trajetória de aprendizado.
+                                </p>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setMostrarModalConclusao(false);
+                                        navigate("/garagem");
+                                    }}
+                                    className="
+                                        rounded-lg bg-blue3 px-5 py-3
+                                        font-semibold text-white
+                                        transition hover:opacity-90
+                                    "
+                                >
+                                    Ver minha garagem
+                                </button>
+                            </div>
+
+                            <div className="
+                                h-[300px] w-full min-w-0
+                                overflow-hidden rounded-xl bg-maindark
+                                md:h-[380px]
+                            ">
+                                <ModeloGamificacao
+                                    recompensasEquipadas={codigosEquipadosFinal}
+                                />
+                            </div>
+                        </div>
+                    </section>
                 </div>
             )}
         </div>

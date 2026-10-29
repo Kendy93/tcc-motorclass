@@ -35,16 +35,40 @@ class ModuloController extends Controller
     }
 
     //marca como finalizado
-   public function concluir(Modulo $modulo, Request $request) {
-        $request->user()->modulos()->syncWithoutDetaching([
-            $modulo->id => [
-                'completed_at' => now(),
-            ],
-        ]);
+    public function concluir(Modulo $modulo, Request $request) {
+        $usuario = $request->user();
+
+        // verifica se o módulo já estava concluído antes desta chamada.
+        $jaEstavaConcluido = $usuario->modulos()
+            ->where('modulos.id', $modulo->id)
+            ->wherePivotNotNull('completed_at')
+            ->exists();
+        // registra a conclusão somente se ainda não estava concluído.
+        if (!$jaEstavaConcluido) {
+            $usuario->modulos()->syncWithoutDetaching([
+                $modulo->id => ['completed_at' => now(),],
+            ]);
+        }
+        // conta os módulos efetivamente concluídos.
+        $modulosConcluidos = $usuario->modulos()
+            ->wherePivotNotNull('completed_at')
+            ->count();
+        $totalModulos = Modulo::count();
+        // só é verdadeiro quando esta ação conclui o último módulo pendente.
+        $finalizouTodosAgora =
+            !$jaEstavaConcluido
+            && $totalModulos > 0
+            && $modulosConcluidos >= $totalModulos;
+
         return response()->json([
             'message' => 'Módulo concluído.',
+            'progresso' => [
+                'modulos_concluidos' => $modulosConcluidos,
+                'total_modulos' => $totalModulos,
+                'finalizou_todos_agora' => $finalizouTodosAgora,
+            ],
         ]);
-    } 
+    }
 
     //para permitir que o módulo seja "resetado"
     public function alternarConclusao(Request $request, Modulo $modulo) {
