@@ -10,6 +10,8 @@ const MODELO = "/models/tcc_model-gaming.glb";
 
 interface ModeloGamificacaoProps {
     recompensasEquipadas: string[];
+    pos?: [number, number, number];
+    origem?: [number, number, number];
 }
 
 interface ModeloCarroProps {
@@ -72,12 +74,14 @@ function ModeloCarro({ recompensasEquipadas }: ModeloCarroProps) {
 
 export default function ModeloGamificacao({
     recompensasEquipadas,
+    pos = [3.5, 1, 3.5],
+    origem = [0, 0.5, 0],
 }: ModeloGamificacaoProps) {
     return (
         <div className="h-[800px] w-full">
             <Canvas
                 camera={{
-                    position: [3.5, 1, 3.5],
+                    position: pos,
                     fov: 40,
                 }}
             >
@@ -91,8 +95,8 @@ export default function ModeloGamificacao({
                 <ModeloCarro recompensasEquipadas={recompensasEquipadas} />
                 <OrbitControls
                     minDistance={2}
-                    maxDistance={6}
-                    target={[0, 0.5, 0]}
+                    maxDistance={8}
+                    target={origem}
                 />
             </Canvas>
         </div>

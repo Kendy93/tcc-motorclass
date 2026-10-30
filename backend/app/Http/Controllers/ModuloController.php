@@ -71,48 +71,50 @@ class ModuloController extends Controller
     }
 
     //para permitir que o módulo seja "resetado"
-    public function alternarConclusao(Request $request, Modulo $modulo) {
+    public function alternarConclusao(Request $request, Modulo $modulo){
         $usuario = $request->user();
         $concluido = false;
+        $acabouDeConcluir = false;
 
         DB::transaction(function () use (
             $usuario,
             $modulo,
-            &$concluido
+            &$concluido,
+            &$acabouDeConcluir
         ) {
+            // busca o módulo e verifica seu estado atual
             $relacao = $usuario->modulos()
-                ->where('modulo_id', $modulo->id)
+                ->where('modulos.id', $modulo->id)
                 ->first();
             $jaConcluido =
                 $relacao &&
                 $relacao->pivot->completed_at !== null;
 
-            //desmarca a conclusão
+            // se já estava concluído, remove a conclusão
             if ($jaConcluido) {
                 $usuario->modulos()->updateExistingPivot(
-                    $modulo->id, ['completed_at' => null]
+                    $modulo->id,
+                    ['completed_at' => null]
                 );
-                //tira a recompensa
-                RecompensaUsuario::where(
-                    'user_id',
-                    $usuario->id
-                )
-                    ->where(
-                        'modulo_id',
-                        $modulo->id
-                    )
-                    ->update([
-                        'equipada' => false,
-                    ]);
-
+                // desequipa a recompensa do módulo.
+                RecompensaUsuario::where('user_id', $usuario->id)
+                    ->where('modulo_id', $modulo->id)
+                    ->update(['equipada' => false]);
                 $concluido = false;
                 return;
             }
 
-            //finaliza o módulo
+            // conclui o módulo.
             $usuario->modulos()->syncWithoutDetaching([
-                $modulo->id => ['completed_at' => now()],
+                $modulo->id => [
+                    'completed_at' => now(),
+                ],
             ]);
+
+            // registra se esta ação acabou de concluir o módulo.
+            $acabouDeConcluir = true;
+            $concluido = true;
+            // libera e equipa a recompensa correspondente, se existir.
             $recompensa = config("recompensas.{$modulo->codigo}");
             if ($recompensa) {
                 RecompensaUsuario::updateOrCreate(
@@ -126,14 +128,30 @@ class ModuloController extends Controller
                     ]
                 );
             }
-            $concluido = true;
         });
+
+        // conta os módulos que possuem uma conclusão registrada
+        $modulosConcluidos = $usuario->modulos()
+            ->wherePivotNotNull('completed_at')
+            ->count();
+        // conta os módulos cadastrados na plataforma
+        $totalModulos = Modulo::count();
+        // só é verdadeiro quando esta ação conclui o último módulo pendente
+        $finalizouTodosAgora =
+            $acabouDeConcluir &&
+            $totalModulos > 0 &&
+            $modulosConcluidos >= $totalModulos;
 
         return response()->json([
             'concluido' => $concluido,
             'message' => $concluido
                 ? 'Módulo concluído.'
                 : 'Módulo marcado como não concluído.',
+            'progresso' => [
+                'modulos_concluidos' => $modulosConcluidos,
+                'total_modulos' => $totalModulos,
+                'finalizou_todos_agora' => $finalizouTodosAgora,
+            ],
         ]);
     }
 

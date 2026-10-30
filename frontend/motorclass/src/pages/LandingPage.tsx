@@ -89,7 +89,7 @@ export default function LandingPage() {
                             <p className="text-sm font-semibold uppercase tracking-widest !text-blue1">
                                 APRENDA E EVOLUA
                             </p>
-                            <h2 className="!mt-2 text-4xl font-bold">
+                            <h2 className="!mt-2 text-4xl font-bold !text-blue3">
                                 Seu aprendizado também modifica o carro.
                             </h2>
                             <p className="!mt-5 text-lg leading-relaxed">

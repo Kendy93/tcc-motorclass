@@ -68,7 +68,7 @@ export default function CardModulo({
                 <p className="text-sm font-semibold !text-gray-400 tracking-widest uppercase">
                     MÓDULO {modulo.ordem}
                 </p>
-                <h3 className="mt-1 text-lg font-bold">
+                <h3 className="mt-1 text-lg font-bold !text-gray-900">
                     {modulo.titulo}
                 </h3>
             </div>

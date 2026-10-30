@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
 import type { 
@@ -33,6 +33,19 @@ export default function Modulo() {
     const { codigo } = useParams();
     const [modulo, setModulo] = useState<Modulo | null>(null);
     const [modulos, setModulos] = useState<Modulo[]>([]);
+    const carregarModulos = useCallback(async () => {
+        const resposta = await api.get("/api/modulos");
+        setModulos(resposta.data);
+    }, []);
+
+    // volta ao topo quando o usuário troca de módulo
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
+    }, [codigo]);
 
     //para pegar qual o módulo a carregar
     useEffect(() => {
@@ -47,15 +60,10 @@ export default function Modulo() {
 
     //pegando todos os módulos do banco
     useEffect(() => {
-        api.get("/api/modulos")
-            .then((response) => {
-                console.log("Módulos recebidos:", response.data);
-                setModulos(response.data);
-            })
-            .catch((error) => {
-                console.error("Erro ao buscar módulos:", error);
-            });
-    }, []);
+        carregarModulos().catch((error) => {
+            console.error("Erro ao buscar módulos:", error);
+        });
+    }, [carregarModulos]);
     if (!modulo) {
         return <p>Carregando...</p>;
     }
@@ -246,6 +254,7 @@ export default function Modulo() {
                     <FinalizarModulo
                         moduloAtual={codigo!}
                         modulos={modulos}
+                        onProgressoAtualizado={carregarModulos}
                     />
 
                 </article>

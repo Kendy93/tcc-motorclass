@@ -10,6 +10,7 @@ import ModeloGamificacao from "./3d/ModeloGamificacao";
 interface FinalizarModuloProps {
     moduloAtual: string;
     modulos: Modulo[];
+    onProgressoAtualizado: () => Promise<void>;
 }
 
 interface RecompensaGaragem {
@@ -26,6 +27,7 @@ interface RecompensaGaragem {
 export default function FinalizarModulo({
     moduloAtual,
     modulos,
+    onProgressoAtualizado,
 }: FinalizarModuloProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -111,6 +113,14 @@ export default function FinalizarModulo({
             );
             const novoEstado = resposta.data.concluido;
             setConcluido(novoEstado);
+            try {
+                await onProgressoAtualizado();
+            } catch (erroAtualizacao) {
+                console.error(
+                    "Erro ao atualizar a lista de módulos:",
+                    erroAtualizacao
+                );
+            }
             //exibe a recompensa no toast
             if (!estavaConcluido && novoEstado) {
                 // exibe a recompensa do módulo, se houver.
@@ -321,7 +331,7 @@ export default function FinalizarModulo({
                                     id="titulo-conclusao"
                                     className="
                                         mb-4 text-3xl font-bold
-                                        text-gray-900 md:text-4xl
+                                        !text-gray-900 md:text-4xl
                                     "
                                 >
                                     Parabéns!
@@ -355,6 +365,8 @@ export default function FinalizarModulo({
                             ">
                                 <ModeloGamificacao
                                     recompensasEquipadas={codigosEquipadosFinal}
+                                    pos={[6, 1, 6]}
+                                    origem={[0, -0.8, 0]}
                                 />
                             </div>
                         </div>
