@@ -1,4 +1,4 @@
-import {Award, CalendarDays, ShieldCheck, ExternalLink} from "lucide-react";
+import {Award, CalendarDays, ShieldCheck, ExternalLink, Download} from "lucide-react";
 
 export interface Certificado {
     codigo: string;
@@ -11,6 +11,7 @@ interface CertificadoConquistaProps {
     certificado: Certificado;
     contexto?: "perfil" | "conclusao";
     onVisualizar?: () => void;
+    onBaixar?: () => void | Promise<void>;
 }
 
 //===========================================================================
@@ -19,7 +20,9 @@ export default function CertificadoConquista({
     certificado,
     contexto = "perfil",
     onVisualizar,
+    onBaixar,
 }: CertificadoConquistaProps) {
+    // formata a data de emissão.
     const data = new Date(certificado.emitido_em);
     const dataFormatada = Number.isNaN(data.getTime())
         ? certificado.emitido_em
@@ -28,20 +31,21 @@ export default function CertificadoConquista({
               month: "long",
               year: "numeric",
           }).format(data);
+
     const conclusao = contexto === "conclusao";
 
 //-------------------------------------------------------
 
     return (
         <section className="
-            relative 
-            overflow-hidden 
+            relative
+            overflow-hidden
             rounded-2xl
-            border 
-            border-gray-200 
+            border
+            border-gray-200
             bg-white
             px-6 py-2
-            shadow-sm 
+            shadow-sm
             mb-5
         ">
             <div className="
@@ -56,12 +60,12 @@ export default function CertificadoConquista({
 
                 {/* ícone da conquista */}
                 <div className="
-                    flex 
-                    h-12 w-12 
-                    shrink-0 
+                    flex
+                    h-12 w-12
+                    shrink-0
                     items-center
-                    justify-center 
-                    rounded-xl 
+                    justify-center
+                    rounded-xl
                     bg-yellow-100
                 ">
                     <Award className="h-6 w-6 text-yellow-600" />
@@ -69,9 +73,8 @@ export default function CertificadoConquista({
 
                 {/* informações */}
                 <div className="min-w-0 flex-1 text-left">
-                    <h3 className="
-                        text-lg font-bold
-                    ">
+
+                    <h3 className="text-lg font-bold">
                         {conclusao
                             ? "Você conquistou seu certificado!"
                             : "Certificado de conclusão"}
@@ -92,35 +95,64 @@ export default function CertificadoConquista({
                         flex flex-col
                         gap-2
                         text-xs text-gray-500
-                        sm:flex-row sm:flex-wrap
+                        sm:flex-row
+                        sm:flex-wrap
                         sm:gap-5
                     ">
                         <span className="flex items-center gap-1.5">
                             <CalendarDays className="h-4 w-4" />
                             Emitido em {dataFormatada}
                         </span>
+
                         <span className="flex items-center gap-1.5">
                             <ShieldCheck className="h-4 w-4" />
                             Código: {certificado.codigo}
                         </span>
                     </div>
 
-                    {onVisualizar && (
-                        <button
-                            type="button"
-                            onClick={onVisualizar}
-                            className="
-                                mt-4
-                                inline-flex items-center gap-2
-                                text-sm font-semibold
-                                text-blue3
-                                transition
-                                hover:text-blue5
-                            "
-                        >
-                            Visualizar certificado
-                            <ExternalLink className="h-4 w-4" />
-                        </button>
+                    {/* ações do certificado */}
+                    {(onBaixar || onVisualizar) && (
+                        <div className="
+                            mt-4
+                            flex flex-wrap
+                            items-center gap-4
+                        ">
+                            {onBaixar && (
+                                <button
+                                    type="button"
+                                    onClick={onBaixar}
+                                    className="
+                                        inline-flex
+                                        items-center gap-2
+                                        text-sm font-semibold
+                                        text-blue3
+                                        transition
+                                        hover:text-blue5
+                                    "
+                                >
+                                    <Download className="h-4 w-4" />
+                                    Baixar certificado
+                                </button>
+                            )}
+                            {onVisualizar && (
+                                <button
+                                    type="button"
+                                    onClick={onVisualizar}
+                                    className="
+                                        inline-flex
+                                        items-center gap-2
+                                        text-sm font-semibold
+                                        text-blue3
+                                        transition
+                                        hover:text-blue5
+                                    "
+                                >
+                                    Visualizar certificado
+                                    <ExternalLink className="h-4 w-4" />
+                                </button>
+                            )}
+
+                        </div>
                     )}
                 </div>
             </div>

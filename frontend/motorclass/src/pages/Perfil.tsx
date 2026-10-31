@@ -8,6 +8,7 @@ import { obterProximaRecompensa, obterRecompensasDesbloqueadas, recompensasPorMo
 import { CheckCircle2, Trophy } from "lucide-react";
 import IntroducaoGaragem from "../components/IntroducaoGaragem";
 import CertificadoConquista, {type Certificado} from "../components/CertificadoConquista";
+import { baixarCertificado } from "../utils/baixarCertificado";
 
 //===========================================================================
 
@@ -310,6 +311,7 @@ export default function Perfil() {
                         <CertificadoConquista
                             certificado={certificado}
                             contexto="perfil"
+                            onBaixar={() => baixarCertificado(certificado.codigo)}
                         />
                     </div>
                 )}

@@ -8,6 +8,7 @@ import { CheckCircle2, Trophy } from "lucide-react";
 import ModeloGamificacao from "./3d/ModeloGamificacao";
 import CertificadoConquista, {type Certificado} from "./CertificadoConquista";
 import axios from "axios";
+import { baixarCertificado } from "../utils/baixarCertificado";
 
 interface FinalizarModuloProps {
     moduloAtual: string;
@@ -387,6 +388,7 @@ export default function FinalizarModulo({
                                 <CertificadoConquista
                                     certificado={certificado}
                                     contexto="conclusao"
+                                    onBaixar={() => baixarCertificado(certificado.codigo)}
                                 />
                             </div>
                         )}

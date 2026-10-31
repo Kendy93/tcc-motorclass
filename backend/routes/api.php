@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 
 use App\Http\Controllers\ModuloController;
 use App\Http\Controllers\QuestionarioController;
+use App\Http\Controllers\CertificadoController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -51,6 +52,8 @@ Route::middleware('auth:sanctum')->group(function () {
             return response()->json($request->user()->certificado);
         }
     );
+
+    Route::get('/certificado/pdf', [CertificadoController::class, 'baixar']);
 });
 
 Route::post(
