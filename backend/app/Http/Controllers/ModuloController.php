@@ -142,6 +142,23 @@ class ModuloController extends Controller
             $totalModulos > 0 &&
             $modulosConcluidos >= $totalModulos;
 
+        if ($finalizouTodosAgora) {
+            $certificado = $usuario->certificado()->firstOrCreate(
+                [
+                    'user_id' => $usuario->id,
+                ],
+                [
+                    'codigo' => (string) \Illuminate\Support\Str::uuid(),
+                    'nome_titular' => $usuario->name,
+                    'curso' => 'MOTORCLASS',
+                    'emitido_em' => now(),
+                ]
+            );
+            $certificadoEmitidoAgora = $certificado->wasRecentlyCreated;
+        }
+        // recupera o certificado caso já exista.
+        $certificado = $certificado ?? $usuario->certificado()->first();
+
         return response()->json([
             'concluido' => $concluido,
             'message' => $concluido
@@ -152,6 +169,13 @@ class ModuloController extends Controller
                 'total_modulos' => $totalModulos,
                 'finalizou_todos_agora' => $finalizouTodosAgora,
             ],
+            'certificado' => $certificado ? [
+                'codigo' => $certificado->codigo,
+                'nome_titular' => $certificado->nome_titular,
+                'curso' => $certificado->curso,
+                'emitido_em' => $certificado->emitido_em,
+                'emitido_agora' => $certificadoEmitidoAgora,
+            ] : null,
         ]);
     }
 

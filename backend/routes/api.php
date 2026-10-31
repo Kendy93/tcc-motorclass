@@ -45,6 +45,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get(
         '/questionarios/{questionario:codigo}/ultima-tentativa', [QuestionarioController::class, 'ultimaTentativa']
     );
+
+    Route::get(
+        '/certificado', function (Request $request) {
+            return response()->json($request->user()->certificado);
+        }
+    );
 });
 
 Route::post(

@@ -7,6 +7,7 @@ import ModeloGamificacao from "../components/3d/ModeloGamificacao";
 import { obterProximaRecompensa, obterRecompensasDesbloqueadas, recompensasPorModulo } from "../data/recompensas";
 import { CheckCircle2, Trophy } from "lucide-react";
 import IntroducaoGaragem from "../components/IntroducaoGaragem";
+import CertificadoConquista, {type Certificado} from "../components/CertificadoConquista";
 
 //===========================================================================
 
@@ -34,6 +35,7 @@ export default function Perfil() {
     const [loading, setLoading] = useState(true);
     const [erro, setErro] = useState("");
     const [atualizandoRecompensa, setAtualizandoRecompensa] = useState<string | null>(null);
+    const [certificado, setCertificado] = useState<Certificado | null>(null);
 
     //carregando os dados
     useEffect(() => {
@@ -48,10 +50,15 @@ export default function Perfil() {
                     api.get("/api/modulos"),
                     api.get("/api/garagem"),
                 ]);
-
                 setUsuario(respostaUsuario.data.user);
                 setModulos(respostaModulos.data);
                 setRecompensasGaragem(respostaGaragem.data,);
+                try {
+                    const respostaCertificado = await api.get("/api/certificado");
+                    setCertificado(respostaCertificado.data);
+                } catch (erro) {
+                    console.error("Erro ao carregar certificado:", erro);
+                }
             } catch (erro) {
                 console.error("Erro ao carregar perfil:", erro);
                 setErro("Não foi possível carregar seu perfil.");
@@ -298,13 +305,22 @@ export default function Perfil() {
                     </div>
                 </section>
 
+                {certificado && (
+                    <div className="mb-8">
+                        <CertificadoConquista
+                            certificado={certificado}
+                            contexto="perfil"
+                        />
+                    </div>
+                )}
+
 {/*//-------------------------------------------------------*/}
 
                 {/* todas as recompensas */}
                 <section className="rounded-2xl bg-white p-6 text-left shadow-sm">
 
                 <div className="mb-6 flex items-start gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-yellow-100">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-yellow-100">
                         <Trophy className="h-6 w-6 text-yellow-600" />
                     </div>
                     <div>
@@ -344,7 +360,7 @@ export default function Perfil() {
                                             flex
                                             items-start
                                             gap-4
-                                            rounded-2xl
+                                            rounded-xl
                                             border
                                             p-5
                                             transition
@@ -363,7 +379,7 @@ export default function Perfil() {
                                                 shrink-0
                                                 items-center
                                                 justify-center
-                                                rounded-full
+                                                rounded-xl
                                                 ${
                                                     !desbloqueada
                                                         ? "bg-gray-200"

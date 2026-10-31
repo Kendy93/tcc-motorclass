@@ -6,6 +6,8 @@ import { recompensasPorModulo } from "../data/recompensas";
 import Botao from "./Botao";
 import { CheckCircle2, Trophy } from "lucide-react";
 import ModeloGamificacao from "./3d/ModeloGamificacao";
+import CertificadoConquista, {type Certificado} from "./CertificadoConquista";
+import axios from "axios";
 
 interface FinalizarModuloProps {
     moduloAtual: string;
@@ -36,6 +38,8 @@ export default function FinalizarModulo({
     const [concluido, setConcluido] = useState(false);
     const [mostrarModalConclusao, setMostrarModalConclusao] = useState(false);
     const [codigosEquipadosFinal, setCodigosEquipadosFinal] = useState<string[]>([]);
+    const [certificado, setCertificado] = useState<Certificado | null>(null);
+
 
     type ToastData = {
         tipo: "recompensa" | "sucesso";
@@ -144,12 +148,13 @@ export default function FinalizarModulo({
                     try {
                         const respostaGaragem = await api.get("/api/garagem");
                         const recompensas = respostaGaragem.data as RecompensaGaragem[];
-
                         const equipadas = recompensas
                             .filter((recompensa) => recompensa.equipada)
                             .map((recompensa) => recompensa.codigo);
 
                         setCodigosEquipadosFinal(equipadas);
+                        setCertificado(resposta.data.certificado ?? null);
+
                     } catch (erroGaragem) {
                         console.error(
                             "Não foi possível carregar as peças da garagem:",
@@ -183,6 +188,12 @@ export default function FinalizarModulo({
                 "Erro ao atualizar conclusão do módulo:",
                 error
             );
+            if (axios.isAxiosError(error)) {
+                console.error(
+                    "Resposta do Laravel:",
+                    error.response?.data
+                );
+            }
             setError(
                 "Não foi possível atualizar o progresso do módulo."
             );
@@ -346,7 +357,7 @@ export default function FinalizarModulo({
                                     type="button"
                                     onClick={() => {
                                         setMostrarModalConclusao(false);
-                                        navigate("/garagem");
+                                        navigate("/perfil");
                                     }}
                                     className="
                                         rounded-lg bg-blue3 px-5 py-3
@@ -370,6 +381,16 @@ export default function FinalizarModulo({
                                 />
                             </div>
                         </div>
+
+                        {certificado && (
+                            <div className="mt-8">
+                                <CertificadoConquista
+                                    certificado={certificado}
+                                    contexto="conclusao"
+                                />
+                            </div>
+                        )}
+                        
                     </section>
                 </div>
             )}

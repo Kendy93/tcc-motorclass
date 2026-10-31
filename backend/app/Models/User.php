@@ -7,11 +7,13 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use App\Models\RecompensaUsuario;
 use App\Models\TentativaQuestionario;
+use App\Models\Certificado;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
@@ -48,5 +50,9 @@ class User extends Authenticatable
         return $this->hasMany(
             TentativaQuestionario::class
         );
+    }
+
+    public function certificado(): HasOne{
+        return $this->hasOne(Certificado::class);
     }
 }
