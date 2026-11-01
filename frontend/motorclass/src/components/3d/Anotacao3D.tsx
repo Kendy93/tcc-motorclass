@@ -1,5 +1,4 @@
-import { Billboard, Text } from "@react-three/drei";
-import type { ComponentProps, ComponentType } from "react";
+import { Billboard } from "@react-three/drei";
 import Texto3D from "./Texto3D";
 
 interface Anotacao3DProps {

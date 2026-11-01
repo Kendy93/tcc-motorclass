@@ -1,4 +1,4 @@
-import type { ConfiguracaoModulo, ConfiguracaoModelo3D } from "../types/index";
+import type { ConfiguracaoModulo } from "../types/index";
 
 import FundamentosTexto from "../content/texto/01_como_o_motor_funciona.mdx";
 import AdmissaoEscape from "../content/texto/02_entrada_e_saida_do_ar.mdx";

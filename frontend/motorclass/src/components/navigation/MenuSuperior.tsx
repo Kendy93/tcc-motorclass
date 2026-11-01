@@ -7,7 +7,7 @@ import { api } from "../../lib/api";
 
 export default function MenuSuperior() {
     const [autenticado, setAutenticado] = useState(false);
-    const [verificandoUsuario, setVerificandoUsuario] = useState(true);
+    const [, setVerificandoUsuario] = useState(true);
     
     //verificando se o usuário está logado
     useEffect(() => {

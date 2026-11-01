@@ -1,10 +1,10 @@
 import { Suspense, useMemo, useRef, useState, useEffect } from "react";
-import { Canvas, useFrame, type ThreeEvent } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, OrbitControls, useAnimations, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
 import PontoInterativo3D from "./PontoInterativo3D";
-import type { ConfiguracaoModelo3D, Animacao3DConfig, AnotacaoAnimacao3D, EtapaMaterial3D, MaterialAnimado3D } from "../../types";
+import type { ConfiguracaoModelo3D, Animacao3DConfig, AnotacaoAnimacao3D } from "../../types";
 import Anotacao3D from "./Anotacao3D";
 
 //============================================================================

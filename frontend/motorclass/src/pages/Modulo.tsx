@@ -4,7 +4,6 @@ import { api } from "../lib/api";
 import type { 
     Modulo, 
     Animacao3DConfig, 
-    PerguntaIdentificacao3D, 
     TentativaQuestionario, 
     ResultadoQuestionario,
     QuestaoPublica,
@@ -69,13 +68,14 @@ export default function Modulo() {
     }
 
     //pega as configurações com base no módulo
-    const configuracao = codigo
+    const configuracaoEncontrada = codigo
         ? configuracoesModulos[codigo]
         : undefined;
-    if (!configuracao) {
+    if (!configuracaoEncontrada) {
         return <p>Módulo não encontrado.</p>;
     }
-    const Conteudo = configuracao.conteudo;
+    const configuracaoModulo = configuracaoEncontrada;
+    const Conteudo = configuracaoModulo.conteudo;
 
 //-------------------------------------------------------
 
@@ -86,7 +86,7 @@ export default function Modulo() {
     function Visualizador3DMDX({
         nome,
     }: Visualizador3DMDXProps) {
-        const modelo = configuracao.modelos3D[nome];
+        const modelo = configuracaoModulo.modelos3D[nome];
         if (!modelo) {
             console.warn(
                 `Modelo 3D "${nome}" não encontrado no módulo "${codigo}".`
@@ -111,7 +111,7 @@ export default function Modulo() {
         nome,
         animacoes,
     }: Animacao3DMDXProps) {
-        const modelo = configuracao.modelos3D[nome];
+        const modelo = configuracaoModulo.modelos3D[nome];
         if (!modelo) {
             console.warn(
                 `Modelo 3D "${nome}" não encontrado no módulo "${codigo}".`
@@ -203,7 +203,7 @@ export default function Modulo() {
                 id={id}
                 titulo={titulo}
                 questoes={questoes}
-                modelos3D={configuracao.modelos3D}
+                modelos3D={configuracaoModulo.modelos3D}
                 resultadoInicial={ resultadoInicial}
                 onEnviar={enviarQuestionario}
             />
@@ -215,7 +215,7 @@ export default function Modulo() {
     return (
         <main>
             <Visualizador3D
-                configuracao={configuracao.modelos3D.principal}
+                configuracao={configuracaoModulo.modelos3D.principal}
             />
 
             <NavegacaoModulos
@@ -261,7 +261,7 @@ export default function Modulo() {
 
                 <aside className="hidden py-15 px-5 xl:block">
                     <MenuSecoes
-                        secoes={configuracao.secoes}
+                        secoes={configuracaoModulo.secoes}
                     />
                 </aside>
 
@@ -272,7 +272,7 @@ export default function Modulo() {
                 moduloAtual={codigo!}
             />
             <MenuSecoesMobile
-                secoes={configuracao.secoes}
+                secoes={configuracaoModulo.secoes}
             />
 
         </main>

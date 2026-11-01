@@ -13,8 +13,9 @@ Route::post('/login', [AuthController::class,'login']);
 Route::post('/logout', [AuthController::class,'logout']);
 
 
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/{any?}', function () {
+    return file_get_contents(public_path('build/index.html'));
+})->where('any', '.*');

@@ -1,6 +1,6 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import {Environment, OrbitControls, useGLTF} from "@react-three/drei";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
 import {useQuestionario} from "../Questionario";
 import PontoInterativo3D from "./PontoInterativo3D";
@@ -97,7 +97,6 @@ function ModeloIdentificacao3D({
 }
 
 export default function Identificacao3D({
-    id,
     configuracao,
     perguntas,
 }: Identificacao3DProps) {
@@ -107,7 +106,7 @@ export default function Identificacao3D({
     } = useQuestionario();
     const [indiceAtual, setIndiceAtual] = useState(0);
     const [objetoSelecionado, setObjetoSelecionado] = useState<THREE.Object3D | null>(null);
-    const perguntasIniciais = useRef(perguntas).current;
+    //const perguntasIniciais = useRef(perguntas).current;
 
     //reinicia
     useEffect(() => {

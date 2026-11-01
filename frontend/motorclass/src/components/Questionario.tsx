@@ -5,15 +5,12 @@ import {
     useMemo,
     useState,
     useEffect,
-    type ReactNode,
 } from "react";
 import Botao from "./Botao";
 import type { 
-    TipoQuestao, 
     RespostaQuestionario, 
     QuestaoRegistrada, 
     TentativaQuestionario, 
-    ResultadoQuestao, 
     ResultadoQuestionario,
     QuestaoPublica, 
     ConfiguracaoModelo3D,
@@ -22,17 +19,17 @@ import type {
 
 import QuestaoMultiplaEscolha from "./QuestaoMultiplaEscolha";
 import Identificacao3D from "./3d/Identificacao3D";
-import { api } from "../lib/api";
+//import { api } from "../lib/api";
 import { tocarSomEnvio } from "../utils/efeitosSonoros";
 
 //===========================================================================
 
 interface QuestionarioContexto {
-    registrarQuestao: (questao: QuestaoRegistrada) => void;
-    removerQuestao: (questaoId: string) => void;
+    registrarQuestao?: (questao: QuestaoRegistrada) => void;
+    removerQuestao?: (questaoId: string) => void;
     registrarResposta: (questaoId: string, resposta: RespostaQuestionario) => void;
     respostas: Record<string, RespostaQuestionario>;
-    questoes: QuestaoRegistrada[];
+    questoes?: QuestaoRegistrada[];
     enviado: boolean;
     enviando: boolean;
     completo: boolean;
@@ -52,37 +49,37 @@ export function useQuestionario() {
 
 //-------------------------------------------------------
 
-function respostasIguais(
-    primeira: RespostaQuestionario,
-    segunda: RespostaQuestionario,
-): boolean {
-    if (Array.isArray(primeira) && Array.isArray(segunda)) {
-        if (primeira.length !== segunda.length) {
-            return false;
-        }
-        const a = [...primeira].sort();
-        const b = [...segunda].sort();
-        return a.every(
-            (valor, indice) =>
-                valor === b[indice],
-        );
-    }
+// function respostasIguais(
+//     primeira: RespostaQuestionario,
+//     segunda: RespostaQuestionario,
+// ): boolean {
+//     if (Array.isArray(primeira) && Array.isArray(segunda)) {
+//         if (primeira.length !== segunda.length) {
+//             return false;
+//         }
+//         const a = [...primeira].sort();
+//         const b = [...segunda].sort();
+//         return a.every(
+//             (valor, indice) =>
+//                 valor === b[indice],
+//         );
+//     }
 
-    return primeira === segunda;
-}
+//     return primeira === segunda;
+// }
 
-function transformarRespostaEmTexto(
-    resposta: RespostaQuestionario,
-    opcoes?: Record<string, string>,
-): string {
-    const respostas = Array.isArray(resposta)
-        ? resposta
-        : [resposta];
-    const textos = respostas.map(
-        (valor) => opcoes?.[valor] ?? valor,
-    );
-    return textos.join(", ");
-}
+// function transformarRespostaEmTexto(
+//     resposta: RespostaQuestionario,
+//     opcoes?: Record<string, string>,
+// ): string {
+//     const respostas = Array.isArray(resposta)
+//         ? resposta
+//         : [resposta];
+//     const textos = respostas.map(
+//         (valor) => opcoes?.[valor] ?? valor,
+//     );
+//     return textos.join(", ");
+// }
 
 //-------------------------------------------------------
 
@@ -176,7 +173,7 @@ export default function Questionario({
         questoes.filter(
             (questao) =>
                 respostas[
-                    questao.id
+                    questao.codigo
                 ] !== undefined,
         ).length;
 

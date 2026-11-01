@@ -4,8 +4,8 @@ import { api } from "../lib/api";
 import type { Modulo, Recompensa } from "../types";
 import Botao from "../components/Botao";
 import ModeloGamificacao from "../components/3d/ModeloGamificacao";
-import { obterProximaRecompensa, obterRecompensasDesbloqueadas, recompensasPorModulo } from "../data/recompensas";
-import { CheckCircle2, Trophy } from "lucide-react";
+import { obterProximaRecompensa, recompensasPorModulo } from "../data/recompensas";
+import { Trophy } from "lucide-react";
 import IntroducaoGaragem from "../components/IntroducaoGaragem";
 import CertificadoConquista, {type Certificado} from "../components/CertificadoConquista";
 import { baixarCertificado } from "../utils/baixarCertificado";
@@ -77,8 +77,8 @@ export default function Perfil() {
             ? Math.round((quantidadeConcluida / modulos.length) * 100,)
             : 0;
 
-    const recompensasDesbloqueadas = useMemo(() => 
-        obterRecompensasDesbloqueadas(modulos), [modulos]);
+    // const recompensasDesbloqueadas = useMemo(() => 
+    //     obterRecompensasDesbloqueadas(modulos), [modulos]);
     const proximaRecompensa = useMemo(() => 
         obterProximaRecompensa(modulos), [modulos]);
     const recompensasVisiveis = useMemo(() => {
@@ -102,31 +102,31 @@ export default function Perfil() {
     }, [modulos]);
     
     //carrega com base na configuração
-    const pecasEquipadas = useMemo(() => {
-        return recompensasGaragem
-            .filter(
-                (recompensa) =>
-                    recompensa.desbloqueada &&
-                    recompensa.equipada,
-            )
-            .map(
-                (recompensa) =>
-                    recompensa.codigo,
-            );
-    }, [recompensasGaragem]);
-    const recompensasVisiveisNoCarro = useMemo(() => {
-        const equipadas = new Set(pecasEquipadas);
+    // const pecasEquipadas = useMemo(() => {
+    //     return recompensasGaragem
+    //         .filter(
+    //             (recompensa) =>
+    //                 recompensa.desbloqueada &&
+    //                 recompensa.equipada,
+    //         )
+    //         .map(
+    //             (recompensa) =>
+    //                 recompensa.codigo,
+    //         );
+    // }, [recompensasGaragem]);
+    // const recompensasVisiveisNoCarro = useMemo(() => {
+    //     const equipadas = new Set(pecasEquipadas);
 
-        return recompensasDesbloqueadas.filter(
-            (recompensa) =>
-                equipadas.has(
-                    recompensa.codigo,
-                ),
-        );
-    }, [
-        recompensasDesbloqueadas,
-        pecasEquipadas,
-    ]);
+    //     return recompensasDesbloqueadas.filter(
+    //         (recompensa) =>
+    //             equipadas.has(
+    //                 recompensa.codigo,
+    //             ),
+    //     );
+    // }, [
+    //     recompensasDesbloqueadas,
+    //     pecasEquipadas,
+    // ]);
     const codigosEquipados = useMemo(
         () =>
             recompensasGaragem

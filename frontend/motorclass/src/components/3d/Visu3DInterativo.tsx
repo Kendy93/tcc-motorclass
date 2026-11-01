@@ -7,7 +7,7 @@ import {
     useGLTF,
 } from "@react-three/drei";
 import * as THREE from "three";
-import { createPortal } from "react-dom";
+//import { createPortal } from "react-dom";
 
 import PontoInterativo3D from "./PontoInterativo3D";
 import type { InformacaoPeca, PecaSelecionada } from "../../types";

@@ -1,5 +1,7 @@
-import type { ComponentType } from "react";
+//import type { ComponentType } from "react";
 import * as THREE from "three";
+import type { MDXContent } from "mdx/types";
+
 
 export interface Modulo {
     id: number;
@@ -32,7 +34,7 @@ export interface ConfiguracaoCamera {
 
 export interface ConfiguracaoModulo {
     modelos3D: Record<string, ConfiguracaoModelo3D>;
-    conteudo: ComponentType;
+    conteudo: MDXContent;
     secoes: Secao[]
 }
 

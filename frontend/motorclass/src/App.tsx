@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import RotasProtegidas from "./components/RotasProtegidas";
 import RotasPublicas from "./components/RotasPublicas";

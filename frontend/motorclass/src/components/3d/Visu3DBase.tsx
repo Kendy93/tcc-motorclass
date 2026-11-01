@@ -21,7 +21,7 @@ function Modelo3D({ modelo, escala }: Visualizador3DProps) {
 
 export default function Visualizador3D({ 
     modelo, 
-    escala, 
+    //escala, 
     camerapos, 
     origem,
     altura = "650px", 

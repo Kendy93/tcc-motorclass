@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+//import { useEffect } from "react";
 import { useQuestionario } from "./Questionario";
 
-import { tocarSomSelecao, tocarSomEnvio } from "../utils/efeitosSonoros";
+import { tocarSomSelecao } from "../utils/efeitosSonoros";
 
 interface Alternativa {
     id: string;

@@ -10,10 +10,12 @@ export default defineConfig({
   plugins: [
     react(), 
     tailwindcss(), 
-    mdx({
-      rehypePlugins: [
-          rehypeSlug
-      ]
-    })
+    mdx({rehypePlugins: [rehypeSlug]})
   ],
+
+    base: '/build/',
+    build: {
+        outDir: '../../backend/public/build',
+        emptyOutDir: true,
+    }
 })

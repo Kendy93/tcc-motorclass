@@ -1,7 +1,7 @@
 import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useLayoutEffect, useMemo } from "react";
-import type { Recompensa } from "../../types";
+//import type { Recompensa } from "../../types";
 import { recompensasPorModulo } from "../../data/recompensas.ts";
 
 //===========================================================================
@@ -29,15 +29,15 @@ function ModeloCarro({ recompensasEquipadas }: ModeloCarroProps) {
         () => new Set(recompensasEquipadas),
         [recompensasEquipadas],
     );
-    const objetosDeRecompensa = useMemo(
-        () =>
-            new Set(
-                Object.values(recompensasPorModulo).map(
-                    (recompensa) => recompensa.objeto,
-                ),
-            ),
-        [],
-    );
+    // const objetosDeRecompensa = useMemo(
+    //     () =>
+    //         new Set(
+    //             Object.values(recompensasPorModulo).map(
+    //                 (recompensa) => recompensa.objeto,
+    //             ),
+    //         ),
+    //     [],
+    // );
 
     //muda a visibilidade de acordo com as recompensas desbloqueados
     useLayoutEffect(() => {
