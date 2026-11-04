@@ -47,12 +47,10 @@ Route::middleware('auth:sanctum')->group(function () {
         '/questionarios/{questionario:codigo}/ultima-tentativa', [QuestionarioController::class, 'ultimaTentativa']
     );
 
-    Route::get(
-        '/certificado', function (Request $request) {
-            return response()->json($request->user()->certificado);
-        }
-    );
-
+    Route::get('/certificado', function (Request $request) {
+        $certificado = $request->user()->certificado;
+        return response()->json(['certificado' => $certificado,]);
+    });
     Route::get('/certificado/pdf', [CertificadoController::class, 'baixar']);
 });
 

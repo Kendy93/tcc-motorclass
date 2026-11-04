@@ -17,20 +17,20 @@ export const configuracoesModulos: Record<string, ConfiguracaoModulo> = {
         conteudo: FundamentosTexto,
         modelos3D: {
             principal: {
-                modelo: "/models/01_como_o_motor_funciona/tcc-fundamentos_motor.glb",
+                modelo: "/models/tcc_model-landingpage.glb",
                 escala: 1,
                 interativo: false,
                 camera: {
-                    camerapos: [-1.5, 0.8, 1.4],
+                    camerapos: [2, 2, 2],
                     origem: [0, 0.5, 0],
                 },
             },
                 motorAnimacao: {
                 modelo: "/models/01_como_o_motor_funciona/tcc-animacao-ciclos.glb",
-                escala: 1,
+                escala: 2,
                 interativo: false,
                 camera: {
-                    camerapos: [0.5, 0.1, 0.1],
+                    camerapos: [1, 0.2, 0.2],
                     origem: [0, 0, 0],
                 },
             },

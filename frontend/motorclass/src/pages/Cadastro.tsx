@@ -33,7 +33,7 @@ export default function Cadastro() {
 
             const response = await api.get("/api/user");
             console.log("Usuário cadastrado:", response.data);
-            navigate("/modulos");
+            navigate("/perfil");
 
         } catch (error: any) {
             if (error.response?.status === 422) {
@@ -166,7 +166,7 @@ export default function Cadastro() {
                     </Botao>
                 </form>
                     <p className="text-sm !mt-3">
-                        Ainda não possui conta? <Link to="/cadastro" className="underline hover:text-blue1">Se cadastrar.</Link>
+                        Já possui um conta? <Link to="/login" className="underline hover:text-blue1">Fazer login.</Link>
                     </p>
             </div>
         </main>

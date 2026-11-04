@@ -54,15 +54,44 @@
             animacoes={[
                 {
                     gatilho: "gatilho",
-                    titulo: "Básico",
+                    titulo: "Ciclo 4 tempos",
                     animacao: "4ciclo",
+                    velocidade: 0.8,
                     anotacoes: [
                         {
-                            id: "teste",
-                            texto: "Teste .",
+                            id: "admissao",
+                            texto: "1. O pistão desce, a válvula de admissão abre e a mistura ar-combustível (em azul) entra e preenche o cilindro.",
                             inicio: 0,
+                            fim: 3,
+                            posicao: [0, -0.18, 0],
+                        },
+                        {
+                            id: "compressao",
+                            texto: "2. Depois disso, a válvula fecha e o pistão sobe, comprimindo a mistura.",
+                            inicio: 3,
+                            fim: 6,
+                            posicao: [0, -0.18, 0],
+                        },
+                        {
+                            id: "combustao",
+                            texto: "3. A vela cria uma faísca (vermelho), que faz a mistura entrar em combustão, explodindo e empurrando o pistão para baixo.",
+                            inicio: 6,
                             fim: 10,
-                            posicao: [0, -5, 0],
+                            posicao: [0, -0.18, 0],
+                        },
+                        {
+                            id: "exaustao",
+                            texto: "4. Ao subir, a válvula de escape é aberta e o pistão empurra a mistura queimada para fora do cilindro.",
+                            inicio: 10,
+                            fim: 13,
+                            posicao: [0, -0.18, 0],
+                        },
+{
+                            id: "ciclo",
+                            texto: "Com isso o cilindro é esvaziado e o ciclo começa novamente",
+                            inicio: 13,
+                            fim: 16,
+                            posicao: [0, -0.18, 0],
                         },
                     ],
                     materiais: [

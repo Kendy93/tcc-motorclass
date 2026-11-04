@@ -56,9 +56,10 @@ export default function Perfil() {
                 setRecompensasGaragem(respostaGaragem.data,);
                 try {
                     const respostaCertificado = await api.get("/api/certificado");
-                    setCertificado(respostaCertificado.data);
+                    setCertificado(respostaCertificado.data.certificado ?? null);
                 } catch (erro) {
                     console.error("Erro ao carregar certificado:", erro);
+                    setCertificado(null);
                 }
             } catch (erro) {
                 console.error("Erro ao carregar perfil:", erro);
