@@ -7,18 +7,18 @@ cd /var/www/html
 export DB_DATABASE
 
 mkdir -p "$(dirname "$DB_DATABASE")"
-novo_banco=0
-if [ ! -f "$DB_DATABASE" ]; then
-    touch "$DB_DATABASE"
-    novo_banco=1
-fi
+touch "$DB_DATABASE"
+
 php artisan migrate --force
 
-# Popula módulos e questionários apenas na criação do banco
-if [ "$novo_banco" = "1" ]; then
+# Módulos usam create(): só popula se a tabela estiver vazia
+if [ "$(sqlite3 "$DB_DATABASE" 'SELECT COUNT(*) FROM modulos;')" = "0" ]; then
     php artisan db:seed --class=ModulosSeeder --force
-    php artisan db:seed --force
 fi
+
+# Questionários usam updateOrCreate(): roda sempre, mantendo as questões em dia.
+# O DatabaseSeeder não roda em produção (cria usuário de teste com Faker, que é dev).
+php artisan db:seed --class=QuestionarioSeeder --force
 
 php artisan config:cache
 php artisan route:cache
