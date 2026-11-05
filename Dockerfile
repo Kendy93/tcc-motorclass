@@ -2,7 +2,7 @@
 
 # ---------- Arquivos do Git LFS ----------
 # Se o código chegar com ponteiros do LFS no lugar dos .glb, baixa os arquivos
-# reais pela API do GitHub. Requer o build arg GITHUB_TOKEN quando o repo é privado.
+# reais pela API do GitHub. Se o repo for privado, defina o build arg GITHUB_TOKEN.
 FROM alpine:3.20 AS assets
 RUN apk add --no-cache curl jq
 ARG GITHUB_REPO=Kendy93/tcc-motorclass

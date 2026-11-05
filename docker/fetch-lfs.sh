@@ -11,16 +11,16 @@ if [ -z "$pointers" ]; then
     exit 0
 fi
 
-if [ -z "${GITHUB_TOKEN:-}" ]; then
-    echo "LFS: há arquivos em ponteiro e GITHUB_TOKEN não foi definido:" >&2
-    echo "$pointers" >&2
-    exit 1
+# Repositório público não precisa de token
+auth=""
+if [ -n "${GITHUB_TOKEN:-}" ]; then
+    auth="x-access-token:${GITHUB_TOKEN}"
 fi
 
 for file in $pointers; do
     oid=$(sed -n 's/^oid sha256://p' "$file")
     size=$(sed -n 's/^size //p' "$file")
-    href=$(curl -fsS -u "x-access-token:${GITHUB_TOKEN}" \
+    href=$(curl -fsS ${auth:+-u "$auth"} \
         -H 'Accept: application/vnd.git-lfs+json' \
         -H 'Content-Type: application/vnd.git-lfs+json' \
         -d "{\"operation\":\"download\",\"transfer\":[\"basic\"],\"objects\":[{\"oid\":\"$oid\",\"size\":$size}]}" \
