@@ -1,6 +1,6 @@
-import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
 import "./configurarDraco";
+import CanvasVisivel from "./CanvasVisivel";
 
 //===========================================================================
 
@@ -33,7 +33,9 @@ export default function Visualizador3D({
             className="w-full"
             style={{ height: altura }}
         >
-            <Canvas
+            <CanvasVisivel
+                // cena estática: só redesenha quando a câmera se move
+                frameloop="demand"
                 camera={{
                     position: camerapos,
                     fov: 40,
@@ -45,7 +47,7 @@ export default function Visualizador3D({
                 <Modelo3D modelo={modelo} />
                 //para rodar a câmera
                 <OrbitControls target={origem} enableZoom={zoom}/>
-            </Canvas>
+            </CanvasVisivel>
         </div>
     );
 }

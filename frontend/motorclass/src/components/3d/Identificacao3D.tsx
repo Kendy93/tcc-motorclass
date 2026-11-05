@@ -1,6 +1,6 @@
-import { Canvas } from "@react-three/fiber";
 import {Environment, OrbitControls, useGLTF} from "@react-three/drei";
 import "./configurarDraco";
+import CanvasVisivel from "./CanvasVisivel";
 import { useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
 import {useQuestionario} from "../Questionario";
@@ -188,7 +188,7 @@ export default function Identificacao3D({
                         )}
                     </p>
                     <div className="mb-5 h-[600px] overflow-hidden rounded-xl bg-maindark">
-                        <Canvas
+                        <CanvasVisivel
                             camera={{
                                 position: configuracao.camera.camerapos,
                                 fov: 40,
@@ -211,7 +211,7 @@ export default function Identificacao3D({
                                 enablePan={false}
                                 target={configuracao.camera.origem}
                             />
-                        </Canvas>
+                        </CanvasVisivel>
                     </div>
 
                     {/* seleção */}

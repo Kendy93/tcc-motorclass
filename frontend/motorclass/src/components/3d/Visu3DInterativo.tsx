@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, type ThreeEvent } from "@react-three/fiber";
+import { type ThreeEvent } from "@react-three/fiber";
 import {
     Environment,
     Html,
@@ -7,6 +7,7 @@ import {
     useGLTF,
 } from "@react-three/drei";
 import "./configurarDraco";
+import CanvasVisivel from "./CanvasVisivel";
 import * as THREE from "three";
 //import { createPortal } from "react-dom";
 
@@ -217,7 +218,7 @@ export default function Visu3DInterativo({
             bg-white
             mb-5
         ">
-            <Canvas
+            <CanvasVisivel
                 camera={{
                     position: camerapos,
                     fov: 40,
@@ -284,7 +285,7 @@ export default function Visu3DInterativo({
                 <OrbitControls
                     target={origem}
                 />
-            </Canvas>
+            </CanvasVisivel>
         </div>
     );
 }

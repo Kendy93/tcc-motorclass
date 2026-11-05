@@ -1,11 +1,12 @@
 import { Suspense, useState } from "react";
-import { Canvas, type ThreeEvent } from "@react-three/fiber";
+import { type ThreeEvent } from "@react-three/fiber";
 import {
     Environment,
     OrbitControls,
     useGLTF,
 } from "@react-three/drei";
 import "./configurarDraco";
+import CanvasVisivel from "./CanvasVisivel";
 import * as THREE from "three";
 
 import PontoInterativo3D from "./PontoInterativo3D";
@@ -136,7 +137,7 @@ export default function Pergunta3D({
             </div>
 
             <div className="h-[600px] w-full">
-                <Canvas
+                <CanvasVisivel
                     camera={{
                         position: configuracao.camera.camerapos,
                         fov: 45,
@@ -159,7 +160,7 @@ export default function Pergunta3D({
                     <OrbitControls
                         target={configuracao.camera.origem}
                     />
-                </Canvas>
+                </CanvasVisivel>
             </div>
 
             <div className="px-6 py-4">

@@ -1,6 +1,6 @@
 import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
 import "./configurarDraco";
-import { Canvas } from "@react-three/fiber";
+import CanvasVisivel from "./CanvasVisivel";
 import { useLayoutEffect, useMemo } from "react";
 //import type { Recompensa } from "../../types";
 import { recompensasPorModulo } from "../../data/recompensas.ts";
@@ -80,7 +80,7 @@ export default function ModeloGamificacao({
 }: ModeloGamificacaoProps) {
     return (
         <div className="h-[800px] w-full">
-            <Canvas
+            <CanvasVisivel
                 camera={{
                     position: pos,
                     fov: 40,
@@ -99,7 +99,7 @@ export default function ModeloGamificacao({
                     maxDistance={8}
                     target={origem}
                 />
-            </Canvas>
+            </CanvasVisivel>
         </div>
     );
 }

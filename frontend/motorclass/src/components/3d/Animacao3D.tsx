@@ -1,7 +1,8 @@
 import { Suspense, useMemo, useRef, useState, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { Environment, OrbitControls, useAnimations, useGLTF } from "@react-three/drei";
 import "./configurarDraco";
+import CanvasVisivel from "./CanvasVisivel";
 import * as THREE from "three";
 
 import PontoInterativo3D from "./PontoInterativo3D";
@@ -331,7 +332,7 @@ export default function Animacao3D({
             </div>
 
             <div className="h-[600px] w-full">
-                <Canvas
+                <CanvasVisivel
                     camera={{
                         position:
                             configuracao.camera.camerapos,
@@ -359,7 +360,7 @@ export default function Animacao3D({
                             configuracao.camera.origem
                         }
                     />
-                </Canvas>
+                </CanvasVisivel>
             </div>
 
             <div className="
