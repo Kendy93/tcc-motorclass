@@ -5,7 +5,8 @@ set -eu
 dir="$1"
 api="https://github.com/${GITHUB_REPO}.git/info/lfs/objects/batch"
 
-pointers=$(grep -rl --include='*' '^version https://git-lfs.github.com/spec/v1' "$dir" || true)
+# Ponteiros do LFS são arquivos de texto pequenos (~130 bytes)
+pointers=$(find "$dir" -type f -size -2k -exec grep -l '^version https://git-lfs.github.com/spec/v1' {} + || true)
 if [ -z "$pointers" ]; then
     echo "LFS: nenhum ponteiro encontrado, nada a baixar."
     exit 0
@@ -30,6 +31,6 @@ for file in $pointers; do
         exit 1
     fi
     curl -fsSL -o "$file" "$href"
-    echo "$oid  $file" | sha256sum -c -s || { echo "LFS: checksum inválido em $file" >&2; exit 1; }
+    echo "$oid  $file" | sha256sum -c >/dev/null 2>&1 || { echo "LFS: checksum inválido em $file" >&2; exit 1; }
     echo "LFS: baixado $file"
 done
