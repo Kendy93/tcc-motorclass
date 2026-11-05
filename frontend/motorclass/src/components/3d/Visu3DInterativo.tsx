@@ -6,6 +6,7 @@ import {
     OrbitControls,
     useGLTF,
 } from "@react-three/drei";
+import "./configurarDraco";
 import * as THREE from "three";
 //import { createPortal } from "react-dom";
 
@@ -229,7 +230,7 @@ export default function Visu3DInterativo({
                         attach="background"
                         args={[fundo]}
                     />
-                    <Environment files="/hdri/cloudy_cliffside_road_2k.hdr" />
+                    <Environment files="/hdri/cloudy_cliffside_road_1k.hdr" />
 
                     <Modelo
                         modelo={modelo}

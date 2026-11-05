@@ -42,8 +42,11 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
     && sed -ri 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
     && sed -ri 's!AllowOverride None!AllowOverride All!g' /etc/apache2/apache2.conf \
-    && a2enmod rewrite headers \
+    && a2enmod rewrite headers deflate \
     && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+COPY docker/apache-cache.conf /etc/apache2/conf-available/cache.conf
+RUN a2enconf cache
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 

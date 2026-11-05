@@ -1,5 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
+import "./configurarDraco";
 
 //===========================================================================
 
@@ -39,7 +40,7 @@ export default function Visualizador3D({
                 }}
             >
                 //iluminação com HDRI
-                <Environment files="/hdri/cloudy_cliffside_road_2k.hdr" />
+                <Environment files="/hdri/cloudy_cliffside_road_1k.hdr" />
                 //carrega o modelo
                 <Modelo3D modelo={modelo} />
                 //para rodar a câmera

@@ -1,5 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import {Environment, OrbitControls, useGLTF} from "@react-three/drei";
+import "./configurarDraco";
 import { useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
 import {useQuestionario} from "../Questionario";
@@ -198,7 +199,7 @@ export default function Identificacao3D({
                                 attach="background"
                                 args={["#2A84D7"]}
                             />
-                            <Environment files="/hdri/cloudy_cliffside_road_2k.hdr"/>
+                            <Environment files="/hdri/cloudy_cliffside_road_1k.hdr"/>
 
                             <ModeloIdentificacao3D
                                 configuracao={configuracao}

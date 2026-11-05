@@ -65,7 +65,7 @@ export default function LandingPage() {
 
                         <div className="flex justify-center">
                             <BordaImagem
-                                src="/images/landingpage.png" 
+                                src="/images/landingpage.webp" 
                                 alt="Carro antigo com capô aberto."
                                 maxWidth="max-w-md"
                             />

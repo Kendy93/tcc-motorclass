@@ -1,4 +1,5 @@
 import { Environment, OrbitControls, useGLTF } from "@react-three/drei";
+import "./configurarDraco";
 import { Canvas } from "@react-three/fiber";
 import { useLayoutEffect, useMemo } from "react";
 //import type { Recompensa } from "../../types";
@@ -90,7 +91,7 @@ export default function ModeloGamificacao({
                     attach="background"
                     args={["#2A84D7"]}
                 />
-                <Environment files="/hdri/cloudy_cliffside_road_2k.hdr"/>
+                <Environment files="/hdri/cloudy_cliffside_road_1k.hdr"/>
 
                 <ModeloCarro recompensasEquipadas={recompensasEquipadas} />
                 <OrbitControls
@@ -102,5 +103,3 @@ export default function ModeloGamificacao({
         </div>
     );
 }
-
-useGLTF.preload(MODELO);

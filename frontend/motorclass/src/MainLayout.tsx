@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import MenuSuperior from "./components/navigation/MenuSuperior";
 import Rodape from "./components/Rodape";
@@ -9,7 +10,9 @@ export default function Layout() {
             <MenuSuperior />
 
             <main className="flex-1">
-                <Outlet />
+                <Suspense fallback={<p>Carregando...</p>}>
+                    <Outlet />
+                </Suspense>
             </main>
 
             <Rodape />

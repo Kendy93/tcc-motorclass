@@ -5,6 +5,7 @@ import {
     OrbitControls,
     useGLTF,
 } from "@react-three/drei";
+import "./configurarDraco";
 import * as THREE from "three";
 
 import PontoInterativo3D from "./PontoInterativo3D";
@@ -148,7 +149,7 @@ export default function Pergunta3D({
                             attach="background"
                             args={["#2A84D7"]}
                         />
-                        <Environment files="/hdri/cloudy_cliffside_road_2k.hdr" />
+                        <Environment files="/hdri/cloudy_cliffside_road_1k.hdr" />
                         <ModeloPergunta
                             configuracao={configuracao}
                             onSelecionar={responder}

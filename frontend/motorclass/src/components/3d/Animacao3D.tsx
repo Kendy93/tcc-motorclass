@@ -1,6 +1,7 @@
 import { Suspense, useMemo, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, OrbitControls, useAnimations, useGLTF } from "@react-three/drei";
+import "./configurarDraco";
 import * as THREE from "three";
 
 import PontoInterativo3D from "./PontoInterativo3D";
@@ -344,7 +345,7 @@ export default function Animacao3D({
                             attach="background"
                             args={["#2A84D7"]}
                         />
-                        <Environment files="/hdri/cloudy_cliffside_road_2k.hdr"/>
+                        <Environment files="/hdri/cloudy_cliffside_road_1k.hdr"/>
 
                         <ModeloAnimado
                             configuracao={configuracao}
