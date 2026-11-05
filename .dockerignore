@@ -1,0 +1,10 @@
+.git
+**/node_modules
+**/.env
+backend/vendor
+backend/public/build
+backend/public/hot
+backend/storage/logs/*
+backend/database/*.sqlite
+# Cópia dos mesmos arquivos que já estão em backend/public
+frontend/motorclass/public
