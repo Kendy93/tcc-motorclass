@@ -1,5 +1,5 @@
 import { Canvas, type CanvasProps } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 
 //===========================================================================
 
@@ -7,7 +7,11 @@ import { useEffect, useRef, useState } from "react";
 // desmonta quando sai, para não manter vários contextos WebGL e texturas
 // ocupando memória ao mesmo tempo. Também limita a resolução (dpr) em telas
 // de alta densidade.
-export default function CanvasVisivel(props: CanvasProps) {
+//
+// O carregamento dos modelos fica contido no próprio Canvas: sem esse
+// Suspense, o r3f repassa a espera para a página, que troca tudo pelo
+// "Carregando..." e faz a rolagem pular para o topo.
+export default function CanvasVisivel({ children, ...props }: CanvasProps) {
     const ref = useRef<HTMLDivElement>(null);
     const [visivel, setVisivel] = useState(false);
 
@@ -26,7 +30,11 @@ export default function CanvasVisivel(props: CanvasProps) {
 
     return (
         <div ref={ref} className="h-full w-full">
-            {visivel && <Canvas dpr={[1, 1.5]} {...props} />}
+            {visivel && (
+                <Canvas dpr={[1, 1.5]} {...props}>
+                    <Suspense fallback={null}>{children}</Suspense>
+                </Canvas>
+            )}
         </div>
     );
 }
